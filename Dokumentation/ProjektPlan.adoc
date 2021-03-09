@@ -32,3 +32,9 @@ Das Programm ist in drei Teile unterteilt:
 - Ersten Entwurf von python Prototyp übernommen
 
 - Würfel implementiert
+
+- Brett zeichnen mit aktuellen Spielerpositionen
+
+- Erste Version der Bewegung
+
+Als nächstes: Gameloop implementieren
