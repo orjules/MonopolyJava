@@ -1,1 +1,34 @@
-= Hier soll der Fortschritt aufgelistet werden
+= Projekt Plan
+
+== Ausgangspunkt
+
+Für dieses Projekt war ich inspiriert als ich mit meiner Familie zusammen Monopoly auf der Nintendo Switch gespielt habe.
+Weil ich aber kein Künstler bin habe ich mich entschieden die Darstellung komplett in der Konsole zu machen.
+
+Ursprünglich wollte ich das Spiel in python schreiben um etwas neues zu lernen, aber das erwies sich als zu schwierig, weil meine python Fähigkeiten für ein so komplexes Projekt unzureichend sind. (Wobei ich mittlerweile überzeugt bin, dass es unmöglich ist etwas halbwegs komplexes mit python zu schreiben).
+Das bisherige python Projekt nutze ich jetzt wie einen Prototypen, bei dem ich viel über die Struktur gelernt habe aber ich fange dennoch von vorne an.
+Der Link zum alten Repo ist https://github.com/orjules/MonopolyConsole[hier].
+
+
+== Plan
+
+(hier das Diagramm)
+
+Das Programm ist in drei Teile unterteilt:
+
+- System (Beinhaltet die Logik für den Spielablauf)
+
+- Karten (Verantwortlich für zufällige sowie spezielle Aktionen)
+
+- Grundstücke (Verwaltet die Informationen über Grundstückbesitze und wie viel was kostet)
+
+
+== Fortschritt
+
+=== 9.3.21
+
+- Repo und Projekt erstellt
+
+- Ersten Entwurf von python Prototyp übernommen
+
+- Würfel implementiert
