@@ -1,14 +1,15 @@
 package programm;
 
+import programm.system.Tabelle;
 import programm.system.Würfel;
 
 public class Main {
 
     public static void main(String[] args) {
-        Würfel würfel = new Würfel();
-        int [] wurf = würfel.würfeln();
-        System.out.println(wurf[0]);
-        System.out.println(wurf[1]);
-        System.out.println(wurf[2]);
+        Tabelle tab = new Tabelle(new String[]{"Erster Kopf", "Zweiter Kopf"});
+        tab.addZeile(new String[]{"kurz", "auch kurz"});
+        tab.addZeile(new String[]{"kur 2", "sehr langes Wort"});
+        tab.addZeile(new String[]{"mh", "super langes Testwort"});
+        tab.printTabelle();
     }
 }
