@@ -20,5 +20,8 @@ public class Spielleiter {
         geradeDran += 1;
     }
 
-    // public void spielerBewegen(int wert){ }
+    public void spielerBewegen(int wert){
+        int neuePos = getGeradeDran().getAktuellePos().ordinal() + wert;
+        getGeradeDran().setAktuellePos(Felder.values()[neuePos]);
+    }
 }

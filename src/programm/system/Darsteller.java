@@ -1,41 +1,47 @@
 package programm.system;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Darsteller {
 
     Spielleiter spielleiter;
+    Scanner scanner = new Scanner(System.in);
 
     public Darsteller(Spielleiter spielleiter) {
         this.spielleiter = spielleiter;
     }
 
+    public String eingabeFragen(String ausgabe, String[] erlaubteEingaben){
+        System.out.println(ausgabe);
+        while (true) {
+            String eingabe = scanner.nextLine();
+            for (String erlaubt : erlaubteEingaben){
+                if (erlaubt.equals(eingabe)){
+                    return erlaubt;
+                }
+            }
+            System.out.println("Ungültige Eingabe, bitte noch einmal eingeben.");
+        }
+    }
+
+    public void spielerHatGeworfen(int[] wurf){
+        System.out.println(spielleiter.getGeradeDran().getName() + " hat eine " + wurf[0] + ", " + wurf[1] + " gewürfelt.");
+    }
+
     public void brettZeichnen(){
         Tabelle tab = new Tabelle(new String[]{"Felder", "Spieler"});
         for (Felder feld : Felder.values()){
-            String[] spielerSymbole = new String[spielleiter.getAlleSpieler().length];
+            LinkedList<String> spielerSymbole = new LinkedList<>();
             int i = 0;
             for (Spieler spieler : spielleiter.getAlleSpieler()){
                 if (spieler.getAktuellePos() == feld){
-                    spielerSymbole[i] = Character.toString(spieler.getSymbol());
+                    spielerSymbole.add(Character.toString(spieler.getSymbol()));
                 }
                 i++;
             }
-            if (isEmpty(spielerSymbole)){
-                tab.addZeile(new String[]{feld.name(), ""});
-            }else {
-                tab.addZeile(new String[]{feld.name(), String.join(", ", spielerSymbole)});
-            }
+            tab.addZeile(new String[]{feld.name(), String.join(", ", spielerSymbole)});
         }
         tab.printTabelle();
-    }
-
-    private Boolean isEmpty(String[] liste){
-        for(String wert : liste){
-            if (wert != null){
-                return false;
-            }
-        }
-        return true;
     }
 }

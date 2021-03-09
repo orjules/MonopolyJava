@@ -67,6 +67,7 @@ public class Tabelle {
         for (int i = 0; i <= breiteGanzeTabelle; i++ ){
             System.out.print(obenUntenRand);
         }
+        System.out.print("\n");
     }
 
     private void printZeile(int nummer, int[] breiteProSpalte){

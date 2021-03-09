@@ -34,4 +34,8 @@ public class Spieler {
     public double getKapital() {
         return kapital;
     }
+
+    public void setAktuellePos(Felder aktuellePos) {
+        this.aktuellePos = aktuellePos;
+    }
 }
