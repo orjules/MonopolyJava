@@ -25,17 +25,14 @@ public class Organisator {
         while (spielLäuft){
             Boolean zugBeendet = false;
 
-            // TODO sagen wer dran ist
+            // Hier steht wer gerade dran ist
             Spieler geradeDran = spielleiter.getGeradeDran();
             darsteller.ausgabe(geradeDran.getName() + " (" + geradeDran.getSymbol() + ") ist dran.");
 
             // sofern der Spieler nicht im Gefängnis ist muss er immer erst würfeln
             if (!spielleiter.getGeradeDran().getIstImGefängnis()){
                 darsteller.eingabeFragen("Als erstes musst du würfeln. Drücke 'w'", new String[]{"w"});
-                int [] wurf = würfel.würfeln();
-                spielleiter.spielerBewegen(wurf[2]);
-                darsteller.brettZeichnen();
-                darsteller.spielerHatGeworfen(wurf);
+                würfelnUndDarstellen();
             }
 
             // Innenloop läuft solange der Spieler seinen Zug nicht beendet hat
@@ -69,51 +66,18 @@ public class Organisator {
                     }
                 }
                 // Hier ist es egal ob man noch im Gefängnis ist oder nicht und alle Muss-Sachen wurden abgehandelt
-                ausgabeText += "'ü' um die Übersicht über das Kapital zu öffnen.\n";
-                erlaubteEingaben.add("ü");
-                ausgabeText += "'z' um deinen Zug zu beenden.\n";
-                erlaubteEingaben.add("z");
-
-                // Eingabe erfragen und verarbeiten
-                String eingabe = darsteller.eingabeFragen(ausgabeText,
-                        erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
-                switch (eingabe){
-                    case "a":
-                        // TODO neues Grundstück kaufen implementieren
-                        System.out.println("Hier würde ein neues Grundstück gekauft werden.");
-                        break;
-                    case "ü":
-                        // TODO übersicht Aufrufen implementieren
-                        System.out.println("Hier würde die Übersicht stehen.");
-                        break;
-                    case "w":
-                        int [] wurf = würfel.würfeln();
-                        if (würfel.mussInsGefängnis()){
-                            // TODO ins Gefängnis für zu viele Pasche
-                        }else {
-                            spielleiter.spielerBewegen(wurf[2]);
-                        }
-                        darsteller.brettZeichnen();
-                        darsteller.spielerHatGeworfen(wurf);
-                        break;
-                    case "z":
-                        zugBeendet = true;
-                        würfel.reset();
-                        spielleiter.weiter();
-                        darsteller.umbruch();
-                        break;
-                    default:
-                        throw new IllegalStateException("Falscheingabe wurde nicht korrekt abgefangen!");
-                }
+                zugBeendet = endAbfrage(ausgabeText, erlaubteEingaben);
             }
         }
     }
 
+    // Hilfsfunktionen
+
     private void gefängnisScipt(){
+        // TODO ordentlich implementieren
         System.out.println("Spieler ist im Gefängnis, kann aber noch nicht raus.");
     }
 
-    // Unterscheidet zwischen Muss-Feld (Karten und Miete zahlen) und Kann-Feld (Neues Grundstück kaufen)
     private Feldtyp feldTypErkennen(){
         // TODO Code zum erkennen ob Muss oder Kann Feld implementieren
         // aktuelles Feld von gerade dran nehmen und bei Kartenmanager und Grundbuch nachfragen
@@ -122,5 +86,47 @@ public class Organisator {
 
     private void mussFeldScript(){
         // TODO Loop bis Muss Teil erfüllt ist
+    }
+
+    private void würfelnUndDarstellen(){
+        int [] wurf = würfel.würfeln();
+        if (würfel.mussInsGefängnis()){
+            // TODO ins Gefängnis für zu viele Pasche
+        }else {
+            spielleiter.spielerBewegen(wurf[2]);
+        }
+        darsteller.brettZeichnen();
+        darsteller.spielerHatGeworfen(wurf);
+    }
+
+    private Boolean endAbfrage(String ausgabeText, ArrayList<String> erlaubteEingaben){
+        ausgabeText += "'ü' um die Übersicht über das Kapital zu öffnen.\n";
+        erlaubteEingaben.add("ü");
+        ausgabeText += "'z' um deinen Zug zu beenden.\n";
+        erlaubteEingaben.add("z");
+
+        String eingabe = darsteller.eingabeFragen(ausgabeText,
+                erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
+
+        switch (eingabe){
+            case "a":
+                // TODO neues Grundstück kaufen implementieren
+                System.out.println("Hier würde ein neues Grundstück gekauft werden.");
+                return false;
+            case "ü":
+                // TODO übersicht Aufrufen implementieren
+                System.out.println("Hier würde die Übersicht stehen.");
+                return false;
+            case "w":
+                würfelnUndDarstellen();
+                return false;
+            case "z":
+                würfel.reset();
+                spielleiter.weiter();
+                darsteller.umbruch();
+                return true;
+            default:
+                throw new IllegalStateException("Falscheingabe wurde nicht korrekt abgefangen!");
+        }
     }
 }
