@@ -17,11 +17,19 @@ public class Spielleiter {
     }
 
     public void weiter(){
-        geradeDran += 1;
+        int neuerWert = geradeDran + 1;
+        if (neuerWert >= alleSpieler.length){
+            neuerWert -= alleSpieler.length;
+        }
+        geradeDran = neuerWert;
     }
 
     public void spielerBewegen(int wert){
         int neuePos = getGeradeDran().getAktuellePos().ordinal() + wert;
+        if (neuePos >= Felder.values().length){
+            neuePos -= Felder.values().length;
+            // TODO hier das über los gehen erkennen
+        }
         getGeradeDran().setAktuellePos(Felder.values()[neuePos]);
     }
 }
