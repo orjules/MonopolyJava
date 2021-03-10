@@ -19,6 +19,6 @@ public class Main {
         // eigentliches Spiel starten
         // TODO implemtierung, dass man am Anfang wirft um die Reihenfolge zu entscheiden
         darsteller.brettZeichnen();         // Am Anfang einmal das Spielbrett zeichnen
-        organisator.gameLoop();
+        organisator2.gameLoop();
     }
 }
