@@ -1,6 +1,6 @@
 package programm.system.interfaces;
 
-public interface Darsteller {
+public interface IDarsteller {
 
     public String eingabeFragen(String ausgabe, String[] erlaubteEingaben);
     public void spielerHatGeworfen(int[] wurf);

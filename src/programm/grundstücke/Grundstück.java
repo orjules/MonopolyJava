@@ -1,4 +1,6 @@
 package programm.grundstücke;
 
-public class Grundstück {
+import programm.system.interfaces.IGrundstück;
+
+public class Grundstück implements IGrundstück {
 }

@@ -1,8 +1,8 @@
-package tests.system;
+package tests.system.Mocks;
 
-import programm.system.interfaces.Darsteller;
+import programm.system.interfaces.IDarsteller;
 
-public class DarstellerMock implements Darsteller {
+public class DarstellerMock implements IDarsteller {
     String festeEingabe;
     String ausgabeErgebis;
 

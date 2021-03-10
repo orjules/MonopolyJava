@@ -1,8 +1,9 @@
 package programm.system;
 
 import programm.system.enums.Felder;
+import programm.system.interfaces.ISpielleiter;
 
-public class Spielleiter implements programm.system.interfaces.Spielleiter {
+public class Spielleiter implements ISpielleiter {
     private Spieler[] alleSpieler = new Spieler[] {
             new Spieler("Günther", '#', Felder.Los, false, 1500),
             new Spieler("Monika", '?', Felder.Los, false, 1500),

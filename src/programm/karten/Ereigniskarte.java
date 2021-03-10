@@ -1,10 +1,7 @@
 package programm.karten;
 
-import programm.system.Spieler;
+import programm.system.interfaces.IEreigniskarte;
 
-public class Ereigniskarte {
+public class Ereigniskarte implements IEreigniskarte {
 
-    public void aktionAusführen(Spieler gradDran){
-
-    }
 }

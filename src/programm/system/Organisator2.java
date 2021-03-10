@@ -1,21 +1,21 @@
 package programm.system;
 
-import programm.grundstücke.Grundstück;
-import programm.karten.Ereigniskarte;
 import programm.system.enums.Felder;
-import programm.system.interfaces.Grundbuch;
-import programm.system.interfaces.Kartenmanager;
-import programm.system.interfaces.Darsteller;
-import programm.system.interfaces.Spielleiter;
+import programm.system.interfaces.IEreigniskarte;
+import programm.system.interfaces.IGrundstück;
+import programm.system.interfaces.IGrundbuch;
+import programm.system.interfaces.IKartenmanager;
+import programm.system.interfaces.IDarsteller;
+import programm.system.interfaces.ISpielleiter;
 
 public class Organisator2 {
-    Spielleiter spielleiter;
-    Darsteller darsteller;
+    ISpielleiter spielleiter;
+    IDarsteller darsteller;
     Würfel würfel;
-    Grundbuch grundbuch;
-    Kartenmanager kartenmanager;
+    IGrundbuch grundbuch;
+    IKartenmanager kartenmanager;
 
-    public Organisator2(Spielleiter spielleiter, Darsteller darsteller, Würfel würfel, Grundbuch grundbuch, Kartenmanager kartenmanager) {
+    public Organisator2(ISpielleiter spielleiter, IDarsteller darsteller, Würfel würfel, IGrundbuch grundbuch, IKartenmanager kartenmanager) {
         this.spielleiter = spielleiter;
         this.darsteller = darsteller;
         this.würfel = würfel;
@@ -76,7 +76,7 @@ public class Organisator2 {
             }
         }
         // 2. Kartenmanager fragen - bei Karte abarbeiten und dann abbrechen, bei null weiter
-        Ereigniskarte karte = kartenmanager.karteZiehen(feld);
+        IEreigniskarte karte = kartenmanager.karteZiehen(feld);
         if (karte != null){
             karteAbarbeiten();
             return;
@@ -87,7 +87,7 @@ public class Organisator2 {
         //      - Ja - Zur miete springen und dann abbrechen
         //      - Neine - zur Kauffrage springen und dann abbrechen
         //  - bei null - Fehler werfen
-        Grundstück grundstück = grundbuch.grundstückVon(feld);
+        IGrundstück grundstück = grundbuch.grundstückVon(feld);
         if (grundstück == null){
             throw new IllegalStateException("Es wurde weder ein freies Feld, noch ein Karte, noch ein Grundstück gefunden!");
         }
@@ -103,12 +103,12 @@ public class Organisator2 {
         darsteller.ausgabe("Debug: Endpunkt, Karte wird hier abgearbeitet.");
     }
 
-    private void kaufenVon(Grundstück grundstück){
+    private void kaufenVon(IGrundstück grundstück){
         // TODO implementieren
         darsteller.ausgabe("Debug: Endpunkt, Kaufen passiert hier.");
     }
 
-    private void mieteZahlenBei(Grundstück grundstück){
+    private void mieteZahlenBei(IGrundstück grundstück){
         // TODO implementieren
         darsteller.ausgabe("Debug: Endpunkt, Miete zahlen passiert hier.");
     }

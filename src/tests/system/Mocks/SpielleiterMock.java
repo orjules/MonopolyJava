@@ -1,9 +1,9 @@
-package tests.system;
+package tests.system.Mocks;
 
 import programm.system.Spieler;
-import programm.system.interfaces.Spielleiter;
+import programm.system.interfaces.ISpielleiter;
 
-public class SpielleiterMock implements Spielleiter {
+public class SpielleiterMock implements ISpielleiter {
 
     Spieler festerSpieler;
 
