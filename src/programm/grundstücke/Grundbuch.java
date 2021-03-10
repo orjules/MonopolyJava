@@ -4,7 +4,14 @@ import programm.system.enums.Felder;
 
 public class Grundbuch {
 
-    public String textFürKaufenVon(Felder feld){
-        return "Du bist auf ... gelandet, sie kostet ...€.";
+    public Grundstück grundstückVon(Felder feld){
+        System.out.println("Debug: Grundbuch wurde gefragt.");
+        return null;
     }
+
+    public Boolean istZuVerkaufen(Grundstück grundstück){
+        System.out.println("Debug: Abfrage ob zu verkaufen.");
+        return true;
+    }
+
 }
