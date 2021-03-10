@@ -6,4 +6,5 @@ public interface ISpielleiter {
     public Spieler getGeradeDran();
     public void weiter();
     public void spielerBewegen(int wert);
+    public boolean spielLäuft();
 }

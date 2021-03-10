@@ -8,6 +8,8 @@ import programm.system.interfaces.IKartenmanager;
 import programm.system.interfaces.IDarsteller;
 import programm.system.interfaces.ISpielleiter;
 
+import java.util.ArrayList;
+
 public class Organisator2 {
     ISpielleiter spielleiter;
     IDarsteller darsteller;
@@ -24,12 +26,7 @@ public class Organisator2 {
     }
 
     public void gameLoop(){
-        Boolean spielLäuft = true;
-
-        // Außenloop, der das ganze Spiel läuft
-        while (spielLäuft){
-            Boolean zugBeendet = false;
-
+        außenLoop: while (true){
             // Hier wird einmal geschrieben wer gerade dran ist
             Spieler geradeDran = spielleiter.getGeradeDran();
             darsteller.ausgabe(geradeDran.getName() + " (" + geradeDran.getSymbol() + ") ist dran.");
@@ -39,16 +36,42 @@ public class Organisator2 {
                 darsteller.eingabeFragen("Als erstes musst du würfeln. Drücke 'w'", new String[]{"w"});
                 würfelnUndDarstellen();
             }
-            while (!zugBeendet){
+
+            innenLoop: while (true){
                 feldAbarbeiten();
 
-                // Endabfrage loop
-                while (!zugBeendet){
+                endabfrageLoop: while (true){
                     // Abfrage erstellen: immer 'ü' aber unterscheiden zwischen 'w' bei pasch und 'z' sonst
-                    // bei 'w' gewählt: break mit label nach dem endabfrage loop
-                    // bei 'z' gewählt: zugBeendet = true
-                    // bei 'ü' geählt: zur Übersicht und von da zurück in diesen loop
+                    String ausgabeText = "";
+                    ArrayList<String> erlaubteEingaben = new ArrayList<>();
+                    ausgabeText += "'ü' um die Übersicht zu öffnen\n";
+                    erlaubteEingaben.add("ü");
+                    if (würfel.darfNochmalWerfen()){
+                        ausgabeText += "'w' um nochmal zu würfeln\n";
+                        erlaubteEingaben.add("w");
+                    }else {
+                        ausgabeText += "'z' um den Zug zu beenden\n";
+                        erlaubteEingaben.add("z");
+                    }
+
+                    // Abfragen und auswerten
+                    String eingabe = darsteller.eingabeFragen(ausgabeText, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
+                    switch (eingabe) {
+                        case "w":
+                            würfelnUndDarstellen();
+                            break endabfrageLoop;
+                        case "z":
+                            break innenLoop;
+                        case "ü":
+                            übersichtAnzeigen();
+                            break;
+                        default:
+                            throw new IllegalStateException("Hier sollte ich nie hinkommen");
+                    }
                 }
+            }
+            if (!spielleiter.spielLäuft()){
+                break außenLoop;
             }
         }
     }
@@ -62,6 +85,10 @@ public class Organisator2 {
         }
         darsteller.brettZeichnen();
         darsteller.spielerHatGeworfen(wurf);
+    }
+
+    private void übersichtAnzeigen(){
+        // TODO Übersicht implementieren
     }
 
     public void feldAbarbeiten(){
@@ -83,10 +110,6 @@ public class Organisator2 {
         }
 
         // 3. Grundbuch fragen
-        //  - bei Grundstück fragen ob es wem gehört
-        //      - Ja - Zur miete springen und dann abbrechen
-        //      - Neine - zur Kauffrage springen und dann abbrechen
-        //  - bei null - Fehler werfen
         IGrundstück grundstück = grundbuch.grundstückVon(feld);
         if (grundstück == null){
             throw new IllegalStateException("Es wurde weder ein freies Feld, noch ein Karte, noch ein Grundstück gefunden!");

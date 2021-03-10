@@ -35,4 +35,11 @@ public class Spielleiter implements ISpielleiter {
         }
         getGeradeDran().setAktuellePos(Felder.values()[neuePos]);
     }
+
+    public boolean spielLäuft(){
+        if (alleSpieler.length > 0){
+            return true;
+        }
+        return false;
+    }
 }
