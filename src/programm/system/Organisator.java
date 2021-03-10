@@ -1,5 +1,7 @@
 package programm.system;
 
+import programm.grundstücke.Grundbuch;
+import programm.karten.Kartenmanager;
 import programm.system.enums.Feldtyp;
 
 import java.util.ArrayList;
@@ -8,11 +10,15 @@ public class Organisator {
     Spielleiter spielleiter;
     Darsteller darsteller;
     Würfel würfel;
+    Grundbuch grundbuch;
+    Kartenmanager kartenmanager;
 
-    public Organisator(Spielleiter spielleiter, Darsteller darsteller, Würfel würfel) {
+    public Organisator(Spielleiter spielleiter, Darsteller darsteller, Würfel würfel, Grundbuch grundbuch, Kartenmanager kartenmanager) {
         this.spielleiter = spielleiter;
         this.darsteller = darsteller;
         this.würfel = würfel;
+        this.grundbuch = grundbuch;
+        this.kartenmanager = kartenmanager;
     }
 
     public void gameLoop(){
@@ -25,7 +31,7 @@ public class Organisator {
         while (spielLäuft){
             Boolean zugBeendet = false;
 
-            // Hier steht wer gerade dran ist
+            // Hier wird geschrieben wer gerade dran ist
             Spieler geradeDran = spielleiter.getGeradeDran();
             darsteller.ausgabe(geradeDran.getName() + " (" + geradeDran.getSymbol() + ") ist dran.");
 
@@ -44,14 +50,9 @@ public class Organisator {
                 if (spielleiter.getGeradeDran().getIstImGefängnis()){
                     gefängnisScipt();
                 }
+
                 // Nach dem Gefängnisscript ist der Spieler entweder draußen oder immernoch drin.
                 if (!spielleiter.getGeradeDran().getIstImGefängnis()){
-                    // Würfeln und wenn pasch, das nochmalige Würfeln hinzufügen (aber nur wenn man nicht schon gefürfelt hat)
-                    if (würfel.darfNochmalWerfen()){
-                        ausgabeText += "'w' um zu würfeln.\n";
-                        erlaubteEingaben.add("w");
-                    }
-
                     // Herausfinden wo man gelandet ist (Boolean Muss feld oder nicht)
                     Feldtyp feldtyp = feldTypErkennen();
 
@@ -63,6 +64,12 @@ public class Organisator {
                         erlaubteEingaben.add("a");
                     }else {
                         // Bei freiem Feld passiert erstmal nichts
+                    }
+
+                    // Würfeln und wenn pasch, das nochmalige Würfeln hinzufügen (aber nur wenn man nicht schon gefürfelt hat)
+                    if (würfel.darfNochmalWerfen()){
+                        ausgabeText += "'w' um zu würfeln.\n";
+                        erlaubteEingaben.add("w");
                     }
                 }
                 // Hier ist es egal ob man noch im Gefängnis ist oder nicht und alle Muss-Sachen wurden abgehandelt
