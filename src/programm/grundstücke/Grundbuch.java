@@ -2,7 +2,7 @@ package programm.grundstücke;
 
 import programm.system.enums.Felder;
 
-public class Grundbuch {
+public class Grundbuch implements programm.system.interfaces.Grundbuch {
 
     public Grundstück grundstückVon(Felder feld){
         System.out.println("Debug: Grundbuch wurde gefragt.");

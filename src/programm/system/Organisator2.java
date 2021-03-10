@@ -1,10 +1,10 @@
 package programm.system;
 
-import programm.grundstücke.Grundbuch;
 import programm.grundstücke.Grundstück;
 import programm.karten.Ereigniskarte;
-import programm.karten.Kartenmanager;
 import programm.system.enums.Felder;
+import programm.system.interfaces.Grundbuch;
+import programm.system.interfaces.Kartenmanager;
 
 public class Organisator2 {
     Spielleiter spielleiter;
