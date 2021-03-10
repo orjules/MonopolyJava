@@ -1,5 +1,7 @@
 package programm.system;
 
+import programm.system.enums.Felder;
+
 public class Spielleiter {
     private Spieler[] alleSpieler = new Spieler[] {
             new Spieler("Günther", '#', Felder.Los, false, 1500),

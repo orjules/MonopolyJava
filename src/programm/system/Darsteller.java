@@ -1,5 +1,7 @@
 package programm.system;
 
+import programm.system.enums.Felder;
+
 import java.util.LinkedList;
 import java.util.Scanner;
 

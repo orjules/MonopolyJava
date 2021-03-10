@@ -1,5 +1,7 @@
 package programm.system;
 
+import programm.system.enums.Feldtyp;
+
 import java.util.ArrayList;
 
 public class Organisator {
