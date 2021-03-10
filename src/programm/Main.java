@@ -12,7 +12,7 @@ public class Main {
         Spielleiter spielleiter = new Spielleiter();
         Darsteller darsteller = new Darsteller(spielleiter);
         Organisator organisator = new Organisator(spielleiter, darsteller, würfel);
-        organisator.testWurf();
+        organisator.gameLoop();
 
     }
 }
