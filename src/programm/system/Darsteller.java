@@ -44,4 +44,15 @@ public class Darsteller {
         }
         tab.printTabelle();
     }
+
+    public void ausgabe(String text){
+        System.out.println(text);
+    }
+
+    public void umbruch(){
+        for (int i = 0; i <40; i++){
+            System.out.print("-");
+        }
+        System.out.print("\n");
+    }
 }

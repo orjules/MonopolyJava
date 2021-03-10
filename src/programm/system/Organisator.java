@@ -14,11 +14,27 @@ public class Organisator {
     }
 
     public void gameLoop(){
+        // Zu beginn einmal das Brett zeichnen
+        darsteller.brettZeichnen();
+
         Boolean spielLäuft = true;
 
         // Außenloop, der das ganze Spiel läuft
         while (spielLäuft){
             Boolean zugBeendet = false;
+
+            // TODO sagen wer dran ist
+            Spieler geradeDran = spielleiter.getGeradeDran();
+            darsteller.ausgabe(geradeDran.getName() + " (" + geradeDran.getSymbol() + ") ist dran.");
+
+            // sofern der Spieler nicht im Gefängnis ist muss er immer erst würfeln
+            if (!spielleiter.getGeradeDran().getIstImGefängnis()){
+                darsteller.eingabeFragen("Als erstes musst du würfeln. Drücke 'w'", new String[]{"w"});
+                int [] wurf = würfel.würfeln();
+                spielleiter.spielerBewegen(wurf[2]);
+                darsteller.brettZeichnen();
+                darsteller.spielerHatGeworfen(wurf);
+            }
 
             // Innenloop läuft solange der Spieler seinen Zug nicht beendet hat
             while (!zugBeendet){
@@ -38,14 +54,16 @@ public class Organisator {
                     }
 
                     // Herausfinden wo man gelandet ist (Boolean Muss feld oder nicht)
-                    Boolean istMussFeld = feldTypErkennen();
+                    Feldtyp feldtyp = feldTypErkennen();
 
-                    if (istMussFeld){
+                    if (feldtyp == Feldtyp.mussFeld){
                         mussFeldScript();
-                    }else {
+                    }else if (feldtyp == Feldtyp.kaufFeld) {
                         // TODO An das Grundbuch senden, er soll den String geben für "Du bist auf ... gelandet, sie kostet..."
                         ausgabeText += "'a' um das neue Grundstück zu kaufen.\n";
                         erlaubteEingaben.add("a");
+                    }else {
+                        // Bei freiem Feld passiert erstmal nichts
                     }
                 }
                 // Hier ist es egal ob man noch im Gefängnis ist oder nicht und alle Muss-Sachen wurden abgehandelt
@@ -79,6 +97,8 @@ public class Organisator {
                     case "z":
                         zugBeendet = true;
                         würfel.reset();
+                        spielleiter.weiter();
+                        darsteller.umbruch();
                         break;
                     default:
                         throw new IllegalStateException("Falscheingabe wurde nicht korrekt abgefangen!");
@@ -92,11 +112,10 @@ public class Organisator {
     }
 
     // Unterscheidet zwischen Muss-Feld (Karten und Miete zahlen) und Kann-Feld (Neues Grundstück kaufen)
-    private Boolean feldTypErkennen(){
-        Boolean istMussFeld = false;
+    private Feldtyp feldTypErkennen(){
         // TODO Code zum erkennen ob Muss oder Kann Feld implementieren
         // aktuelles Feld von gerade dran nehmen und bei Kartenmanager und Grundbuch nachfragen
-        return istMussFeld;
+        return Feldtyp.freiesFeld;
     }
 
     private void mussFeldScript(){
