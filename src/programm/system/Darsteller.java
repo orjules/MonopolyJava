@@ -5,7 +5,7 @@ import programm.system.enums.Felder;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Darsteller {
+public class Darsteller implements programm.system.interfaces.Darsteller {
 
     Spielleiter spielleiter;
     Scanner scanner = new Scanner(System.in);

@@ -5,6 +5,8 @@ import programm.karten.Ereigniskarte;
 import programm.system.enums.Felder;
 import programm.system.interfaces.Grundbuch;
 import programm.system.interfaces.Kartenmanager;
+import programm.system.interfaces.Darsteller;
+import programm.system.interfaces.Spielleiter;
 
 public class Organisator2 {
     Spielleiter spielleiter;
@@ -62,13 +64,14 @@ public class Organisator2 {
         darsteller.spielerHatGeworfen(wurf);
     }
 
-    private void feldAbarbeiten(){
+    public void feldAbarbeiten(){
         Felder feld = spielleiter.getGeradeDran().getAktuellePos();
 
         // 1. schauen ob frei - return oder weiter
         Felder [] freieFelder = new Felder[]{Felder.Los, Felder.Gefängnis_bzw_Besuch};  // später auch noch frei parken
         for (Felder evtlFrei : freieFelder) {
             if (feld.equals(evtlFrei)){
+                darsteller.ausgabe("Du bist auf " + feld.name() + " gelandet. Hier passiert nichts weiter.");
                 return;
             }
         }
@@ -97,17 +100,17 @@ public class Organisator2 {
 
     private void karteAbarbeiten(){
         // TODO Je nach Karte etwas anders machen
-        System.out.println("Debug: Endpunkt, Karte wird hier abgearbeitet.");
+        darsteller.ausgabe("Debug: Endpunkt, Karte wird hier abgearbeitet.");
     }
 
     private void kaufenVon(Grundstück grundstück){
         // TODO implementieren
-        System.out.println("Debug: Endpunkt, Kaufen passiert hier.");
+        darsteller.ausgabe("Debug: Endpunkt, Kaufen passiert hier.");
     }
 
     private void mieteZahlenBei(Grundstück grundstück){
         // TODO implementieren
-        System.out.println("Debug: Endpunkt, Miete zahlen passiert hier.");
+        darsteller.ausgabe("Debug: Endpunkt, Miete zahlen passiert hier.");
     }
 
     // Später wichtig, wenn man etwas kaufen/ bezahlen will aber nicht genug Geld hat, soll man die Verwaltung öffnen können

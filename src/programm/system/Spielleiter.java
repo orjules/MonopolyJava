@@ -2,7 +2,7 @@ package programm.system;
 
 import programm.system.enums.Felder;
 
-public class Spielleiter {
+public class Spielleiter implements programm.system.interfaces.Spielleiter {
     private Spieler[] alleSpieler = new Spieler[] {
             new Spieler("Günther", '#', Felder.Los, false, 1500),
             new Spieler("Monika", '?', Felder.Los, false, 1500),
