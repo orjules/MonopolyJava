@@ -1,0 +1,9 @@
+= Testplan
+
+
+== Übersicht
+
+Integrationtests sind ohne inversion of Controll vergleichsweise schwierig, deswegen werden die meisten Tests Unit-Tests.
+
+Bisher habe ich noch keine Funktion gefunden, die testet lässt bzw wo ein Unit-Test sinnvoll wäre.
+
