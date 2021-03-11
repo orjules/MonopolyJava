@@ -1,6 +1,6 @@
 package programm.grundstücke;
 
-import programm.system.Spieler;
+import programm.system.spieler.Spieler;
 import programm.system.Felder;
 
 import java.util.HashMap;

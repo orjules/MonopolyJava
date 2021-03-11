@@ -1,4 +1,6 @@
-package programm.system;
+package programm.system.spieler;
+
+import programm.system.Felder;
 
 public class Spielleiter {
     private Spieler[] alleSpieler = new Spieler[] {
@@ -30,7 +32,21 @@ public class Spielleiter {
             neuePos -= Felder.values().length;
             // TODO hier das über los gehen erkennen
         }
-        getGeradeDran().setAktuellePos(Felder.values()[neuePos]);
+        getGeradeDran().aktuellePos = Felder.values()[neuePos];
+    }
+
+    public void spielerSetzten(Felder feld){
+        getGeradeDran().aktuellePos = feld;
+    }
+
+    // Menge darf positiv oder negativ sein
+    public void spielerKapitalÄndern(int menge){
+        int neuerWert = getGeradeDran().kapital + menge;
+        if (neuerWert >= 0){
+            getGeradeDran().kapital = neuerWert;
+        }else {
+            throw new IllegalArgumentException("Mit dieser Menge wäre das Kapital unter null");
+        }
     }
 
     public boolean spielLäuft(){

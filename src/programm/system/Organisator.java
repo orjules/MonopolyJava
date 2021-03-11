@@ -5,6 +5,8 @@ import programm.grundstücke.Grundbuch;
 import programm.grundstücke.Grundstück;
 import programm.karten.Ereigniskarte;
 import programm.karten.Kartenmanager;
+import programm.system.spieler.Spieler;
+import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
 

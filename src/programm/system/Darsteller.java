@@ -1,5 +1,8 @@
 package programm.system;
 
+import programm.system.spieler.Spieler;
+import programm.system.spieler.Spielleiter;
+
 import java.util.LinkedList;
 import java.util.Scanner;
 

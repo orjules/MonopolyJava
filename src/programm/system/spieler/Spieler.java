@@ -1,11 +1,13 @@
-package programm.system;
+package programm.system.spieler;
+
+import programm.system.Felder;
 
 public class Spieler {
-    private String name;
-    private char symbol;
-    private Felder aktuellePos;
-    private boolean istImGefängnis;
-    private int kapital;
+    String name;
+    char symbol;
+    Felder aktuellePos;
+    boolean istImGefängnis;
+    int kapital;
 
     public Spieler(String name, char symbol, Felder aktuellePos, boolean istImGefängnis, int kapital) {
         this.name = name;
@@ -35,7 +37,4 @@ public class Spieler {
         return kapital;
     }
 
-    public void setAktuellePos(Felder aktuellePos) {
-        this.aktuellePos = aktuellePos;
-    }
 }
