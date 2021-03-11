@@ -1,0 +1,25 @@
+= Testplan
+
+
+== Übersicht
+
+Integrationtests sind ohne inversion of Controll vergleichsweise schwierig, deswegen werden die meisten Tests Unit-Tests.
+
+Da ich nur die komplexesteten Klassen testen will ist das die vollständige Liste.
+
+* Organisator (integrationtest)
+
+
+== Organisator
+
+Ausgangsfälle
+
+* Auf freiem Feld gelandet
+
+* Auf Grundstück gelandet
+** Noch nicht gekauft
+** Schon gekauft
+
+* Auf Ereignisfeld gelandet
+** Feste Karte
+** Random Karte
