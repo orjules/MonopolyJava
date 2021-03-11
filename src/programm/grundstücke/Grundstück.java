@@ -1,9 +1,8 @@
 package programm.grundstücke;
 
 import programm.system.Felder;
-import programm.system.interfaces.IGrundstück;
 
-public abstract class Grundstück implements IGrundstück {
+public abstract class Grundstück {
 
     String name;
     Felder feld;

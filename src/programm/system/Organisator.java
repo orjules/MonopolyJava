@@ -1,22 +1,21 @@
 package programm.system;
 
-import programm.system.interfaces.IEreigniskarte;
-import programm.system.interfaces.IGrundstück;
-import programm.system.interfaces.IGrundbuch;
-import programm.system.interfaces.IKartenmanager;
-import programm.system.interfaces.IDarsteller;
-import programm.system.interfaces.ISpielleiter;
+
+import programm.grundstücke.Grundbuch;
+import programm.grundstücke.Grundstück;
+import programm.karten.Ereigniskarte;
+import programm.karten.Kartenmanager;
 
 import java.util.ArrayList;
 
-public class Organisator2 {
-    ISpielleiter spielleiter;
-    IDarsteller darsteller;
+public class Organisator {
+    Spielleiter spielleiter;
+    Darsteller darsteller;
     Würfel würfel;
-    IGrundbuch grundbuch;
-    IKartenmanager kartenmanager;
+    Grundbuch grundbuch;
+    Kartenmanager kartenmanager;
 
-    public Organisator2(ISpielleiter spielleiter, IDarsteller darsteller, Würfel würfel, IGrundbuch grundbuch, IKartenmanager kartenmanager) {
+    public Organisator(Spielleiter spielleiter, Darsteller darsteller, Würfel würfel, Grundbuch grundbuch, Kartenmanager kartenmanager) {
         this.spielleiter = spielleiter;
         this.darsteller = darsteller;
         this.würfel = würfel;
@@ -103,14 +102,14 @@ public class Organisator2 {
             }
         }
         // 2. Kartenmanager fragen - bei Karte abarbeiten und dann abbrechen, bei null weiter
-        IEreigniskarte karte = kartenmanager.karteZiehen(feld);
+        Ereigniskarte karte = kartenmanager.karteZiehen(feld);
         if (karte != null){
             karteAbarbeiten(karte);
             return;
         }
 
         // 3. Grundbuch fragen
-        IGrundstück grundstück = grundbuch.grundstückVon(feld);
+        Grundstück grundstück = grundbuch.grundstückVon(feld);
         if (grundstück == null){
             throw new IllegalStateException("Es wurde weder ein freies Feld, noch ein Karte, noch ein Grundstück gefunden!");
         }
@@ -123,17 +122,17 @@ public class Organisator2 {
         }
     }
 
-    private void karteAbarbeiten(IEreigniskarte karte){
+    private void karteAbarbeiten(Ereigniskarte karte){
         // TODO Je nach Karte etwas anders machen
         darsteller.ausgabe(karte.getBeschreibung());
     }
 
-    private void kaufenVon(IGrundstück grundstück){
+    private void kaufenVon(Grundstück grundstück){
         // TODO implementieren
         darsteller.ausgabe("Debug: Endpunkt, Kaufen passiert hier.");
     }
 
-    private void mieteZahlenBei(IGrundstück grundstück){
+    private void mieteZahlenBei(Grundstück grundstück){
         // TODO implementieren
         darsteller.ausgabe("Debug: Endpunkt, Miete zahlen passiert hier.");
     }
