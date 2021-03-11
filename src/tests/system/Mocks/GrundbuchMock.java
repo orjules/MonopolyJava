@@ -26,11 +26,6 @@ public class GrundbuchMock implements IGrundbuch {
     }
 
     public String textFürGelandetAuf(IGrundstück grundstück){
-        if (grundstück.getClass().equals(Bahnhof.class) || grundstück.getClass().equals(Werk.class)){
-            return "Du bist auf dem " + grundstück.getName() + " gelandet.";
-        }else if (grundstück.getClass().equals(Straße.class)){
-            return "Du bist auf der " + grundstück.getName() + " gelandet.";
-        }else
-            throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
+      return "Testgrundstück.";
     }
 }

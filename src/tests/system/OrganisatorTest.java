@@ -1,8 +1,6 @@
 package tests.system;
 
 import org.junit.jupiter.api.Test;
-import programm.grundstücke.Grundstück;
-import programm.karten.Ereigniskarte;
 import programm.system.Organisator2;
 import programm.system.Spieler;
 import programm.system.Würfel;
@@ -42,7 +40,7 @@ public class OrganisatorTest {
         Spieler testSpieler = new Spieler("Günther", '#', Felder.Ereignisfeld1, false, 1500);
         Organisator2 testOrg = setUp(testSpieler, null, false, testkarte, "w");
         testOrg.feldAbarbeiten();
-        assertEquals("Debug: Endpunkt, Karte wird hier abgearbeitet.", darsteller.getAusgabeErgebis());
+        assertEquals("Dies ist eine Testkarte.", darsteller.getAusgabeErgebis());
     }
 
     @Test
