@@ -42,7 +42,7 @@ public class Darsteller {
             }
             tab.addZeile(new String[]{feld.name(), String.join(", ", spielerSymbole)});
         }
-        tab.printTabelle();
+        System.out.print(tab);
     }
 
     public void ausgabe(String text){

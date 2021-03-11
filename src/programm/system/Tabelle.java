@@ -5,12 +5,12 @@ import java.util.LinkedList;
 public class Tabelle {
     int gesetzteSpaltenZahl = 0;
     LinkedList<String[]> daten = new LinkedList<>();
+    String ausgabe = "";
 
     // Jetzt definiert, können später geändert werden
     char seitenRand = '|';
     char obenUntenRand = '=';
     char kopfTrennung = '-';
-    char mitteTrennung = '|';
 
     public Tabelle(String[] kopfZeile) {
         gesetzteSpaltenZahl = kopfZeile.length;
@@ -26,7 +26,7 @@ public class Tabelle {
         }
     }
 
-    public void printTabelle(){
+    private void tabelleErstellen(){
         // 1. Pro Spalte die maximale Länge herausfinden
         int[] breiteProSpalte = new int[gesetzteSpaltenZahl];
         for (int i = 0; i < gesetzteSpaltenZahl; i++) {
@@ -45,18 +45,18 @@ public class Tabelle {
             breiteGanzeTabelle += breiteProSpalte[i] + 2; // eigentliches Wort + 2 padding
         }
         for (int i = 0; i <= breiteGanzeTabelle; i++ ){
-            System.out.print(obenUntenRand);
+            ausgabe += obenUntenRand;
         }
-        System.out.print("\n");
+        ausgabe += "\n";
 
         // 3. Kopfzeile
         printZeile(0, breiteProSpalte);
-        System.out.print(seitenRand);
+        ausgabe += seitenRand;
 
         for (int i = 0; i <= breiteGanzeTabelle-2; i++ ){
-            System.out.print(kopfTrennung);
+            ausgabe += kopfTrennung;
         }
-        System.out.print(seitenRand + "\n");
+        ausgabe += seitenRand + "\n";
 
         // 4. alle weiteren Zeilen
         for (int d = 1; d < daten.size(); d++){
@@ -65,31 +65,37 @@ public class Tabelle {
 
         // 5. Unteres Ende
         for (int i = 0; i <= breiteGanzeTabelle; i++ ){
-            System.out.print(obenUntenRand);
+            ausgabe += obenUntenRand;
         }
-        System.out.print("\n");
+        ausgabe += "\n";
     }
 
     private void printZeile(int nummer, int[] breiteProSpalte){
-        System.out.print(seitenRand);
+        ausgabe += seitenRand;
         for (int i = 0; i < gesetzteSpaltenZahl; i++){
             int wortlänge = daten.get(nummer)[i].length();
             int anzahlLeerzeichen = breiteProSpalte[i] - wortlänge;
             for (int j = 0; j < (anzahlLeerzeichen/2) + 1; j++){        // +1 padding
-                System.out.print(' ');
+                ausgabe += " ";
             }
-            System.out.print(daten.get(nummer)[i]);
+            ausgabe += daten.get(nummer)[i];
             if (anzahlLeerzeichen%2 == 0){
                 for (int j = 0; j <= (anzahlLeerzeichen/2) + 1; j++){
-                    System.out.print(' ');
+                    ausgabe += " ";
                 }
             }else {
                 for (int j = 0; j <= (anzahlLeerzeichen/2) + 2; j++){
-                    System.out.print(' ');
+                    ausgabe += " ";
                 }
             }
-            System.out.print(seitenRand);
+            ausgabe += seitenRand;
         }
-        System.out.print("\n");
+        ausgabe += "\n";
+    }
+
+    @Override
+    public String toString(){
+        tabelleErstellen();
+        return ausgabe;
     }
 }
