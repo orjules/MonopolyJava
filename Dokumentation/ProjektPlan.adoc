@@ -12,7 +12,14 @@ Der Link zum alten Repo ist https://github.com/orjules/MonopolyConsole[hier].
 
 == Plan
 
-(hier das Diagramm)
+Um später einfacher Verbesserungen hinzufügen zu können, ist das Programm so modular wie möglich erstellt.
+Einige Klassen wie "Tabelle" oder "Würfel" stehen ganz für sich alleine.
+Der "Darsteller" darf als einziger Text ein- und ausgeben. Das ermöglicht in Zukunft das hinzufügen eines Multiplayers oder eines grafischen Interfaces.
+Am stärksten Verknüpft ist der "Organisator", der mit den Klassen im "System"-Package arbeitet aber extern nur mit jeweils einer Klassen pro Package.
+
+=== Klassendiagramm
+
+image::https://github.com/orjules/MonopolyJava/blob/Bewegung/Dokumentation/Entwurf/Entwurf1_SystemFertig.svg[Das Klassendiagramm]
 
 Das Programm ist in drei Teile unterteilt:
 
@@ -22,6 +29,11 @@ Das Programm ist in drei Teile unterteilt:
 
 - Grundstücke (Verwaltet die Informationen über Grundstückbesitze und wie viel was kostet)
 
+=== Aktivitätsdiagramm
+
+image::https://github.com/orjules/MonopolyJava/blob/Bewegung/Dokumentation/Entwurf/gameLoop%C3%9Cbersicht_ErsteVersion.svg[Das Aktivitätsdiagramm]
+
+Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht in ein Diagramm übertragen. (Noch nicht vollständig)
 
 == Fortschritt
 
@@ -37,4 +49,22 @@ Das Programm ist in drei Teile unterteilt:
 
 - Erste Version der Bewegung
 
-Als nächstes: Gameloop implementieren
+=== 10.3.21
+
+- Prototyp für GameLoop erstellt und überarbeitet
+
+- Weitere Klassen erstellt
+
+- Interfaces und Mocks für Integrationtest erstellt
+
+=== 11.3.21
+
+- Interfaces, Mocks und Integrationtest entfernt (weil sie mehr arbeit gemacht haben als gespart)
+
+- Darstellung überarbeitet
+
+- Akzeptable, lauffähige Version erstellt und somut Meilenstein "Spieler bewegen" erreicht
+
+- Dokumentation verbessert
+
+Als nächstes: Tests für fertige Klassen im "System"-Package erstellen
