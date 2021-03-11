@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Würfel {
 
-    private Boolean hatPasch = false;
+    private boolean hatPasch = false;
     private int anzahlPasche = 0;
 
     public int[] würfeln(){
@@ -21,14 +21,14 @@ public class Würfel {
         return ausgabe;
     }
 
-    public Boolean darfNochmalWerfen(){
+    public boolean darfNochmalWerfen(){
         if (hatPasch && anzahlPasche < 3){
             return true;
         }
         return false;
     }
 
-    public Boolean mussInsGefängnis(){
+    public boolean mussInsGefängnis(){
         if (anzahlPasche < 3){
             return false;
         }
