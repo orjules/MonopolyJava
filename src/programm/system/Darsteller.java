@@ -1,12 +1,9 @@
 package programm.system;
 
-import programm.system.enums.Felder;
-import programm.system.interfaces.IDarsteller;
-
 import java.util.LinkedList;
 import java.util.Scanner;
 
-public class Darsteller implements IDarsteller {
+public class Darsteller {
 
     Spielleiter spielleiter;
     Scanner scanner = new Scanner(System.in);

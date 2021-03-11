@@ -1,6 +1,6 @@
 package programm.grundstücke;
 
-import programm.system.enums.Felder;
+import programm.system.Felder;
 
 public class Werk extends Grundstück{
     public Werk(String name, Felder feld, int grundstücksWert, int hypothekWert) {

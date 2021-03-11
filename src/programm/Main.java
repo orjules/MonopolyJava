@@ -14,11 +14,10 @@ public class Main {
         Grundbuch grundbuch = new Grundbuch();
         Kartenmanager kartenmanager = new Kartenmanager();
         Organisator organisator = new Organisator(spielleiter, darsteller, würfel, grundbuch, kartenmanager);
-        Organisator2 organisator2 = new Organisator2(spielleiter, darsteller, würfel, grundbuch, kartenmanager);
 
         // eigentliches Spiel starten
         // TODO implemtierung, dass man am Anfang wirft um die Reihenfolge zu entscheiden
         darsteller.brettZeichnen();         // Am Anfang einmal das Spielbrett zeichnen
-        organisator2.gameLoop();
+        organisator.gameLoop();
     }
 }

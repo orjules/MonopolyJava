@@ -1,15 +1,13 @@
 package programm.grundstücke;
 
 import programm.system.Spieler;
-import programm.system.enums.Felder;
-import programm.system.interfaces.IGrundbuch;
-import programm.system.interfaces.IGrundstück;
+import programm.system.Felder;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class Grundbuch implements IGrundbuch{
+public class Grundbuch{
 
     Grundstück[] alleGrundstücke = new Grundstück[6]; // Vorläufig 6
     Farbgruppen[] alleFarbgruppen = new Farbgruppen[2]; // Vorläufig 2
@@ -41,13 +39,13 @@ public class Grundbuch implements IGrundbuch{
         return null;
     }
 
-    public Boolean istZuVerkaufen(IGrundstück grundstück){
+    public Boolean istZuVerkaufen(Grundstück grundstück){
         System.out.println("Debug: Abfrage ob zu verkaufen.");
         return true;
     }
 
     // Es gibt drei pronomen, die unterschieden werden müssen wobei werk und Bahnhof im Dativ beide "dem" sind
-    public String textFürGelandetAuf(IGrundstück grundstück){
+    public String textFürGelandetAuf(Grundstück grundstück){
         if (grundstück.getClass().equals(Bahnhof.class) || grundstück.getClass().equals(Werk.class)){
             return "Du bist auf dem " + grundstück.getName() + " gelandet.";
         }else if (grundstück.getClass().equals(Straße.class)){

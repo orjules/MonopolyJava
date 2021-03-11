@@ -1,7 +1,5 @@
 package programm.system;
 
-import programm.system.enums.Felder;
-
 public class Spieler {
     private String name;
     private char symbol;
