@@ -4,10 +4,10 @@ public class Spieler {
     private String name;
     private char symbol;
     private Felder aktuellePos;
-    private Boolean istImGefängnis;
+    private boolean istImGefängnis;
     private int kapital;
 
-    public Spieler(String name, char symbol, Felder aktuellePos, Boolean istImGefängnis, int kapital) {
+    public Spieler(String name, char symbol, Felder aktuellePos, boolean istImGefängnis, int kapital) {
         this.name = name;
         this.symbol = symbol;
         this.aktuellePos = aktuellePos;
@@ -27,7 +27,7 @@ public class Spieler {
         return aktuellePos;
     }
 
-    public Boolean getIstImGefängnis() {
+    public boolean getIstImGefängnis() {
         return istImGefängnis;
     }
 

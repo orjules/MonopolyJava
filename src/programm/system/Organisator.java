@@ -88,9 +88,10 @@ public class Organisator {
 
     private void übersichtAnzeigen(){
         // TODO Übersicht implementieren
+        darsteller.ausgabe("Debug: Hier wäre die Übersicht.");
     }
 
-    public void feldAbarbeiten(){
+    private void feldAbarbeiten(){
         Felder feld = spielleiter.getGeradeDran().getAktuellePos();
 
         // 1. schauen ob frei - return oder weiter
