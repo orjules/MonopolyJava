@@ -61,6 +61,7 @@ public class Organisator2 {
                             würfelnUndDarstellen();
                             break endabfrageLoop;
                         case "z":
+                            spielleiter.weiter();
                             break innenLoop;
                         case "ü":
                             übersichtAnzeigen();
@@ -105,7 +106,7 @@ public class Organisator2 {
         // 2. Kartenmanager fragen - bei Karte abarbeiten und dann abbrechen, bei null weiter
         IEreigniskarte karte = kartenmanager.karteZiehen(feld);
         if (karte != null){
-            karteAbarbeiten();
+            karteAbarbeiten(karte);
             return;
         }
 
@@ -123,9 +124,9 @@ public class Organisator2 {
         }
     }
 
-    private void karteAbarbeiten(){
+    private void karteAbarbeiten(IEreigniskarte karte){
         // TODO Je nach Karte etwas anders machen
-        darsteller.ausgabe("Debug: Endpunkt, Karte wird hier abgearbeitet.");
+        darsteller.ausgabe(karte.getBeschreibung());
     }
 
     private void kaufenVon(IGrundstück grundstück){
