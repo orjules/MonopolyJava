@@ -10,4 +10,15 @@ public abstract class Grundstück implements IGrundstück {
     int grundstücksWert;
     int hypothekWert;
 
+    public String getName() {
+        return name;
+    }
+
+    public Felder getFeld() {
+        return feld;
+    }
+
+    public int getGrundstücksWert() {
+        return grundstücksWert;
+    }
 }

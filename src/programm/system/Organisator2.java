@@ -115,6 +115,8 @@ public class Organisator2 {
             throw new IllegalStateException("Es wurde weder ein freies Feld, noch ein Karte, noch ein Grundstück gefunden!");
         }
         if (grundbuch.istZuVerkaufen(grundstück)){
+            darsteller.ausgabe(grundbuch.textFürGelandetAuf(grundstück) + " Der Kaufpreis ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
+                    + spielleiter.getGeradeDran().getKapital() + "€.");
             kaufenVon(grundstück);
         }else {
             mieteZahlenBei(grundstück);

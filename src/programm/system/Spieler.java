@@ -7,9 +7,9 @@ public class Spieler {
     private char symbol;
     private Felder aktuellePos;
     private Boolean istImGefängnis;
-    private double kapital;
+    private int kapital;
 
-    public Spieler(String name, char symbol, Felder aktuellePos, Boolean istImGefängnis, double kapital) {
+    public Spieler(String name, char symbol, Felder aktuellePos, Boolean istImGefängnis, int kapital) {
         this.name = name;
         this.symbol = symbol;
         this.aktuellePos = aktuellePos;
@@ -33,7 +33,7 @@ public class Spieler {
         return istImGefängnis;
     }
 
-    public double getKapital() {
+    public int getKapital() {
         return kapital;
     }
 
