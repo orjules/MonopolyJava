@@ -1,8 +1,9 @@
 package programm.system;
 
 import programm.system.enums.Felder;
+import programm.system.interfaces.ISpielleiter;
 
-public class Spielleiter {
+public class Spielleiter implements ISpielleiter {
     private Spieler[] alleSpieler = new Spieler[] {
             new Spieler("Günther", '#', Felder.Los, false, 1500),
             new Spieler("Monika", '?', Felder.Los, false, 1500),
@@ -33,5 +34,12 @@ public class Spielleiter {
             // TODO hier das über los gehen erkennen
         }
         getGeradeDran().setAktuellePos(Felder.values()[neuePos]);
+    }
+
+    public boolean spielLäuft(){
+        if (alleSpieler.length > 0){
+            return true;
+        }
+        return false;
     }
 }
