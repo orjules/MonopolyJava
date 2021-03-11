@@ -6,7 +6,7 @@ import programm.system.interfaces.IKartenmanager;
 public class KartenmanagerMock implements IKartenmanager {
     EreigniskarteMock testKarte;
 
-    public KartenmanagerMock(EreigniskarteMock testKarte) {
+    public void init(EreigniskarteMock testKarte) {
         this.testKarte = testKarte;
     }
 

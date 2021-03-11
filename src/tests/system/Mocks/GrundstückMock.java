@@ -10,6 +10,12 @@ public class GrundstückMock implements IGrundstück {
     int grundstücksWert;
     int hypothekWert;
 
+    public GrundstückMock(Felder feld, int grundstücksWert) {
+        name = feld.name();
+        this.feld = feld;
+        this.grundstücksWert = grundstücksWert;
+    }
+
     public String getName(){
         return name;
     }

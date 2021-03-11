@@ -12,9 +12,9 @@ public class GrundbuchMock implements IGrundbuch {
     GrundstückMock testStück;
     Boolean testBool;
 
-    public GrundbuchMock(GrundstückMock testStück, Boolean testBool) {
+    public void init(GrundstückMock testStück, Boolean istZuVerkaufen) {
         this.testStück = testStück;
-        this.testBool = testBool;
+        this.testBool = istZuVerkaufen;
     }
 
     public GrundstückMock grundstückVon(Felder feld){

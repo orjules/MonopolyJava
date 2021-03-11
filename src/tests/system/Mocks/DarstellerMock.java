@@ -6,11 +6,14 @@ public class DarstellerMock implements IDarsteller {
     String festeEingabe;
     String ausgabeErgebis;
 
-    public DarstellerMock(String festeEingabe) {
+    public void init(String festeEingabe) {
         this.festeEingabe = festeEingabe;
     }
 
     public String eingabeFragen(String ausgabe, String[] erlaubteEingaben){
+        if (ausgabe.contains("'z'")){
+            return "z";
+        }
         ausgabeErgebis = ausgabe;
         return festeEingabe;
     }
@@ -24,4 +27,5 @@ public class DarstellerMock implements IDarsteller {
     public String getAusgabeErgebis(){
         return ausgabeErgebis;
     }
+
 }

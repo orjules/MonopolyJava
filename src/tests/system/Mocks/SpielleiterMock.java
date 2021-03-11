@@ -8,7 +8,7 @@ public class SpielleiterMock implements ISpielleiter {
     Spieler festerSpieler;
     boolean spielLäuft = true;
 
-    public SpielleiterMock(Spieler festerSpieler) {
+    public void init(Spieler festerSpieler) {
         this.festerSpieler = festerSpieler;
     }
 
