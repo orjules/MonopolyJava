@@ -1,7 +1,7 @@
 package programm.grundstücke;
 
 import programm.system.Spieler;
-import programm.system.enums.Felder;
+import programm.system.Felder;
 import programm.system.interfaces.IGrundbuch;
 import programm.system.interfaces.IGrundstück;
 

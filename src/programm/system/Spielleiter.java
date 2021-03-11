@@ -1,6 +1,5 @@
 package programm.system;
 
-import programm.system.enums.Felder;
 import programm.system.interfaces.ISpielleiter;
 
 public class Spielleiter implements ISpielleiter {

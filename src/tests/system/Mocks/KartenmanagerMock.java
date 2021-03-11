@@ -1,6 +1,6 @@
 package tests.system.Mocks;
 
-import programm.system.enums.Felder;
+import programm.system.Felder;
 import programm.system.interfaces.IKartenmanager;
 
 public class KartenmanagerMock implements IKartenmanager {

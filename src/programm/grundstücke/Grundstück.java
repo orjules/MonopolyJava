@@ -1,6 +1,6 @@
 package programm.grundstücke;
 
-import programm.system.enums.Felder;
+import programm.system.Felder;
 import programm.system.interfaces.IGrundstück;
 
 public abstract class Grundstück implements IGrundstück {

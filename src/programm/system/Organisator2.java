@@ -1,6 +1,5 @@
 package programm.system;
 
-import programm.system.enums.Felder;
 import programm.system.interfaces.IEreigniskarte;
 import programm.system.interfaces.IGrundstück;
 import programm.system.interfaces.IGrundbuch;

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import programm.system.Organisator2;
 import programm.system.Spieler;
 import programm.system.Würfel;
-import programm.system.enums.Felder;
+import programm.system.Felder;
 import tests.system.Mocks.*;
 
 import static org.junit.jupiter.api.Assertions.*;

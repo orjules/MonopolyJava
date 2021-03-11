@@ -1,6 +1,6 @@
 package programm.grundstücke;
 
-import programm.system.enums.Felder;
+import programm.system.Felder;
 
 public class Straße extends Grundstück{
     Farben farbe;

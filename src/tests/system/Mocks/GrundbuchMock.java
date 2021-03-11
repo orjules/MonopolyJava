@@ -1,10 +1,6 @@
 package tests.system.Mocks;
 
-import programm.grundstücke.Bahnhof;
-import programm.grundstücke.Grundstück;
-import programm.grundstücke.Straße;
-import programm.grundstücke.Werk;
-import programm.system.enums.Felder;
+import programm.system.Felder;
 import programm.system.interfaces.IGrundbuch;
 import programm.system.interfaces.IGrundstück;
 

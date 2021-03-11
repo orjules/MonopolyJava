@@ -1,4 +1,4 @@
-package programm.system.enums;
+package programm.system;
 
 public enum Felder {
     Los,

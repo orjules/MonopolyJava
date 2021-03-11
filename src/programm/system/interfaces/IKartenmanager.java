@@ -1,7 +1,6 @@
 package programm.system.interfaces;
 
-import programm.karten.Ereigniskarte;
-import programm.system.enums.Felder;
+import programm.system.Felder;
 
 public interface IKartenmanager {
 
