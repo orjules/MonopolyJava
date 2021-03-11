@@ -62,6 +62,7 @@ public class Organisator {
                             break endabfrageLoop;
                         case "z":
                             spielleiter.weiter();
+                            würfel.reset();
                             break innenLoop;
                         case "ü":
                             übersichtAnzeigen();
