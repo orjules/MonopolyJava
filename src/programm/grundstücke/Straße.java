@@ -1,6 +1,8 @@
 package programm.grundstücke;
 
 import programm.system.Felder;
+import programm.system.Würfel;
+import programm.system.spieler.Spieler;
 
 public class Straße extends Grundstück{
     Farben farbe;
@@ -60,5 +62,26 @@ public class Straße extends Grundstück{
             ausgabe += "und kein Hotel";
         }
         return ausgabe;
+    }
+
+    @Override
+    public int mieteBerechnen(Spieler besitzer, Grundbuch grundbuch, int letzterWurf) {
+        if (hatHotel){
+            return mieteHotel;
+        }
+        switch (anzahlHaus){
+            case 0:
+                return mieteAlleine;
+            case 1:
+                return mieteEinHaus;
+            case 2:
+                return mieteZweiHaus;
+            case 3:
+                return mieteDreiHaus;
+            case 4:
+                return mieteVierHaus;
+            default:
+                throw new IllegalStateException("Das Grundstück darf nicht mehr als 4 bzw weniger als 0 Häuser haben.");
+        }
     }
 }

@@ -60,6 +60,7 @@ public class Grundbuch{
         return ausgabe.toArray(new Grundstück[ausgabe.size()]);
     }
 
+
     // gibt die Kaufbestätigung zurück
     public String übertragenAn(Grundstück grundstück, Spieler an){
         grundbuch.put(grundstück, an);
@@ -127,5 +128,31 @@ public class Grundbuch{
             }
         }else
             throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
+    }
+
+    // Hilfsfunktionen für Klassen im Package
+    int bahnhöfeVon(Spieler besitzer){
+        int anzahl = 0;
+        for (Map.Entry<Grundstück, Spieler> entry : grundbuch.entrySet()){
+            if (entry.getValue() != null && entry.getValue().equals(besitzer) && entry.getKey().getClass().equals(Bahnhof.class)){
+                anzahl ++;
+            }
+        }
+        return anzahl;
+    }
+    boolean beideWerke(Spieler besitzer){
+        int anzahl = 0;
+        for (Map.Entry<Grundstück, Spieler> entry : grundbuch.entrySet()){
+            if (entry.getValue() != null && entry.getValue().equals(besitzer) && entry.getKey().getClass().equals(Werk.class)){
+                anzahl ++;
+            }
+        }
+        if (anzahl == 1){
+            return false;
+        }else if (anzahl == 2){
+            return true;
+        }else {
+            throw new IllegalStateException("Der Besitzer muss mind ein Werk haben, weil die Funktion sonst nicht aufgerufen wird.");
+        }
     }
 }

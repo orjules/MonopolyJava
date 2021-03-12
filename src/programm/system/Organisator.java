@@ -151,7 +151,7 @@ public class Organisator {
                     "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um zur Übersicht zu gehen",
                     new String[]{"a", "n", "ü"});
             if (eingabe.equals("a")){
-                spielleiter.spielerKapitalÄndern(-grundstück.getGrundstücksWert());
+                spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), -grundstück.getGrundstücksWert());
                 darsteller.ausgabe(grundbuch.übertragenAn(grundstück, spielleiter.getGeradeDran())
                         + " Dein neues Kapital ist: " + spielleiter.getGeradeDran().getKapital());
                 return;
@@ -165,8 +165,10 @@ public class Organisator {
     }
 
     private void mieteZahlenBei(Grundstück grundstück, Spieler besitzer){
-        // TODO implementieren
-        darsteller.ausgabe("Debug: Endpunkt, Miete zahlen bei: " + besitzer.getName());
+        int miete = grundstück.mieteBerechnen(besitzer, grundbuch, würfel.getLetztenWurf());
+        darsteller.ausgabe("Die Miete von " + grundbuch.artikelFür(grundstück, false, false) +
+                grundstück.getName() + " ist " + miete + "€.");
+        spielleiter.geldÜbertragen(spielleiter.getGeradeDran(), besitzer, miete);
     }
 
     private void übersichtAnzeigen(){
