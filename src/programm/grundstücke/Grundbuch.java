@@ -44,14 +44,49 @@ public class Grundbuch{
         return true;
     }
 
-    // Es gibt drei pronomen, die unterschieden werden müssen wobei werk und Bahnhof im Dativ beide "dem" sind
-    public String textFürGelandetAuf(Grundstück grundstück){
-        if (grundstück.getClass().equals(Bahnhof.class) || grundstück.getClass().equals(Werk.class)){
-            return "Du bist auf dem " + grundstück.getName() + " gelandet.";
-        }else if (grundstück.getClass().equals(Straße.class)){
-            return "Du bist auf der " + grundstück.getName() + " gelandet.";
-        }else
-            throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
+    // gibt die Kaufbestätigung zurück
+    public String grundstückVerkaufen(Grundstück grundstück, Spieler an){
+        grundbuch.put(grundstück, an);
+        return pronomenFür(grundstück, true, true) + grundstück.getName() + " gehört nun " + an.getName() + ".";
     }
 
+    public String pronomenFür(Grundstück grundstück, boolean tNom_fDativ, boolean istGroß){
+        if (tNom_fDativ){
+            if (grundstück.getClass().equals(Bahnhof.class)){
+                if (istGroß){
+                    return "Der ";
+                }else {
+                    return "der ";
+                }
+            }else if (grundstück.getClass().equals(Straße.class)) {
+                if (istGroß){
+                    return "Die ";
+                }else {
+                    return "die ";
+                }
+            }else if (grundstück.getClass().equals(Werk.class)){
+                if (istGroß){
+                    return "Das ";
+                }else {
+                    return "das ";
+                }
+            }else
+                throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
+        }else {
+            if (grundstück.getClass().equals(Bahnhof.class) || grundstück.getClass().equals(Werk.class)){
+                if (istGroß){
+                    return "Dem ";
+                }else {
+                    return "dem ";
+                }
+            }else if (grundstück.getClass().equals(Straße.class)){
+                if (istGroß){
+                    return "Der ";
+                }else {
+                    return "der ";
+                }
+            }else
+                throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
+        }
+    }
 }

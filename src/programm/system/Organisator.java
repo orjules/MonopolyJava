@@ -126,13 +126,15 @@ public class Organisator {
 
     private void kaufenVon(Grundstück grundstück){
         while (true){
-            darsteller.ausgabe(grundbuch.textFürGelandetAuf(grundstück) + " Der Kaufpreis ist " + grundstück.getGrundstücksWert()
+            darsteller.ausgabe(
+                    "Du bist auf " + grundbuch.pronomenFür(grundstück, false, false) + grundstück.getName() + " gelandet.\n"
+                    + "Der Kaufpreis ist " + grundstück.getGrundstücksWert()
                     + "€. Dein Kapital ist " + spielleiter.getGeradeDran().getKapital() + "€.");
             String eingabe = darsteller.eingabeFragen(
                     "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um zur Übersicht zu gehen",
                     new String[]{"a", "n", "ü"});
             if (eingabe.equals("a")){
-                // TODO eigentlichen Kauf ausführen
+                darsteller.ausgabe(grundbuch.grundstückVerkaufen(grundstück, spielleiter.getGeradeDran()));
                 return;
             }else if (eingabe.equals("n")){
                 return;
