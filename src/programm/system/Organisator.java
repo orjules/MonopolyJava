@@ -17,6 +17,9 @@ public class Organisator {
     Grundbuch grundbuch;
     Kartenmanager kartenmanager;
 
+    // der wird so oft gebraucht und nur an einer Stelle geändert
+    Spieler gradDran;
+
     public Organisator(Spielleiter spielleiter, Darsteller darsteller, Würfel würfel, Grundbuch grundbuch, Kartenmanager kartenmanager) {
         this.spielleiter = spielleiter;
         this.darsteller = darsteller;
@@ -28,11 +31,11 @@ public class Organisator {
     public void gameLoop(){
         außenLoop: while (true){
             // Hier wird einmal geschrieben wer gerade dran ist
-            Spieler geradeDran = spielleiter.getGeradeDran();
-            darsteller.ausgabe(geradeDran.getName() + " (" + geradeDran.getSymbol() + ") ist dran.");
+            gradDran = spielleiter.getGeradeDran();
+            darsteller.ausgabe(gradDran.getName() + " (" + gradDran.getSymbol() + ") ist dran.");
 
             // sofern der Spieler nicht im Gefängnis ist muss er immer erst würfeln
-            if (!spielleiter.getGeradeDran().getIstImGefängnis()){
+            if (!gradDran.getIstImGefängnis()){
                 darsteller.eingabeFragen("Als erstes musst du würfeln. Drücke 'w'", new String[]{"w"});
                 würfelnUndDarstellen();
             }
@@ -57,7 +60,7 @@ public class Organisator {
 
                     // Abfragen und auswerten
                     darsteller.umbruch();
-                    darsteller.ausgabe(geradeDran.getName() + " ist fertig mit den wichtigen Dingen aber noch dran.");
+                    darsteller.ausgabe(gradDran.getName() + " ist fertig mit den wichtigen Dingen aber noch dran.");
                     String eingabe = darsteller.eingabeFragen(ausgabeText, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
                     switch (eingabe) {
                         case "w":
@@ -65,6 +68,7 @@ public class Organisator {
                             break endabfrageLoop;
                         case "z":
                             spielleiter.weiter();
+                            gradDran = spielleiter.getGeradeDran();
                             würfel.reset();
                             break innenLoop;
                         case "ü":
@@ -93,7 +97,7 @@ public class Organisator {
     }
 
     private void feldAbarbeiten(){
-        Felder feld = spielleiter.getGeradeDran().getAktuellePos();
+        Felder feld = gradDran.getAktuellePos();
 
         // 1. schauen ob frei - return oder weiter
         Felder [] freieFelder = new Felder[]{Felder.Los, Felder.Gefängnis_bzw_Besuch};  // später auch noch frei parken
@@ -124,7 +128,7 @@ public class Organisator {
             darsteller.ausgabe(ausgabe);
             kaufenVon(grundstück);
             return;
-        }else if (besitzer.equals(spielleiter.getGeradeDran())){
+        }else if (besitzer.equals(gradDran)){
             ausgabe += grundbuch.pronomenFür(grundstück, true) + "gehört dir.";
             darsteller.ausgabe(ausgabe);
             return;
@@ -147,14 +151,16 @@ public class Organisator {
             darsteller.ausgabe(
                     "Der Kaufpreis für " + grundbuch.artikelFür(grundstück, true, false)
                             + grundstück.getName() + " ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
-                            + spielleiter.getGeradeDran().getKapital() + "€.");
+                            + gradDran.getKapital() + "€.");
+            // Checken ob genug Geld für den Kauf vorhanden ist
+            // TODO int neuesKapital
             String eingabe = darsteller.eingabeFragen(
                     "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um die Übersicht zu öffnen",
                     new String[]{"a", "n", "ü"});
             if (eingabe.equals("a")){
-                spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), -grundstück.getGrundstücksWert());
-                darsteller.ausgabe(grundbuch.übertragenAn(grundstück, spielleiter.getGeradeDran())
-                        + " Dein neues Kapital ist: " + spielleiter.getGeradeDran().getKapital());
+                spielleiter.kapitalÄndernVon(gradDran, -grundstück.getGrundstücksWert());
+                darsteller.ausgabe(grundbuch.übertragenAn(grundstück, gradDran)
+                        + " Dein neues Kapital ist: " + gradDran.getKapital());
                 return;
             }else if (eingabe.equals("n")){
                 grundstückVersteigern(grundstück);
@@ -176,7 +182,7 @@ public class Organisator {
             // Bestätigung fragen, bzw weiterleiten, wenn man zu wenig Geld hat
             String frage = "";
             ArrayList<String> erlaubteEingaben = new ArrayList<>();
-            if (spielleiter.getGeradeDran().getKapital() - miete < 0){
+            if (gradDran.getKapital() - miete < 0){
                 nichtGenugKapital(miete);
             }else {
                 frage += "'a' um das Bezahlen zu bestätigen\n";
@@ -187,12 +193,12 @@ public class Organisator {
             String eingabe = darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
             switch (eingabe){
                 case "a":
-                    spielleiter.geldÜbertragen(spielleiter.getGeradeDran(), besitzer, miete);
-                    darsteller.ausgabe("Dein neues Kapital ist " + spielleiter.getGeradeDran().getKapital() + "€.");
+                    spielleiter.geldÜbertragen(gradDran, besitzer, miete);
+                    darsteller.ausgabe("Dein neues Kapital ist " + gradDran.getKapital() + "€.");
                     return;
                 case "x":
                     // TODO Aufgeben implementieren
-                    darsteller.ausgabe("DEBUG: " + spielleiter.getGeradeDran() + " will aufgeben");
+                    darsteller.ausgabe("DEBUG: " + gradDran.getName() + " will aufgeben");
                     return;
                 case "ü":
                     übersichtAnzeigen();
@@ -202,8 +208,8 @@ public class Organisator {
     }
 
     private void übersichtAnzeigen(){
-        darsteller.ausgabe("Dein momentanes Kapital ist: " + spielleiter.getGeradeDran().getKapital() + "€.");
-        darsteller.grundstückÜbersicht(grundbuch.alleGrundstückeVon(spielleiter.getGeradeDran()));
+        darsteller.ausgabe("Dein momentanes Kapital ist: " + gradDran.getKapital() + "€.");
+        darsteller.grundstückÜbersicht(grundbuch.alleGrundstückeVon(gradDran));
         darsteller.ausgabe("DEBUG: Häuser ver-/kaufen und Handel ist noch nicht implementiert.");
     }
 
@@ -211,7 +217,7 @@ public class Organisator {
     private void nichtGenugKapital(int zuZahlen){
         while (true){
             // 1. ausrechnen wie viel zu wenig
-            int neuesKapital = spielleiter.getGeradeDran().getKapital() - zuZahlen;
+            int neuesKapital = gradDran.getKapital() - zuZahlen;
             // 2. Überprüfen ob abgebrochen werden kann
             if (neuesKapital > 0){
                 return;
