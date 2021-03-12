@@ -55,6 +55,8 @@ public class Organisator {
                     }
 
                     // Abfragen und auswerten
+                    darsteller.umbruch();
+                    darsteller.ausgabe(geradeDran.getName() + " ist fertig mit den wichtigen Dingen aber noch dran.");
                     String eingabe = darsteller.eingabeFragen(ausgabeText, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
                     switch (eingabe) {
                         case "w":
@@ -113,9 +115,16 @@ public class Organisator {
             throw new IllegalStateException("Es wurde weder ein freies Feld, noch ein Karte, noch ein Grundstück gefunden!");
         }
         Spieler besitzer = grundbuch.getBesitzerVon(grundstück);
+        String ausgabe = "";
+        ausgabe += "Du bist auf " + grundbuch.artikelFür(grundstück, false, false) +
+                grundstück.getName() + " gelandet. ";
         if (besitzer == null){
+            ausgabe += grundbuch.pronomenFür(grundstück, true) + "ist noch zu verkaufen.";
+            darsteller.ausgabe(ausgabe);
             kaufenVon(grundstück);
         }else {
+            ausgabe += grundbuch.pronomenFür(grundstück, true) + "gehört " + besitzer.getName() + ".";
+            darsteller.ausgabe(ausgabe);
             mieteZahlenBei(grundstück, besitzer);
         }
     }
@@ -127,10 +136,11 @@ public class Organisator {
 
     private void kaufenVon(Grundstück grundstück){
         while (true){
+            darsteller.umbruch();
             darsteller.ausgabe(
-                    "Du bist auf " + grundbuch.pronomenFür(grundstück, false, false) + grundstück.getName() + " gelandet.\n"
-                    + "Der Kaufpreis ist " + grundstück.getGrundstücksWert()
-                    + "€. Dein Kapital ist " + spielleiter.getGeradeDran().getKapital() + "€.");
+                    "Der Kaufpreis für " + grundbuch.artikelFür(grundstück, true, false)
+                            + grundstück.getName() + " ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
+                            + spielleiter.getGeradeDran().getKapital() + "€.");
             String eingabe = darsteller.eingabeFragen(
                     "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um zur Übersicht zu gehen",
                     new String[]{"a", "n", "ü"});
@@ -140,7 +150,10 @@ public class Organisator {
                         + " Dein neues Kapital ist: " + spielleiter.getGeradeDran().getKapital());
                 return;
             }else if (eingabe.equals("n")){
+                grundstückVersteigern(grundstück);
                 return;
+            }else if (eingabe.equals("ü")){
+                übersichtAnzeigen();
             }
         }
     }
@@ -151,12 +164,17 @@ public class Organisator {
     }
 
     private void übersichtAnzeigen(){
-        // TODO Übersicht implementieren
-        darsteller.ausgabe("Debug: Hier wäre die Übersicht.");
+        darsteller.ausgabe("Dein momentanes Kapital ist:" + spielleiter.getGeradeDran().getKapital() + "€.");
+        darsteller.grundstückÜbersicht(grundbuch.alleGrundstückeVon(spielleiter.getGeradeDran()));
     }
 
     // Später wichtig, wenn man etwas kaufen/ bezahlen will aber nicht genug Geld hat, soll man die Verwaltung öffnen können
     private void nichtGenugKapital(){
         // TODO implementieren
+    }
+
+    private void grundstückVersteigern(Grundstück grundstück){
+        // TODO implementieren
+        darsteller.ausgabe("Debug: Endpunkt, Versteigerung von " + grundstück.getName());
     }
 }

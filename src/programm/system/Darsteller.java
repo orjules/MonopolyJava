@@ -1,5 +1,7 @@
 package programm.system;
 
+import programm.grundstücke.Grundstück;
+import programm.grundstücke.Straße;
 import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
@@ -57,5 +59,19 @@ public class Darsteller {
             System.out.print("-");
         }
         System.out.print("\n");
+    }
+
+    public void grundstückÜbersicht(Grundstück[] besitz){
+        if (besitz.length == 0){
+            ausgabe("Du besitzt keine Grundstücke.");
+            return;
+        }
+        Tabelle tab = new Tabelle(new String[]{"Grundstück", "Anzahl Häuser"});
+        for (Grundstück g : besitz){
+            if (g.getClass().equals(Straße.class)){
+                tab.addZeile(new String[]{g.getName(), String.valueOf(((Straße) g).getAusbauLevel())});
+            }
+        }
+        System.out.print(tab);
     }
 }

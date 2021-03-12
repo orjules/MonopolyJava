@@ -3,6 +3,8 @@ package programm.grundstücke;
 import programm.system.spieler.Spieler;
 import programm.system.Felder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,13 +50,23 @@ public class Grundbuch{
         return null;
     }
 
+    public Grundstück[] alleGrundstückeVon(Spieler spieler){
+        ArrayList<Grundstück> ausgabe = new ArrayList<>();
+        for (Map.Entry<Grundstück, Spieler> entry : grundbuch.entrySet()){
+            if (entry.getValue() != null && entry.getValue().equals(spieler)){
+                ausgabe.add(entry.getKey());
+            }
+        }
+        return ausgabe.toArray(new Grundstück[ausgabe.size()]);
+    }
+
     // gibt die Kaufbestätigung zurück
     public String übertragenAn(Grundstück grundstück, Spieler an){
         grundbuch.put(grundstück, an);
-        return pronomenFür(grundstück, true, true) + grundstück.getName() + " gehört nun " + an.getName() + ".";
+        return artikelFür(grundstück, true, true) + grundstück.getName() + " gehört nun " + an.getName() + ".";
     }
 
-    public String pronomenFür(Grundstück grundstück, boolean tNom_fDativ, boolean istGroß){
+    public String artikelFür(Grundstück grundstück, boolean tNom_fDativ, boolean istGroß){
         if (tNom_fDativ){
             if (grundstück.getClass().equals(Bahnhof.class)){
                 if (istGroß){
@@ -92,5 +104,28 @@ public class Grundbuch{
             }else
                 throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
         }
+    }
+
+    public String pronomenFür(Grundstück grundstück, boolean istGroß){
+        if (grundstück.getClass().equals(Bahnhof.class)){
+            if (istGroß){
+                return "Er ";
+            }else {
+                return "er ";
+            }
+        }else if (grundstück.getClass().equals(Straße.class)) {
+            if (istGroß){
+                return "Sie ";
+            }else {
+                return "sie ";
+            }
+        }else if (grundstück.getClass().equals(Werk.class)){
+            if (istGroß){
+                return "Es ";
+            }else {
+                return "es ";
+            }
+        }else
+            throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
     }
 }
