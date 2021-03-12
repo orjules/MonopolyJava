@@ -32,13 +32,16 @@ public class Spielleiter {
         geradeDran = alleSpieler.get(neuerWert);
     }
 
-    public void spielerBewegen(int wert){
+    public String spielerBewegen(int wert){
         int neuePos = getGeradeDran().getAktuellePos().ordinal() + wert;
         if (neuePos >= Felder.values().length){
             neuePos -= Felder.values().length;
-            // TODO hier das über los gehen erkennen
+            // Bedeutet der Spieler ist über los gegangen
+            kapitalÄndernVon(geradeDran, 200);
+            return geradeDran.getName() + " ist über 'Los' gegangen und hat 200€ eingezogen.";
         }
         getGeradeDran().aktuellePos = Felder.values()[neuePos];
+        return null;
     }
 
     public void spielerSetzten(Felder feld){

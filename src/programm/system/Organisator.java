@@ -99,13 +99,17 @@ public class Organisator {
 
     private void würfelnUndDarstellen(){
         int [] wurf = würfel.würfeln();
+        String evtlText = null;
         if (würfel.mussInsGefängnis()){
             // TODO ins Gefängnis für zu viele Pasche
         }else {
-            spielleiter.spielerBewegen(wurf[2]);
+            evtlText = spielleiter.spielerBewegen(wurf[2]);
         }
         darsteller.brettZeichnen();
         darsteller.spielerHatGeworfen(wurf);
+        if (evtlText != null){
+            darsteller.ausgabe(evtlText);
+        }
     }
 
     private void feldAbarbeiten(){
