@@ -209,14 +209,25 @@ public class Organisator {
 
     // Später wichtig, wenn man etwas kaufen/ bezahlen will aber nicht genug Geld hat, soll man die Verwaltung öffnen können
     private void nichtGenugKapital(int zuZahlen){
-        // TODO
-        //  1. ausrechnen wie viel zu wenig
-        //  2. sagen, wie viel zu wenig und sagen man kann zur Übersicht oder aufgeben
-        //  3. Bei Übersicht noochmal ausrechnen und evtl das ganze nochmal
-        //  4. Bei Aufgeben, dem Spielleiter mitteilen und return
-        // frage += "Dir fehlen " + (-zuWenig) + "€. Du muss in der Übersicht etwas verkaufen oder aufgeben.\n";
-        // frage += "'x' um aufzugeben\n";
-        // erlaubteEingaben.add("x");
+        while (true){
+            // 1. ausrechnen wie viel zu wenig
+            int neuesKapital = spielleiter.getGeradeDran().getKapital() - zuZahlen;
+            // 2. Überprüfen ob abgebrochen werden kann
+            if (neuesKapital > 0){
+                return;
+            }
+            // 3. sagen, wie viel zu wenig und sagen man kann zur Übersicht oder aufgeben und gleich verabrbeiten
+            switch (darsteller.eingabeFragen("Dir fehlen " + (-neuesKapital) + "€. Du muss in der Übersicht " +
+                            "etwas verkaufen oder das Spiel aufgeben.\n'ü' um die Übersicht zu öffnen\n'x' um aufzugeben",
+                    new String[]{"ü","x"})){
+                case "ü":
+                    übersichtAnzeigen();
+                    break;
+                case "x":
+                    spielleiter.aufgeben();
+                    return;
+            }
+        }
     }
 
     private void grundstückVersteigern(Grundstück grundstück){
