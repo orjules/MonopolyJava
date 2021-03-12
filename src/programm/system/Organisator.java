@@ -89,11 +89,6 @@ public class Organisator {
         darsteller.spielerHatGeworfen(wurf);
     }
 
-    private void übersichtAnzeigen(){
-        // TODO Übersicht implementieren
-        darsteller.ausgabe("Debug: Hier wäre die Übersicht.");
-    }
-
     private void feldAbarbeiten(){
         Felder feld = spielleiter.getGeradeDran().getAktuellePos();
 
@@ -118,8 +113,6 @@ public class Organisator {
             throw new IllegalStateException("Es wurde weder ein freies Feld, noch ein Karte, noch ein Grundstück gefunden!");
         }
         if (grundbuch.istZuVerkaufen(grundstück)){
-            darsteller.ausgabe(grundbuch.textFürGelandetAuf(grundstück) + " Der Kaufpreis ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
-                    + spielleiter.getGeradeDran().getKapital() + "€.");
             kaufenVon(grundstück);
         }else {
             mieteZahlenBei(grundstück);
@@ -132,13 +125,29 @@ public class Organisator {
     }
 
     private void kaufenVon(Grundstück grundstück){
-        // TODO implementieren
-        darsteller.ausgabe("Debug: Endpunkt, Kaufen passiert hier.");
+        while (true){
+            darsteller.ausgabe(grundbuch.textFürGelandetAuf(grundstück) + " Der Kaufpreis ist " + grundstück.getGrundstücksWert()
+                    + "€. Dein Kapital ist " + spielleiter.getGeradeDran().getKapital() + "€.");
+            String eingabe = darsteller.eingabeFragen(
+                    "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um zur Übersicht zu gehen",
+                    new String[]{"a", "n", "ü"});
+            if (eingabe.equals("a")){
+                // TODO eigentlichen Kauf ausführen
+                return;
+            }else if (eingabe.equals("n")){
+                return;
+            }
+        }
     }
 
     private void mieteZahlenBei(Grundstück grundstück){
         // TODO implementieren
         darsteller.ausgabe("Debug: Endpunkt, Miete zahlen passiert hier.");
+    }
+
+    private void übersichtAnzeigen(){
+        // TODO Übersicht implementieren
+        darsteller.ausgabe("Debug: Hier wäre die Übersicht.");
     }
 
     // Später wichtig, wenn man etwas kaufen/ bezahlen will aber nicht genug Geld hat, soll man die Verwaltung öffnen können

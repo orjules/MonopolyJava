@@ -40,7 +40,7 @@ public class Grundbuch{
     }
 
     public Boolean istZuVerkaufen(Grundstück grundstück){
-        System.out.println("Debug: Abfrage ob zu verkaufen.");
+        // TODO im grundbuch checken
         return true;
     }
 
