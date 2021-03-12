@@ -2,6 +2,7 @@ package programm.system.spieler;
 
 import programm.system.Felder;
 
+
 public class Spielleiter {
     private Spieler[] alleSpieler = new Spieler[] {
             new Spieler("Günther", '#', Felder.Los, false, 1500),
@@ -52,6 +53,10 @@ public class Spielleiter {
     public void geldÜbertragen(Spieler von, Spieler an, int menge){
         kapitalÄndernVon(von, -menge);
         kapitalÄndernVon(an, menge);
+    }
+
+    public void aufgeben(){
+        // dafür muss erst der Array zu ArrayList gemacht werden.
     }
 
     public boolean spielLäuft(){

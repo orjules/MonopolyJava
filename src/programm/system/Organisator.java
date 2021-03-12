@@ -39,6 +39,7 @@ public class Organisator {
 
             innenLoop: while (true){
                 feldAbarbeiten();
+                // TODO überprüfen ob jemand aufgegeben hat und hier aus dem loop springen bzw weiter
 
                 endabfrageLoop: while (true){
                     // Abfrage erstellen: immer 'ü' aber unterscheiden zwischen 'w' bei pasch und 'z' sonst
@@ -148,7 +149,7 @@ public class Organisator {
                             + grundstück.getName() + " ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
                             + spielleiter.getGeradeDran().getKapital() + "€.");
             String eingabe = darsteller.eingabeFragen(
-                    "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um zur Übersicht zu gehen",
+                    "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um die Übersicht zu öffnen",
                     new String[]{"a", "n", "ü"});
             if (eingabe.equals("a")){
                 spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), -grundstück.getGrundstücksWert());
@@ -166,19 +167,56 @@ public class Organisator {
 
     private void mieteZahlenBei(Grundstück grundstück, Spieler besitzer){
         int miete = grundstück.mieteBerechnen(besitzer, grundbuch, würfel.getLetztenWurf());
-        darsteller.ausgabe("Die Miete von " + grundbuch.artikelFür(grundstück, false, false) +
-                grundstück.getName() + " ist " + miete + "€.");
-        spielleiter.geldÜbertragen(spielleiter.getGeradeDran(), besitzer, miete);
+        while (true){
+            // Sagen was los ist
+            darsteller.umbruch();
+            darsteller.ausgabe("Die Miete von " + grundbuch.artikelFür(grundstück, false, false) +
+                    grundstück.getName() + " ist " + miete + "€.");
+
+            // Bestätigung fragen, bzw weiterleiten, wenn man zu wenig Geld hat
+            String frage = "";
+            ArrayList<String> erlaubteEingaben = new ArrayList<>();
+            if (spielleiter.getGeradeDran().getKapital() - miete < 0){
+                nichtGenugKapital(miete);
+            }else {
+                frage += "'a' um das Bezahlen zu bestätigen\n";
+                erlaubteEingaben.add("a");
+            }
+            frage += "'ü' um die Übersicht zu öffnen";
+            erlaubteEingaben.add("ü");
+            String eingabe = darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
+            switch (eingabe){
+                case "a":
+                    spielleiter.geldÜbertragen(spielleiter.getGeradeDran(), besitzer, miete);
+                    darsteller.ausgabe("Dein neues Kapital ist " + spielleiter.getGeradeDran().getKapital() + "€.");
+                    return;
+                case "x":
+                    // TODO Aufgeben implementieren
+                    darsteller.ausgabe("DEBUG: " + spielleiter.getGeradeDran() + " will aufgeben");
+                    return;
+                case "ü":
+                    übersichtAnzeigen();
+                    break;
+            }
+        }
     }
 
     private void übersichtAnzeigen(){
         darsteller.ausgabe("Dein momentanes Kapital ist: " + spielleiter.getGeradeDran().getKapital() + "€.");
         darsteller.grundstückÜbersicht(grundbuch.alleGrundstückeVon(spielleiter.getGeradeDran()));
+        darsteller.ausgabe("DEBUG: Häuser ver-/kaufen und Handel ist noch nicht implementiert.");
     }
 
     // Später wichtig, wenn man etwas kaufen/ bezahlen will aber nicht genug Geld hat, soll man die Verwaltung öffnen können
-    private void nichtGenugKapital(){
-        // TODO implementieren
+    private void nichtGenugKapital(int zuZahlen){
+        // TODO
+        //  1. ausrechnen wie viel zu wenig
+        //  2. sagen, wie viel zu wenig und sagen man kann zur Übersicht oder aufgeben
+        //  3. Bei Übersicht noochmal ausrechnen und evtl das ganze nochmal
+        //  4. Bei Aufgeben, dem Spielleiter mitteilen und return
+        // frage += "Dir fehlen " + (-zuWenig) + "€. Du muss in der Übersicht etwas verkaufen oder aufgeben.\n";
+        // frage += "'x' um aufzugeben\n";
+        // erlaubteEingaben.add("x");
     }
 
     private void grundstückVersteigern(Grundstück grundstück){
