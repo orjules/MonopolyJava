@@ -39,8 +39,12 @@ public class Organisator {
                 darsteller.eingabeFragen("Als erstes musst du würfeln. Drücke 'w'", new String[]{"w"});
                 würfelnUndDarstellen();
             }
+            // TODO Überprüfen ob spieler im Gefängnis ist: -> script fürs evtl frei kommen
+            //  solange in dem Script bis frei oder eben nicht (man darf darin die Übersicht öffnen)
+            //  wenn frei normal weiter, sonst runde beenden
 
             innenLoop: while (true){
+
                 feldAbarbeiten();
                 //  Überprüfen ob jemand aufgegeben bzw der letzte aufgegeben hat
                 if (!gradDran.equals(spielleiter.getGeradeDran())){
@@ -217,13 +221,10 @@ public class Organisator {
                 if (!gradDran.equals(spielleiter.getGeradeDran()) || !spielleiter.spielLäuft()){
                     return;
                 }
-            }else {
-                frage += "'a' um das Bezahlen zu bestätigen\n";
-                erlaubteEingaben.add("a");
             }
-            frage += "'ü' um die Übersicht zu öffnen";
-            erlaubteEingaben.add("ü");
-            switch (darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]))){
+            // Hier muss der Spieler genug Geld haben oder er hat aufgegeben
+            switch (darsteller.eingabeFragen("'a' um das Bezahlen zu bestätigen\n'ü' um die Übersicht zu öffnen",
+                    new String[]{"a", "ü"})){
                 case "a":
                     spielleiter.geldÜbertragen(gradDran, besitzer, miete);
                     darsteller.ausgabe("Dein neues Kapital ist " + gradDran.getKapital() + "€.");
