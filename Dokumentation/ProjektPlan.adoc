@@ -31,7 +31,7 @@ Das Programm ist in drei Teile unterteilt:
 
 === Aktivitätsdiagramm
 
-image::https://github.com/orjules/MonopolyJava/blob/Bewegung/Dokumentation/Entwurf/gameLoop%C3%9Cbersicht_ErsteVersion.svg[Das Aktivitätsdiagramm]
+image::https://github.com/orjules/MonopolyJava/blob/kaufenUndBewegung/Dokumentation/Entwurf/gameLoop_MitPackages.svg[Das Aktivitätsdiagramm]
 
 Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht in ein Diagramm übertragen. (Noch nicht vollständig)
 
