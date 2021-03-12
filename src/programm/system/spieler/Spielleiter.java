@@ -66,12 +66,17 @@ public class Spielleiter {
         if (alleSpieler.size() == 0){
             return;
         }else {
+            // Wenn es der letzte Spieler war, bleibt dieser aber noch der Spieler, der gerade dran ist
+            if (alterIndex == alleSpieler.size()){
+                // Für den Fall, dass der letzte in der Reihenfolge rausgelöscht wurde
+                alterIndex --;
+            }
             geradeDran = alleSpieler.get(alterIndex);
         }
     }
 
     public boolean spielLäuft(){
-        if (alleSpieler.size() > 0){
+        if (alleSpieler.size() > 1){
             return true;
         }
         return false;

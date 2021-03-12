@@ -42,7 +42,19 @@ public class Organisator {
 
             innenLoop: while (true){
                 feldAbarbeiten();
-                // TODO überprüfen ob jemand aufgegeben hat und hier aus dem loop springen bzw weiter
+                //  Überprüfen ob jemand aufgegeben bzw der letzte aufgegeben hat
+                if (!gradDran.equals(spielleiter.getGeradeDran())){
+                    if (!spielleiter.spielLäuft()){
+                        darsteller.ausgabe("Das Spiel ist vorbei. " + spielleiter.getGeradeDran().getName() + " hat gewonnen.");
+                        break außenLoop;
+                    }
+                    String ausgabe = "";
+                    ausgabe += gradDran.getName() + " hat aufgegeben, ";
+                    gradDran = spielleiter.getGeradeDran();
+                    ausgabe += gradDran.getName() + " ist jetzt dran.";
+                    darsteller.ausgabe(ausgabe);
+                    break innenLoop;
+                }
 
                 endabfrageLoop: while (true){
                     // Abfrage erstellen: immer 'ü' aber unterscheiden zwischen 'w' bei pasch und 'z' sonst
@@ -197,21 +209,20 @@ public class Organisator {
             ArrayList<String> erlaubteEingaben = new ArrayList<>();
             if (gradDran.getKapital() - miete < 0){
                 nichtGenugKapital(miete);
+                // Hier hat der Spieler evtl aufgegeben, in dem Fall soll das Bezahlen abgebrochen werden, sonst bezahlen lassen
+                if (!gradDran.equals(spielleiter.getGeradeDran()) || !spielleiter.spielLäuft()){
+                    return;
+                }
             }else {
                 frage += "'a' um das Bezahlen zu bestätigen\n";
                 erlaubteEingaben.add("a");
             }
             frage += "'ü' um die Übersicht zu öffnen";
             erlaubteEingaben.add("ü");
-            String eingabe = darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
-            switch (eingabe){
+            switch (darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]))){
                 case "a":
                     spielleiter.geldÜbertragen(gradDran, besitzer, miete);
                     darsteller.ausgabe("Dein neues Kapital ist " + gradDran.getKapital() + "€.");
-                    return;
-                case "x":
-                    // TODO Aufgeben implementieren
-                    darsteller.ausgabe("DEBUG: " + gradDran.getName() + " will aufgeben");
                     return;
                 case "ü":
                     übersichtAnzeigen();

@@ -27,6 +27,21 @@ public class SpielleiterTest {
     }
 
     @Test
+    public void letzterInDerReiheGeht(){
+        // setUp
+        ArrayList<Spieler> dreiSpieler = new ArrayList<>(Arrays.asList(
+                new Spieler("Günther", '#', Felder.Los, false, 1500),
+                new Spieler("Monika", '?', Felder.Los, false, 1500),
+                new Spieler("Detlef", '!', Felder.Los, false, 1500)));
+        Spielleiter testLeiter = new Spielleiter(new ArrayList<>(dreiSpieler));
+        // Ausführen, wenn der mittlere Aufgibt
+        testLeiter.weiter();
+        testLeiter.weiter();
+        testLeiter.aufgeben();
+        assertEquals(dreiSpieler.get(1), testLeiter.getGeradeDran());
+    }
+
+    @Test
     public void letztePersonGeht(){
         // setUp
         ArrayList<Spieler> einSpieler = new ArrayList<>(Arrays.asList(
@@ -47,5 +62,18 @@ public class SpielleiterTest {
         // Ausführen
         testLeiter.aufgeben();
         assertEquals(zweiSpieler.get(1),testLeiter.getGeradeDran());
+    }
+
+    @Test
+    public void letzterVonZweienGeht(){
+        // setUp
+        ArrayList<Spieler> zweiSpieler = new ArrayList<>(Arrays.asList(
+                new Spieler("Günther", '#', Felder.Los, false, 1500),
+                new Spieler("Detlef", '!', Felder.Los, false, 1500)));
+        Spielleiter testLeiter = new Spielleiter(new ArrayList<>(zweiSpieler));
+        // Ausführen
+        testLeiter.weiter();
+        testLeiter.aufgeben();
+        assertEquals(zweiSpieler.get(0),testLeiter.getGeradeDran());
     }
 }
