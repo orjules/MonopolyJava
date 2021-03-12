@@ -16,8 +16,8 @@ public class Main {
         Würfel würfel = new Würfel();
         ArrayList<Spieler> testSpieler = new ArrayList<>(Arrays.asList(
                 new Spieler("Günther", '#', Felder.Los, false, 1500),
-                new Spieler("Monika", '?', Felder.Los, false, 1500),
-                new Spieler("Detlef", '!', Felder.Los, false, 1500)
+                new Spieler("Monika", '?', Felder.Los, false, 500),
+                new Spieler("Detlef", '!', Felder.Los, false, 15)
         ));
         Spielleiter spielleiter = new Spielleiter(testSpieler);
         Darsteller darsteller = new Darsteller(spielleiter);

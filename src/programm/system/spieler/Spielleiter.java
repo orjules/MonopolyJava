@@ -38,6 +38,7 @@ public class Spielleiter {
             neuePos -= Felder.values().length;
             // Bedeutet der Spieler ist über los gegangen
             kapitalÄndernVon(geradeDran, 200);
+            getGeradeDran().aktuellePos = Felder.values()[neuePos];
             return geradeDran.getName() + " ist über 'Los' gegangen und hat 200€ eingezogen.";
         }
         getGeradeDran().aktuellePos = Felder.values()[neuePos];
