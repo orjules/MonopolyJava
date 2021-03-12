@@ -10,11 +10,8 @@ public class Spielleiter {
     private ArrayList<Spieler> alleSpieler = new ArrayList<>();
     private Spieler geradeDran;
 
-    public Spielleiter() {
-        alleSpieler = (ArrayList<Spieler>) Arrays.asList(
-                new Spieler("Günther", '#', Felder.Los, false, 1500),
-                new Spieler("Monika", '?', Felder.Los, false, 1500),
-                new Spieler("Detlef", '!', Felder.Los, false, 1));
+    public Spielleiter(ArrayList<Spieler> alleSpieler) {
+        this.alleSpieler = alleSpieler;
         geradeDran = alleSpieler.get(0);
     }
 
@@ -66,7 +63,11 @@ public class Spielleiter {
     public void aufgeben(){
         int alterIndex = alleSpieler.indexOf(geradeDran);
         alleSpieler.remove(geradeDran);
-        geradeDran = alleSpieler.get(alterIndex);
+        if (alleSpieler.size() == 0){
+            return;
+        }else {
+            geradeDran = alleSpieler.get(alterIndex);
+        }
     }
 
     public boolean spielLäuft(){
