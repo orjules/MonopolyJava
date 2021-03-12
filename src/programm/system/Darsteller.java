@@ -70,6 +70,8 @@ public class Darsteller {
         for (Grundstück g : besitz){
             if (g.getClass().equals(Straße.class)){
                 tab.addZeile(new String[]{g.getName(), String.valueOf(((Straße) g).getAusbauLevel())});
+            }else {
+                tab.addZeile(new String[]{g.getName(), "Ist keine Straße"});
             }
         }
         System.out.print(tab);

@@ -122,10 +122,16 @@ public class Organisator {
             ausgabe += grundbuch.pronomenFür(grundstück, true) + "ist noch zu verkaufen.";
             darsteller.ausgabe(ausgabe);
             kaufenVon(grundstück);
+            return;
+        }else if (besitzer.equals(spielleiter.getGeradeDran())){
+            ausgabe += grundbuch.pronomenFür(grundstück, true) + "gehört dir.";
+            darsteller.ausgabe(ausgabe);
+            return;
         }else {
             ausgabe += grundbuch.pronomenFür(grundstück, true) + "gehört " + besitzer.getName() + ".";
             darsteller.ausgabe(ausgabe);
             mieteZahlenBei(grundstück, besitzer);
+            return;
         }
     }
 
@@ -164,7 +170,7 @@ public class Organisator {
     }
 
     private void übersichtAnzeigen(){
-        darsteller.ausgabe("Dein momentanes Kapital ist:" + spielleiter.getGeradeDran().getKapital() + "€.");
+        darsteller.ausgabe("Dein momentanes Kapital ist: " + spielleiter.getGeradeDran().getKapital() + "€.");
         darsteller.grundstückÜbersicht(grundbuch.alleGrundstückeVon(spielleiter.getGeradeDran()));
     }
 
