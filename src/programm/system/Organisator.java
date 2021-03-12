@@ -152,21 +152,35 @@ public class Organisator {
                     "Der Kaufpreis für " + grundbuch.artikelFür(grundstück, true, false)
                             + grundstück.getName() + " ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
                             + gradDran.getKapital() + "€.");
-            // Checken ob genug Geld für den Kauf vorhanden ist
-            // TODO int neuesKapital
-            String eingabe = darsteller.eingabeFragen(
-                    "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um die Übersicht zu öffnen",
-                    new String[]{"a", "n", "ü"});
-            if (eingabe.equals("a")){
-                spielleiter.kapitalÄndernVon(gradDran, -grundstück.getGrundstücksWert());
-                darsteller.ausgabe(grundbuch.übertragenAn(grundstück, gradDran)
-                        + " Dein neues Kapital ist: " + gradDran.getKapital());
-                return;
-            }else if (eingabe.equals("n")){
-                grundstückVersteigern(grundstück);
-                return;
-            }else if (eingabe.equals("ü")){
-                übersichtAnzeigen();
+            // Checken ob genug Geld für den Kauf vorhanden ist und danach die Ausgabe anpassen
+            int neuesKapital = gradDran.getKapital() - grundstück.getGrundstücksWert();
+            String frage = "";
+            ArrayList<String> erlaubteEingaben = new ArrayList<>();
+            if (neuesKapital < 0){
+                frage += "Du besitzt nicht genug Geld um das Grundstück zu kaufen. In der Übersicht kannst du etwas verkaufen.\n";
+            }else {
+                frage += "'a' um das Grundstück zu kaufen\n";
+                erlaubteEingaben.add("a");
+            }
+            // Egal was davor passiert, man kann immer verwalten und nein sagen
+            frage += "'n' um das Grundstück nicht zu kaufen\n";
+            erlaubteEingaben.add("n");
+            frage += "'ü' um die Übersicht zu öffnen";
+            erlaubteEingaben.add("ü");
+
+            switch (darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]))){
+                case "a":
+                    spielleiter.kapitalÄndernVon(gradDran, -grundstück.getGrundstücksWert());
+                    darsteller.ausgabe(grundbuch.übertragenAn(grundstück, gradDran)
+                            + " Dein neues Kapital ist: " + gradDran.getKapital());
+                    return;
+                case "n":
+                    grundstückVersteigern(grundstück);
+                    return;
+                case "ü":
+                    übersichtAnzeigen();
+                    break;
+                default:
             }
         }
     }
