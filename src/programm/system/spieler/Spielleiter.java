@@ -2,29 +2,37 @@ package programm.system.spieler;
 
 import programm.system.Felder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Spielleiter {
-    private Spieler[] alleSpieler = new Spieler[] {
-            new Spieler("Günther", '#', Felder.Los, false, 1500),
-            new Spieler("Monika", '?', Felder.Los, false, 1500),
-            new Spieler("Detlef", '!', Felder.Los, false, 1),
-    };
-    private int geradeDran = 0;
+    private ArrayList<Spieler> alleSpieler = new ArrayList<>();
+    private Spieler geradeDran;
+
+    public Spielleiter() {
+        alleSpieler = (ArrayList<Spieler>) Arrays.asList(
+                new Spieler("Günther", '#', Felder.Los, false, 1500),
+                new Spieler("Monika", '?', Felder.Los, false, 1500),
+                new Spieler("Detlef", '!', Felder.Los, false, 1));
+        geradeDran = alleSpieler.get(0);
+    }
+
 
     public Spieler getGeradeDran(){
-        return alleSpieler[geradeDran];
+        return geradeDran;
     }
 
     public Spieler[] getAlleSpieler() {
-        return alleSpieler;
+        return alleSpieler.toArray(new Spieler[alleSpieler.size()]);
     }
 
     public void weiter(){
-        int neuerWert = geradeDran + 1;
-        if (neuerWert >= alleSpieler.length){
-            neuerWert -= alleSpieler.length;
+        int neuerWert = alleSpieler.indexOf(geradeDran) + 1;
+        if (neuerWert >= alleSpieler.size()){
+            neuerWert -= alleSpieler.size();
         }
-        geradeDran = neuerWert;
+        geradeDran = alleSpieler.get(neuerWert);
     }
 
     public void spielerBewegen(int wert){
@@ -56,11 +64,13 @@ public class Spielleiter {
     }
 
     public void aufgeben(){
-        // dafür muss erst der Array zu ArrayList gemacht werden.
+        int alterIndex = alleSpieler.indexOf(geradeDran);
+        alleSpieler.remove(geradeDran);
+        geradeDran = alleSpieler.get(alterIndex);
     }
 
     public boolean spielLäuft(){
-        if (alleSpieler.length > 0){
+        if (alleSpieler.size() > 0){
             return true;
         }
         return false;

@@ -167,7 +167,6 @@ public class Organisator {
             erlaubteEingaben.add("n");
             frage += "'ü' um die Übersicht zu öffnen";
             erlaubteEingaben.add("ü");
-
             switch (darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]))){
                 case "a":
                     spielleiter.kapitalÄndernVon(gradDran, -grundstück.getGrundstücksWert());
