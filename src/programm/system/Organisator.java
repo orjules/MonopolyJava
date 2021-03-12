@@ -134,7 +134,9 @@ public class Organisator {
                     "'a' um das Grundstück zu kaufen\n'n' um das Grundstück nicht zu kaufen\n'ü' um zur Übersicht zu gehen",
                     new String[]{"a", "n", "ü"});
             if (eingabe.equals("a")){
-                darsteller.ausgabe(grundbuch.grundstückVerkaufen(grundstück, spielleiter.getGeradeDran()));
+                spielleiter.spielerKapitalÄndern(-grundstück.getGrundstücksWert());
+                darsteller.ausgabe(grundbuch.übertragenAn(grundstück, spielleiter.getGeradeDran())
+                        + " Dein neues Kapital ist: " + spielleiter.getGeradeDran().getKapital());
                 return;
             }else if (eingabe.equals("n")){
                 return;

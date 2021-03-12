@@ -45,7 +45,7 @@ public class Grundbuch{
     }
 
     // gibt die Kaufbestätigung zurück
-    public String grundstückVerkaufen(Grundstück grundstück, Spieler an){
+    public String übertragenAn(Grundstück grundstück, Spieler an){
         grundbuch.put(grundstück, an);
         return pronomenFür(grundstück, true, true) + grundstück.getName() + " gehört nun " + an.getName() + ".";
     }
