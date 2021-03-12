@@ -112,10 +112,11 @@ public class Organisator {
         if (grundstück == null){
             throw new IllegalStateException("Es wurde weder ein freies Feld, noch ein Karte, noch ein Grundstück gefunden!");
         }
-        if (grundbuch.istZuVerkaufen(grundstück)){
+        Spieler besitzer = grundbuch.getBesitzerVon(grundstück);
+        if (besitzer == null){
             kaufenVon(grundstück);
         }else {
-            mieteZahlenBei(grundstück);
+            mieteZahlenBei(grundstück, besitzer);
         }
     }
 
@@ -144,9 +145,9 @@ public class Organisator {
         }
     }
 
-    private void mieteZahlenBei(Grundstück grundstück){
+    private void mieteZahlenBei(Grundstück grundstück, Spieler besitzer){
         // TODO implementieren
-        darsteller.ausgabe("Debug: Endpunkt, Miete zahlen passiert hier.");
+        darsteller.ausgabe("Debug: Endpunkt, Miete zahlen bei: " + besitzer.getName());
     }
 
     private void übersichtAnzeigen(){

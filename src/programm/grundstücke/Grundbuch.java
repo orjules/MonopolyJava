@@ -39,9 +39,13 @@ public class Grundbuch{
         return null;
     }
 
-    public Boolean istZuVerkaufen(Grundstück grundstück){
-        // TODO im grundbuch checken
-        return true;
+    public Spieler getBesitzerVon(Grundstück grundstück){
+        for (Map.Entry<Grundstück, Spieler> entry : grundbuch.entrySet()){
+            if (entry.getKey().equals(grundstück)){
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     // gibt die Kaufbestätigung zurück
