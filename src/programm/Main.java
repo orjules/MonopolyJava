@@ -23,15 +23,6 @@ public class Main {
         Spielleiter spielleiter = new Spielleiter(testSpieler);
         Darsteller darsteller = new Darsteller(spielleiter);
         Grundbuch grundbuch = new Grundbuch();
-        // Testweise gehören alle Grundstücje dem Detlef
-        /*
-        grundbuch.übertragenAn(grundbuch.grundstückVon(Felder.Turmstraße), testSpieler.get(2));
-        grundbuch.übertragenAn(grundbuch.grundstückVon(Felder.Badstraße), testSpieler.get(2));
-        grundbuch.übertragenAn(grundbuch.grundstückVon(Felder.Südbahnhof), testSpieler.get(2));
-        grundbuch.übertragenAn(grundbuch.grundstückVon(Felder.Chaussestraße), testSpieler.get(2));
-        grundbuch.übertragenAn(grundbuch.grundstückVon(Felder.Elisenstraße), testSpieler.get(2));
-        grundbuch.übertragenAn(grundbuch.grundstückVon(Felder.Poststraße), testSpieler.get(2));
-         */
         Kartenmanager kartenmanager = new Kartenmanager();
         Organisator organisator = new Organisator(spielleiter, darsteller, würfel, grundbuch, kartenmanager);
 

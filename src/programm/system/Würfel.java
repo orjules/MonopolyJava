@@ -2,10 +2,10 @@ package programm.system;
 import java.util.Random;
 
 public class Würfel {
-
-    private boolean hatPasch = false;
-    private int anzahlPasche = 0;
-    private int letzterWurf = 0;
+    // Müssen Protected sein, damit der MockWürfel darauf zugreifen kann
+    protected boolean hatPasch = false;
+    protected int anzahlPasche = 0;
+    protected int letzterWurf = 0;
 
     public int[] würfeln(){
         Random rnd = new Random();

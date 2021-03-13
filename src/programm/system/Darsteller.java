@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class Darsteller {
 
-    Spielleiter spielleiter;
-    Scanner scanner = new Scanner(System.in);
+    private Spielleiter spielleiter;
+    private Scanner scanner = new Scanner(System.in);
 
     public Darsteller(Spielleiter spielleiter) {
         this.spielleiter = spielleiter;
@@ -31,7 +31,7 @@ public class Darsteller {
     }
 
     public void spielerHatGeworfen(int[] wurf){
-        System.out.println(spielleiter.getGeradeDran().getName() + " hat eine " + wurf[0] + ", " + wurf[1] + " gewürfelt.");
+        ausgabe(spielleiter.getGeradeDran().getName() + " hat eine " + wurf[0] + ", " + wurf[1] + " gewürfelt.");
     }
 
     public void brettZeichnen(){
