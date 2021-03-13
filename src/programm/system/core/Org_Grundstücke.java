@@ -7,6 +7,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Org_Grundstücke {
 
@@ -46,7 +47,7 @@ public class Org_Grundstücke {
             erlaubteEingaben.add("n");
             frage += "'ü' um die Übersicht zu öffnen";
             erlaubteEingaben.add("ü");
-            switch (darsteller.eingabeFragen(frage, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]))){
+            switch (darsteller.eingabeFragen(frage, erlaubteEingaben)){
                 case "a":
                     spielleiter.kapitalÄndernVon(gradDran, -grundstück.getGrundstücksWert());
                     darsteller.ausgabe(grundbuch.übertragenAn(grundstück, gradDran)
@@ -63,7 +64,7 @@ public class Org_Grundstücke {
         }
     }
 
-    void mieteZahlenBei(Grundstück grundstück, Spieler besitzer, Spieler gradDran, int miete){
+    void mieteZahlenBei(Grundstück grundstück, Spieler besitzer, int miete){
         while (true){
             // Sagen was los ist
             darsteller.umbruch();
@@ -82,7 +83,7 @@ public class Org_Grundstücke {
             }
             // Hier muss der Spieler genug Geld haben oder er hat aufgegeben
             switch (darsteller.eingabeFragen("'a' um das Bezahlen zu bestätigen\n'ü' um die Übersicht zu öffnen",
-                    new String[]{"a", "ü"})){
+                    new ArrayList<String>(Arrays.asList("a", "ü")))){
                 case "a":
                     spielleiter.geldÜbertragen(gradDran, besitzer, miete);
                     darsteller.ausgabe("Dein neues Kapital ist " + gradDran.getKapital() + "€.");

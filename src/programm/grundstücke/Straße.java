@@ -1,20 +1,19 @@
 package programm.grundstücke;
 
 import programm.system.Felder;
-import programm.system.Würfel;
 import programm.system.spieler.Spieler;
 
 public class Straße extends Grundstück{
-    Farben farbe;
-    int mieteAlleine;
-    int mieteEinHaus;
-    int mieteZweiHaus;
-    int mieteDreiHaus;
-    int mieteVierHaus;
-    int mieteHotel;
-    int baukosten;
-    int anzahlHaus;
-    boolean hatHotel;
+    private Farben farbe;
+    private int mieteAlleine;
+    private int mieteEinHaus;
+    private int mieteZweiHaus;
+    private int mieteDreiHaus;
+    private int mieteVierHaus;
+    private int mieteHotel;
+    private int baukosten;
+    private int anzahlHaus;
+    private boolean hatHotel;
 
     public Straße(String name, Felder feld, int grundstücksWert, int hypothekWert, Farben farbe, int mieteAlleine,
                   int mieteEinHaus, int mieteZweiHaus, int mieteDreiHaus, int mieteVierHaus, int mieteHotel,

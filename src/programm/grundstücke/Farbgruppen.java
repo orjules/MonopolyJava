@@ -1,9 +1,9 @@
 package programm.grundstücke;
 
 public class Farbgruppen {
-    Farben farbe;
-    Straße[] zugehörigeStraßen;
-    boolean istKomplett;
+    private Farben farbe;
+    private Straße[] zugehörigeStraßen;
+    private boolean istKomplett;
 
     public Farbgruppen(Farben farbe, Straße[] zugehörigeStraßen) {
         this.farbe = farbe;

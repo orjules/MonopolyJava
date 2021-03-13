@@ -5,6 +5,7 @@ import programm.grundstücke.Straße;
 import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -17,7 +18,7 @@ public class Darsteller {
         this.spielleiter = spielleiter;
     }
 
-    public String eingabeFragen(String ausgabe, String[] erlaubteEingaben){
+    public String eingabeFragen(String ausgabe, ArrayList<String> erlaubteEingaben){
         System.out.println(ausgabe);
         while (true) {
             String eingabe = scanner.nextLine();

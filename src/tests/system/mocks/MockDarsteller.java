@@ -4,6 +4,7 @@ import programm.system.Darsteller;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MockDarsteller extends Darsteller {
 
@@ -21,7 +22,7 @@ public class MockDarsteller extends Darsteller {
     }
 
     @Override
-    public String eingabeFragen(String ausgabe, String[] erlaubteEingaben){
+    public String eingabeFragen(String ausgabe, ArrayList<String> erlaubteEingaben){
         mitschrift += ausgabe;
         if (festeAusgaben.size() > 1){
             return festeAusgaben.remove(0);

@@ -12,19 +12,20 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Organisator {
-    Spielleiter spielleiter;
-    Darsteller darsteller;
-    Würfel würfel;
-    Grundbuch grundbuch;
-    Kartenmanager kartenmanager;
+    private Spielleiter spielleiter;
+    private Darsteller darsteller;
+    private Würfel würfel;
+    private Grundbuch grundbuch;
+    private Kartenmanager kartenmanager;
 
     // der wird so oft gebraucht und nur an einer Stelle geändert
-    Spieler gradDran;
+    private Spieler gradDran;
 
     // Vorerst fest, später evtl im Constructor injected
-    Org_Hilfe orgHilfe;
+    private Org_Hilfe orgHilfe;
 
     public Organisator(Spielleiter spielleiter, Darsteller darsteller, Würfel würfel, Grundbuch grundbuch,
                        Kartenmanager kartenmanager) {
@@ -44,7 +45,7 @@ public class Organisator {
 
             // sofern der Spieler nicht im Gefängnis ist muss er immer erst würfeln
             if (!gradDran.getIstImGefängnis()){
-                darsteller.eingabeFragen("Als erstes musst du würfeln. Drücke 'w'", new String[]{"w"});
+                darsteller.eingabeFragen("Als erstes musst du würfeln. Drücke 'w'", new ArrayList<String>(Arrays.asList("w")));
                 würfelnUndDarstellen();
             }
             // TODO Überprüfen ob spieler im Gefängnis ist: -> script fürs evtl frei kommen
@@ -85,7 +86,7 @@ public class Organisator {
                     // Abfragen und auswerten
                     darsteller.umbruch();
                     darsteller.ausgabe(gradDran.getName() + " ist fertig mit den wichtigen Dingen aber noch dran.");
-                    String eingabe = darsteller.eingabeFragen(ausgabeText, erlaubteEingaben.toArray(new String[erlaubteEingaben.size()]));
+                    String eingabe = darsteller.eingabeFragen(ausgabeText, erlaubteEingaben);
                     switch (eingabe) {
                         case "w":
                             würfelnUndDarstellen();
@@ -167,7 +168,7 @@ public class Organisator {
             ausgabe += grundbuch.pronomenFür(grundstück, true) + "gehört " + besitzer.getName() + ".";
             darsteller.ausgabe(ausgabe);
             int miete = grundstück.mieteBerechnen(besitzer, grundbuch, würfel.getLetztenWurf());
-            orgGrundstücke.mieteZahlenBei(grundstück, besitzer, gradDran, miete);
+            orgGrundstücke.mieteZahlenBei(grundstück, besitzer, miete);
             return;
         }
     }

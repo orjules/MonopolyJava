@@ -4,6 +4,9 @@ import programm.grundstücke.Grundbuch;
 import programm.system.Darsteller;
 import programm.system.spieler.Spielleiter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Org_Hilfe {
     Darsteller darsteller;
     Grundbuch grundbuch;
@@ -33,7 +36,7 @@ public class Org_Hilfe {
             // 3. sagen, wie viel zu wenig und sagen man kann zur Übersicht oder aufgeben und gleich verabrbeiten
             switch (darsteller.eingabeFragen("Dir fehlen " + (-neuesKapital) + "€. Du muss in der Übersicht " +
                             "etwas verkaufen oder das Spiel aufgeben.\n'ü' um die Übersicht zu öffnen\n'x' um aufzugeben",
-                    new String[]{"ü","x"})){
+                    new ArrayList<String>(Arrays.asList("ü", "x")))){
                 case "ü":
                     übersichtAnzeigen();
                     break;
