@@ -19,7 +19,7 @@ Am stärksten Verknüpft ist der "Organisator", der mit den Klassen im "System"-
 
 === Klassendiagramm
 
-image::https://github.com/orjules/MonopolyJava/blob/Bewegung/Dokumentation/Entwurf/Entwurf1_SystemFertig.svg[Das Klassendiagramm]
+image::https://github.com/orjules/MonopolyJava/blob/kaufenUndBewegung/Dokumentation/Entwurf/Klassendiagramm_neusterStand.svg[Das Klassendiagramm]
 
 Das Programm ist in drei Teile unterteilt:
 
@@ -67,4 +67,20 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 
 - Dokumentation verbessert
 
-Als nächstes: Tests für fertige Klassen im "System"-Package erstellen
+=== 12.3.21
+
+- Erkennen auf welchem Feld man landet implementiert
+
+- Grundstücke kaufen und Miete zahlen implementiert
+
+- Aktivitätsdiagramm überarbeitet
+
+=== 13.3.21
+
+- Refactorisiert
+
+- Versucht Tests zu schreiben
+
+- Klassendiagramm angepasst
+
+Als nächstes: Tests verbessern und Plan machen, wie man die Karten implementiert
