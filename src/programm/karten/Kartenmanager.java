@@ -14,10 +14,10 @@ public class Kartenmanager {
                 Felder.Ereignisfeld1
         };
         festeKarten = new Ereigniskarte[]{
-                new Ereigniskarte("Einkommenssteuer. Zahle 200€.")
+                new BankGeld("Einkommenssteuer. Zahle 200€.")
         };
         randomKarten = new Ereigniskarte[]{
-                new Ereigniskarte("Platzhalter für zufällige Karte")
+                new BankGeld("Platzhalter für zufällige Karte")
         };
     }
 

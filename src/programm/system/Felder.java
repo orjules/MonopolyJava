@@ -11,5 +11,10 @@ public enum Felder {
     Ereignisfeld1,
     Elisenstraße,
     Poststraße,
-    Gefängnis_bzw_Besuch
+    Gefängnis_bzw_Besuch,
+    Seestraße,
+    Elektrizitätswerk,
+    Hafenstraße,
+    NeueStraße,
+    Westbahnhof
 }
