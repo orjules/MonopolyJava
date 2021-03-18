@@ -1,6 +1,7 @@
 package programm;
 
 import programm.grundstücke.Grundbuch;
+import programm.karten.KartenFactory;
 import programm.karten.Kartenmanager;
 import programm.system.*;
 import programm.system.core.Organisator;
@@ -23,7 +24,8 @@ public class Main {
         Spielleiter spielleiter = new Spielleiter(testSpieler);
         Darsteller darsteller = new Darsteller(spielleiter);
         Grundbuch grundbuch = new Grundbuch();
-        Kartenmanager kartenmanager = new Kartenmanager();
+        KartenFactory factory = new KartenFactory(spielleiter, würfel, grundbuch);
+        Kartenmanager kartenmanager = new Kartenmanager(factory.erstelleFesteKarten(), factory.erstelleRandomKarten());
         Organisator organisator = new Organisator(spielleiter, darsteller, würfel, grundbuch, kartenmanager);
 
         // eigentliches Spiel starten

@@ -128,7 +128,6 @@ public class Organisator {
     private void feldAbarbeiten(){
         Felder feld = gradDran.getAktuellePos();
         // Diese werden nur in dieser Funktion gebraucht
-        Org_Karten orgKarten = new Org_Karten(darsteller, kartenmanager, orgHilfe, gradDran);
         Org_Grundstücke orgGrundstücke = new Org_Grundstücke(spielleiter, darsteller, grundbuch, orgHilfe, gradDran);
 
         // 1. schauen ob frei - return oder weiter
@@ -139,10 +138,8 @@ public class Organisator {
                 return;
             }
         }
-        // 2. Kartenmanager fragen - bei Karte abarbeiten und dann abbrechen, bei null weiter
-        Ereigniskarte karte = kartenmanager.karteZiehen(feld);
-        if (karte != null){
-            orgKarten.karteAbarbeiten(karte);
+        // 2. Kartenmanager soll das Feld abarbeiten oder false zurückgeben
+        if (kartenmanager.karteVonFeldBearbeitet(feld, darsteller)){
             return;
         }
 

@@ -9,8 +9,7 @@ public abstract class Ereigniskarte{
         this.beschreibung = beschreibung;
     }
 
-    @Override
-    public String toString(){
+    public String getBeschreibung(){
         return beschreibung;
     }
 }
