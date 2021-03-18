@@ -12,4 +12,6 @@ public abstract class Ereigniskarte{
     public String getBeschreibung(){
         return beschreibung;
     }
+
+    public abstract String getBestätigung();
 }

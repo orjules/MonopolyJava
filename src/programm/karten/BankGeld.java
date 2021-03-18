@@ -1,8 +1,9 @@
 package programm.karten;
 
+import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
-public class BankGeld extends NormaleKarte {
+public class BankGeld extends NormaleKarte implements MussZahlen{
 
     int wert;
 
@@ -12,7 +13,17 @@ public class BankGeld extends NormaleKarte {
     }
 
     public void aktionAusführen(){
-        spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), wert);                // Ist simpel genug, dass man es im Org_Karten machen könnte
-        //return "Das Kapital von " + spielleiter.getGeradeDran().toString() + " ist nun " + spielleiter.getGeradeDran().getKapital();
+        spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), wert);
+    }
+
+    @Override
+    public int getWert() {
+        return wert;
+    }
+
+    @Override
+    public String getBestätigung() {
+        Spieler gradDran = spielleiter.getGeradeDran();
+        return gradDran.toString() +  " hat jetzt " + gradDran.getKapital() + "€.";
     }
 }

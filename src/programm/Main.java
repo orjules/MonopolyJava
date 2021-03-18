@@ -4,6 +4,7 @@ import programm.grundstücke.Grundbuch;
 import programm.karten.KartenFactory;
 import programm.karten.Kartenmanager;
 import programm.system.*;
+import programm.system.core.Org_Hilfe;
 import programm.system.core.Organisator;
 import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
@@ -17,16 +18,17 @@ public class Main {
         // Setup, damit es von den wichtigen Objekten nur jeweils eins gibt
         Würfel würfel = new Würfel();
         ArrayList<Spieler> testSpieler = new ArrayList<>(Arrays.asList(
-                new Spieler("Günther", '#', Felder.Los, false, 1500),
-                new Spieler("Monika", '?', Felder.Los, false, 500),
+                new Spieler("Günther", '#', Felder.Los, false, 15),
+                new Spieler("Monika", '?', Felder.Los, false, 5),
                 new Spieler("Detlef", '!', Felder.Los, false, 15)
         ));
         Spielleiter spielleiter = new Spielleiter(testSpieler);
         Darsteller darsteller = new Darsteller(spielleiter);
         Grundbuch grundbuch = new Grundbuch();
         KartenFactory factory = new KartenFactory(spielleiter, würfel, grundbuch);
-        Kartenmanager kartenmanager = new Kartenmanager(factory.erstelleFesteKarten(), factory.erstelleRandomKarten());
-        Organisator organisator = new Organisator(spielleiter, darsteller, würfel, grundbuch, kartenmanager);
+        Org_Hilfe orgHilfe = new Org_Hilfe(darsteller, grundbuch, spielleiter);
+        Kartenmanager kartenmanager = new Kartenmanager(factory.erstelleFesteKarten(), factory.erstelleRandomKarten(), orgHilfe);
+        Organisator organisator = new Organisator(spielleiter, darsteller, würfel, grundbuch, kartenmanager, orgHilfe);
 
         // eigentliches Spiel starten
         // TODO implemtierung, dass man am Anfang wirft um die Reihenfolge zu entscheiden

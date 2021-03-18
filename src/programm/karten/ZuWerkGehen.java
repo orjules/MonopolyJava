@@ -5,12 +5,13 @@ import programm.grundstücke.Grundbuch;
 import programm.system.Würfel;
 import programm.system.spieler.Spielleiter;
 
-public class ZuWerkGehen extends Ereigniskarte{
+public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
 
 
     protected ZuWerkGehen(String beschreibung) {
         super(beschreibung);
     }
+
 
     public String losgehen(Würfel würfel, Spielleiter spielleiter, Grundbuch grundbuch){
         // 1. nächstes Werk finden
@@ -22,5 +23,16 @@ public class ZuWerkGehen extends Ereigniskarte{
         // 6. return "(Spieler) hat (wurf) gewürfelt und (Besitzer) (Miete mal 10) gezahlt."
 
         return "DEBUG: losgehen in ZuWerkGehen ist noch nicht implementiert.";
+    }
+
+    @Override
+    public int getWert() {
+        // TODO getWert soll den Wert ausrechnen, der als field gespeichert wird und hier zurückgegeben - getBeschreibung wird immer danach aufgerufen
+        return 0;
+    }
+
+    @Override
+    public String getBestätigung() {
+        return null;
     }
 }

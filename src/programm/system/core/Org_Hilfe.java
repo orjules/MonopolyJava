@@ -46,4 +46,24 @@ public class Org_Hilfe {
             }
         }
     }
+    public void bezahlenOderZuWenigGeld(String initial, String textFürA, int wert){
+        if (spielleiter.getGeradeDran().getKapital() + wert < 0){
+            darsteller.ausgabe(initial);
+            nichtGenugKapital(-wert);
+            if (spielleiter.jemandHatGeradeAufgegeben())
+                return;
+        }
+        String text = initial + textFürA;
+        text += "\n'ü' um die Übersicht zu öffnen";
+        while (true){
+            String eingabe = darsteller.eingabeFragen(text, new ArrayList<String>(Arrays.asList("a", "ü")));
+            switch (eingabe){
+                case "a":
+                    return;
+                case "ü":
+                    übersichtAnzeigen();
+                    break;
+            }
+        }
+    }
 }

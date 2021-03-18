@@ -2,6 +2,8 @@ package programm.karten;
 
 import programm.system.Darsteller;
 import programm.system.Felder;
+import programm.system.core.Org_Hilfe;
+import programm.system.spieler.Spielleiter;
 
 import java.util.HashMap;
 
@@ -10,25 +12,30 @@ public class Kartenmanager {
     Felder[] zufälligeFelder;
     HashMap<Felder, Ereigniskarte> festeKartenMitFeld;
     Ereigniskarte[] randomKarten;
+    Org_Hilfe orgHilfe;
 
-    public Kartenmanager(HashMap<Felder, Ereigniskarte> festeKartenMitFeld, Ereigniskarte[]randomKarten) {
+    public Kartenmanager(HashMap<Felder, Ereigniskarte> festeKartenMitFeld, Ereigniskarte[]randomKarten, Org_Hilfe orgHilfe) {
         zufälligeFelder = new Felder[]{
                 Felder.Gemeinschaftsfeld1,
                 Felder.Ereignisfeld1
         };
         this.festeKartenMitFeld = festeKartenMitFeld;
         this.randomKarten = randomKarten;
+        this.orgHilfe = orgHilfe;
     }
 
-    public boolean karteVonFeldBearbeitet(Felder feld, Darsteller darsteller){
+    public boolean karteVonFeldBearbeitet(Felder feld, Darsteller darsteller, Spielleiter spielleiter){
         Ereigniskarte karte = karteZiehen(feld);
         if (karte == null){
             return false;
         }
+        eingabeAbwarten(karte, darsteller);
 
-        bestätigungAbarbeiten(karte, darsteller);
+        if (spielleiter.jemandHatGeradeAufgegeben()){
+            return true;
+        }
 
-        if (karte.getClass().equals(NormaleKarte.class)){
+        if (NormaleKarte.class.isAssignableFrom(karte.getClass())){     // isAssignable, weil NormaleKarte abstract ist
             ((NormaleKarte)karte).aktionAusführen();
         }else if(karte.getClass().equals(ZuWerkGehen.class)){
 
@@ -38,8 +45,8 @@ public class Kartenmanager {
             throw new IllegalArgumentException("Typ von Ereigniskarte nicht erkannt.");
         }
 
-        // TODO Bestätigung von der Karte fordern
-
+        darsteller.brettZeichnen();
+        darsteller.ausgabe(karte.getBestätigung());
         return true;
     }
 
@@ -63,8 +70,10 @@ public class Kartenmanager {
         return randomKarten[0];
     }
 
-    private void bestätigungAbarbeiten(Ereigniskarte karte, Darsteller darsteller){
-        darsteller.ausgabe(karte.toString());
-        // TODO Eingabe abfragen 'a' für bestätigen und 'ü' für übersicht
+    private void eingabeAbwarten(Ereigniskarte karte, Darsteller darsteller){
+        int wert = 0;
+        if (karte instanceof MussZahlen)
+            wert = ((MussZahlen) karte).getWert();  // Ist leider so gekoppelt, dass getWert vor getBeschreibung aufgerufen werden muss
+        orgHilfe.bezahlenOderZuWenigGeld(karte.getBeschreibung(), "\n'a' um zu bestätigen", wert);
     }
 }

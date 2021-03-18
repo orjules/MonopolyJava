@@ -20,21 +20,20 @@ public class Organisator {
     private Würfel würfel;
     private Grundbuch grundbuch;
     private Kartenmanager kartenmanager;
+    private Org_Hilfe orgHilfe;
 
     // der wird so oft gebraucht und nur an einer Stelle geändert
     private Spieler gradDran;
 
-    // Vorerst fest, später evtl im Constructor injected
-    private Org_Hilfe orgHilfe;
 
     public Organisator(Spielleiter spielleiter, Darsteller darsteller, Würfel würfel, Grundbuch grundbuch,
-                       Kartenmanager kartenmanager) {
+                       Kartenmanager kartenmanager, Org_Hilfe orgHilfe) {
         this.spielleiter = spielleiter;
         this.darsteller = darsteller;
         this.würfel = würfel;
         this.grundbuch = grundbuch;
         this.kartenmanager = kartenmanager;
-        orgHilfe = new Org_Hilfe(darsteller, grundbuch, spielleiter);
+        this.orgHilfe = orgHilfe;
     }
 
     public void gameLoop(){
@@ -56,7 +55,7 @@ public class Organisator {
                 feldAbarbeiten();
 
                 //  Überprüfen ob jemand aufgegeben bzw der letzte aufgegeben hat
-                if (!gradDran.equals(spielleiter.getGeradeDran())){
+                if (spielleiter.jemandHatGeradeAufgegeben()){
                     if (!spielleiter.spielLäuft()){
                         darsteller.ausgabe("Das Spiel ist vorbei. " + spielleiter.getGeradeDran().getName() + " hat gewonnen.");
                         break außenLoop;
@@ -66,6 +65,7 @@ public class Organisator {
                     gradDran = spielleiter.getGeradeDran();
                     ausgabe += gradDran.getName() + " ist jetzt dran.";
                     darsteller.ausgabe(ausgabe);
+                    spielleiter.resetJemandHatGeradeAufgegeben();
                     break innenLoop;
                 }
 
@@ -139,7 +139,7 @@ public class Organisator {
             }
         }
         // 2. Kartenmanager soll das Feld abarbeiten oder false zurückgeben
-        if (kartenmanager.karteVonFeldBearbeitet(feld, darsteller)){
+        if (kartenmanager.karteVonFeldBearbeitet(feld, darsteller, spielleiter)){
             return;
         }
 

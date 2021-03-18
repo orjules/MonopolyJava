@@ -3,12 +3,11 @@ package programm.system.spieler;
 import programm.system.Felder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 
 public class Spielleiter {
     private ArrayList<Spieler> alleSpieler = new ArrayList<>();
     private Spieler geradeDran;
+    private boolean jemandHatGeradeAufgegeben = false;
 
     public Spielleiter(ArrayList<Spieler> alleSpieler) {
         this.alleSpieler = alleSpieler;
@@ -76,6 +75,7 @@ public class Spielleiter {
                 alterIndex --;
             }
             geradeDran = alleSpieler.get(alterIndex);
+            jemandHatGeradeAufgegeben = true;
         }
     }
 
@@ -84,5 +84,16 @@ public class Spielleiter {
             return true;
         }
         return false;
+    }
+
+    public boolean jemandHatGeradeAufgegeben(){
+        return jemandHatGeradeAufgegeben;
+    }
+    public void resetJemandHatGeradeAufgegeben(){
+        jemandHatGeradeAufgegeben = false;
+    }
+
+    public void einsperrenVon(Spieler spieler){
+        spieler.istImGefängnis = true;
     }
 }

@@ -20,13 +20,13 @@ public class KartenFactory {
 
     public HashMap<Felder, Ereigniskarte> erstelleFesteKarten(){
         HashMap<Felder, Ereigniskarte> ausgabe = new HashMap<>();
-        ausgabe.put(Felder.Einkommenssteuer, new BankGeld("Einkommenssteuer. Zahle 200€.", spielleiter, 200));
+        ausgabe.put(Felder.Einkommenssteuer, new BankGeld("Einkommenssteuer. Zahle 200€.", spielleiter, -200));
         return ausgabe;
     }
 
     public Ereigniskarte[] erstelleRandomKarten(){
         return new Ereigniskarte[]{
-                new BankGeld("Platzhalter für zufällige Karte", spielleiter, 200)
+                new BankGeld("Platzhalter für zufällige Karte", spielleiter, -200)
         };
     }
 }

@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class Grundbuch{
 
-    Grundstück[] alleGrundstücke = new Grundstück[6]; // Vorläufig 6
-    Farbgruppen[] alleFarbgruppen = new Farbgruppen[2]; // Vorläufig 2
+    Grundstück[] alleGrundstücke = new Grundstück[11]; // Vorläufig 11
+    Farbgruppen[] alleFarbgruppen = new Farbgruppen[3]; // Vorläufig 3
     Map<Grundstück, Spieler> grundbuch = new HashMap<>();
 
     public Grundbuch() {
@@ -23,9 +23,15 @@ public class Grundbuch{
         alleGrundstücke[3] = new Straße(Felder.Chaussestraße.name(), Felder.Chaussestraße, 100, 50, Farben.hellblau, 6, 30, 90,270, 400, 550, 50);
         alleGrundstücke[4] = new Straße(Felder.Elisenstraße.name(), Felder.Elisenstraße, 100, 50, Farben.hellblau, 6, 30, 90,270, 400, 550, 50);
         alleGrundstücke[5] = new Straße(Felder.Poststraße.name(), Felder.Poststraße, 120, 60, Farben.hellblau, 8, 40, 100,300, 450, 600, 50);
+        alleGrundstücke[6] = new Straße(Felder.Seestraße.name(), Felder.Seestraße, 140, 60, Farben.rosa, 8, 40, 100,300, 450, 600, 50);     // Bis auf Kaufpreis sind die Werte falsch
+        alleGrundstücke[7] = new Werk(Felder.Elektrizitätswerk.name(), Felder.Elektrizitätswerk, 150, 60);                                                                                                                          // Hypothekswert ist falsch
+        alleGrundstücke[8] = new Straße(Felder.Hafenstraße.name(), Felder.Hafenstraße, 120, 60, Farben.rosa, 8, 40, 100,300, 450, 600, 50); // Bis auf Kaufpreis sind die Werte falsch
+        alleGrundstücke[9] = new Straße(Felder.NeueStraße.name(), Felder.NeueStraße, 120, 60, Farben.rosa, 8, 40, 100,300, 450, 600, 50);   // Bis auf Kaufpreis sind die Werte falsch
+        alleGrundstücke[10] = new Bahnhof(Felder.Westbahnhof.name(), Felder.Westbahnhof);
         // hier die Werte für alleFarbgruppen initialisieren
         alleFarbgruppen[0] = new Farbgruppen(Farben.braun, new Straße[]{(Straße) alleGrundstücke[0], (Straße) alleGrundstücke[1]});
         alleFarbgruppen[1] = new Farbgruppen(Farben.hellblau, new Straße[]{(Straße) alleGrundstücke[3], (Straße) alleGrundstücke[4], (Straße) alleGrundstücke[5]});
+        alleFarbgruppen[2] = new Farbgruppen(Farben.rosa, new Straße[]{(Straße) alleGrundstücke[6], (Straße) alleGrundstücke[8], (Straße) alleGrundstücke[9]});
         // hier die Werte für grundbuch initialisieren
         for (Grundstück grund : alleGrundstücke){
             grundbuch.put(grund, null);

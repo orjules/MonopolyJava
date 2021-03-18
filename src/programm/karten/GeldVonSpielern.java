@@ -6,6 +6,7 @@ import programm.system.spieler.Spielleiter;
 public class GeldVonSpielern extends NormaleKarte{
 
     int wert;
+    int gesamt = 0;
 
     protected GeldVonSpielern(String beschreibung, Spielleiter spielleiter, int wert) {
         super(beschreibung, spielleiter);
@@ -13,12 +14,15 @@ public class GeldVonSpielern extends NormaleKarte{
     }
 
     public void aktionAusführen(){
-        int gesamt = 0;
         for (Spieler p : spielleiter.getAlleSpieler()){
             spielleiter.kapitalÄndernVon(p, wert);
             gesamt += wert;
         }
         spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), gesamt);
-        // return spielleiter.getGeradeDran().toString() + " hat insgesamt " + gesamt + "€ bekommen.";
+    }
+
+    @Override
+    public String getBestätigung() {
+        return spielleiter.getGeradeDran().toString() + " hat insgesamt " + gesamt + "€ bekommen.";
     }
 }
