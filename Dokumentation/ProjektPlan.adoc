@@ -67,4 +67,8 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 
 - Dokumentation verbessert
 
-Als nächstes: Tests für fertige Klassen im "System"-Package erstellen
+=== 18.3.21
+
+- Funktionierenden Prototyp für die Karten erstellt
+
+Als nächstes: Tests erstellen und refaktorisieren, bis es schön ist
