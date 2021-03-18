@@ -8,6 +8,7 @@ public class Spielleiter {
     private ArrayList<Spieler> alleSpieler = new ArrayList<>();
     private Spieler geradeDran;
     private boolean jemandHatGeradeAufgegeben = false;
+    private boolean wurdeGradBewegt = false;
 
     public Spielleiter(ArrayList<Spieler> alleSpieler) {
         this.alleSpieler = alleSpieler;
@@ -41,11 +42,13 @@ public class Spielleiter {
             return geradeDran.getName() + " ist über 'Los' gegangen und hat 200€ eingezogen.";
         }
         getGeradeDran().aktuellePos = Felder.values()[neuePos];
+        wurdeGradBewegt = true;
         return null;
     }
 
     public void spielerSetzten(Felder feld){
         getGeradeDran().aktuellePos = feld;
+        wurdeGradBewegt = true;
     }
 
     // Menge darf positiv oder negativ sein
@@ -91,6 +94,13 @@ public class Spielleiter {
     }
     public void resetJemandHatGeradeAufgegeben(){
         jemandHatGeradeAufgegeben = false;
+    }
+
+    public boolean jemandWurdeGeradeBewegt(){
+        return wurdeGradBewegt;
+    }
+    public void resetWurdeGeradBewegt(){
+        wurdeGradBewegt = false;
     }
 
     public void einsperrenVon(Spieler spieler){

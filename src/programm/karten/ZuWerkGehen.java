@@ -2,37 +2,76 @@ package programm.karten;
 
 
 import programm.grundstücke.Grundbuch;
+import programm.grundstücke.Grundstück;
+import programm.system.Felder;
 import programm.system.Würfel;
+import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
 
+    private Spielleiter spielleiter;
+    private Grundbuch grundbuch;
 
-    protected ZuWerkGehen(String beschreibung) {
+    private String zweiteBeschreibung;
+    private Felder werk;
+    private int miete;
+    private Spieler besitzer;
+
+    public ZuWerkGehen(String beschreibung, Spielleiter spielleiter, Grundbuch grundbuch) {
         super(beschreibung);
-    }
-
-
-    public String losgehen(Würfel würfel, Spielleiter spielleiter, Grundbuch grundbuch){
-        // 1. nächstes Werk finden
-        // 2. rausfinden ob es wem gehört
-        // 2.1 Ja - return "Das Werk gehört niemandem"
-        // 3. Würfeln
-        // 4. Mit dem Wurf bei dem Werk die Miete berechnen
-        // 5. Miete mit 10 multiplizieren und bei geradeDran abziehen und beim Besitzer dazu geben
-        // 6. return "(Spieler) hat (wurf) gewürfelt und (Besitzer) (Miete mal 10) gezahlt."
-
-        return "DEBUG: losgehen in ZuWerkGehen ist noch nicht implementiert.";
+        this.spielleiter = spielleiter;
+        this.grundbuch = grundbuch;
     }
 
     @Override
     public int getWert() {
-        // TODO getWert soll den Wert ausrechnen, der als field gespeichert wird und hier zurückgegeben - getBeschreibung wird immer danach aufgerufen
-        return 0;
+        feldVomNächstenWerkFinden();
+        besitzerFindenVon(werk);
+        if (besitzer == null){
+            zweiteBeschreibung =  "Du bist auf dem " + werk.name() + " gelandet. Es geöhrt noch niemandem.";
+        }
+        mieteBerechnen();
+        zweiteBeschreibung = "Du bist auf dem " + werk.name() + " von " + besitzer.toString() +
+                " gelandet und musst " + miete + "€ zahlen.";
+        return miete;
+    }
+
+    @Override
+    public String getBeschreibung(){
+        return beschreibung + "\n" + zweiteBeschreibung;
+    }
+
+    public void bestätigen(){
+        spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), -miete);
+        spielleiter.spielerSetzten(werk);
     }
 
     @Override
     public String getBestätigung() {
-        return null;
+        return spielleiter.getGeradeDran().toString() + " ist auf dem " + werk.name() + " von " + besitzer.toString() +
+                " gelandet und hat " + miete + "€ gezahlt.";
+    }
+
+    private void feldVomNächstenWerkFinden(){
+        for (Felder feld : Felder.values()){
+            if (feld.ordinal() > spielleiter.getGeradeDran().getAktuellePos().ordinal()){
+                if (feld.equals(Felder.Elektrizitätswerk)) {  // Oder das Wasserwerk
+                    werk = feld;
+                    return;
+                }
+            }
+        }
+        throw new IllegalStateException("Es wurde kein Werk gefunden, was nicht passieren sollte");
+    }
+    private void besitzerFindenVon(Felder feld){
+        Grundstück werk = grundbuch.grundstückVon(feld);
+        besitzer = grundbuch.getBesitzerVon(werk);
+    }
+    private void mieteBerechnen(){
+        // Neuer Würfel, weil die pasche nicht gespeichert werden sollen
+        Würfel würfel = new Würfel();
+        int[] wurf = würfel.würfeln();
+        miete = wurf[2] * 10;
     }
 }

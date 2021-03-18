@@ -52,6 +52,7 @@ public class Organisator {
             //  wenn frei normal weiter, sonst runde beenden
 
             innenLoop: while (true){
+                spielleiter.resetWurdeGeradBewegt();
                 feldAbarbeiten();
 
                 //  Überprüfen ob jemand aufgegeben bzw der letzte aufgegeben hat
@@ -60,34 +61,17 @@ public class Organisator {
                         darsteller.ausgabe("Das Spiel ist vorbei. " + spielleiter.getGeradeDran().getName() + " hat gewonnen.");
                         break außenLoop;
                     }
-                    String ausgabe = "";
-                    ausgabe += gradDran.getName() + " hat aufgegeben, ";
-                    gradDran = spielleiter.getGeradeDran();
-                    ausgabe += gradDran.getName() + " ist jetzt dran.";
-                    darsteller.ausgabe(ausgabe);
-                    spielleiter.resetJemandHatGeradeAufgegeben();
+                    ausgebenWerAufgegebenHat();
                     break innenLoop;
                 }
 
-                endabfrageLoop: while (true){
-                    // Abfrage erstellen: immer 'ü' aber unterscheiden zwischen 'w' bei pasch und 'z' sonst
-                    String ausgabeText = "";
-                    ArrayList<String> erlaubteEingaben = new ArrayList<>();
-                    ausgabeText += "'ü' um die Übersicht zu öffnen\n";
-                    erlaubteEingaben.add("ü");
-                    if (würfel.darfNochmalWerfen()){
-                        ausgabeText += "'w' um nochmal zu würfeln\n";
-                        erlaubteEingaben.add("w");
-                    }else {
-                        ausgabeText += "'z' um den Zug zu beenden\n";
-                        erlaubteEingaben.add("z");
-                    }
+                // Überprüfen ob nach dem feldAbarbeiten jemand die Position gewechselt hat
+                if (spielleiter.jemandWurdeGeradeBewegt()){
+                    continue;
+                }
 
-                    // Abfragen und auswerten
-                    darsteller.umbruch();
-                    darsteller.ausgabe(gradDran.getName() + " ist fertig mit den wichtigen Dingen aber noch dran.");
-                    String eingabe = darsteller.eingabeFragen(ausgabeText, erlaubteEingaben);
-                    switch (eingabe) {
+                endabfrageLoop: while (true){
+                    switch (endAbfrageErstellenUndZurückgeben()) {
                         case "w":
                             würfelnUndDarstellen();
                             break endabfrageLoop;
@@ -110,6 +94,15 @@ public class Organisator {
         }
     }
 
+    private void ausgebenWerAufgegebenHat() {
+        String ausgabe = "";
+        ausgabe += gradDran.getName() + " hat aufgegeben, ";
+        gradDran = spielleiter.getGeradeDran();
+        ausgabe += gradDran.getName() + " ist jetzt dran.";
+        darsteller.ausgabe(ausgabe);
+        spielleiter.resetJemandHatGeradeAufgegeben();
+    }
+
     private void würfelnUndDarstellen(){
         int [] wurf = würfel.würfeln();
         String evtlText = null;
@@ -126,6 +119,7 @@ public class Organisator {
     }
 
     private void feldAbarbeiten(){
+        // TODO Irgendwie ermöglichen, dass wenn eine Karte nur bewegt hat, das Feld nochmal von vorne gemacht wird
         Felder feld = gradDran.getAktuellePos();
         // Diese werden nur in dieser Funktion gebraucht
         Org_Grundstücke orgGrundstücke = new Org_Grundstücke(spielleiter, darsteller, grundbuch, orgHilfe, gradDran);
@@ -168,5 +162,23 @@ public class Organisator {
             orgGrundstücke.mieteZahlenBei(grundstück, besitzer, miete);
             return;
         }
+    }
+
+    private String endAbfrageErstellenUndZurückgeben(){
+        // Abfrage erstellen: immer 'ü' aber unterscheiden zwischen 'w' bei pasch und 'z' sonst
+        String ausgabeText = "";
+        ArrayList<String> erlaubteEingaben = new ArrayList<>();
+        ausgabeText += "'ü' um die Übersicht zu öffnen\n";
+        erlaubteEingaben.add("ü");
+        if (würfel.darfNochmalWerfen()){
+            ausgabeText += "'w' um nochmal zu würfeln\n";
+            erlaubteEingaben.add("w");
+        }else {
+            ausgabeText += "'z' um den Zug zu beenden\n";
+            erlaubteEingaben.add("z");
+        }
+        darsteller.umbruch();
+        darsteller.ausgabe(gradDran.getName() + " ist fertig mit den wichtigen Dingen aber noch dran.");
+        return darsteller.eingabeFragen(ausgabeText, erlaubteEingaben);
     }
 }

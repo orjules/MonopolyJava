@@ -6,6 +6,7 @@ import programm.system.core.Org_Hilfe;
 import programm.system.spieler.Spielleiter;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class Kartenmanager {
 
@@ -38,7 +39,7 @@ public class Kartenmanager {
         if (NormaleKarte.class.isAssignableFrom(karte.getClass())){     // isAssignable, weil NormaleKarte abstract ist
             ((NormaleKarte)karte).aktionAusführen();
         }else if(karte.getClass().equals(ZuWerkGehen.class)){
-
+            ((ZuWerkGehen) karte).bestätigen();
         }else if (karte.getClass().equals(Gefängnisfrei.class)){
 
         }else {
@@ -67,7 +68,8 @@ public class Kartenmanager {
     }
 
     private Ereigniskarte getRandomKarte(){
-        return randomKarten[0];
+        Random rand = new Random();
+        return randomKarten[rand.nextInt(randomKarten.length)];
     }
 
     private void eingabeAbwarten(Ereigniskarte karte, Darsteller darsteller){

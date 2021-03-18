@@ -56,6 +56,7 @@ public class Org_Hilfe {
         String text = initial + textFürA;
         text += "\n'ü' um die Übersicht zu öffnen";
         while (true){
+            darsteller.umbruch();
             String eingabe = darsteller.eingabeFragen(text, new ArrayList<String>(Arrays.asList("a", "ü")));
             switch (eingabe){
                 case "a":

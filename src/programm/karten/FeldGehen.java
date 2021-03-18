@@ -8,7 +8,13 @@ public class FeldGehen extends NormaleKarte{
 
     Felder zielFeld;
     Felder altesFeld;
-    boolean istGefängnisKarte;
+    boolean istGefängnisKarte = false;
+
+    protected FeldGehen(String beschreibung, Spielleiter spielleiter, Felder zielFeld, boolean istGefängnisKarte) {
+        super(beschreibung, spielleiter);
+        this.zielFeld = zielFeld;
+        this.istGefängnisKarte = istGefängnisKarte;
+    }
 
     protected FeldGehen(String beschreibung, Spielleiter spielleiter, Felder zielFeld) {
         super(beschreibung, spielleiter);
