@@ -145,19 +145,19 @@ public class Organisator {
         }
         Spieler besitzer = grundbuch.getBesitzerVon(grundstück);
         String ausgabe = "";
-        ausgabe += "Du bist auf " + GrammatikHandler.artikelFür(grundstück, false, false) +
+        ausgabe += "Du bist auf " + GrammatikHandler.getkleineDativArtikel(grundstück) +
                 grundstück.getName() + " gelandet. ";
         if (besitzer == null){
-            ausgabe += GrammatikHandler.pronomenFür(grundstück, true) + "ist noch zu verkaufen.";
+            ausgabe += GrammatikHandler.getGroßesPronomenFür(grundstück) + "ist noch zu verkaufen.";
             darsteller.ausgabe(ausgabe);
             orgGrundstücke.kaufenVon(grundstück);
             return;
         }else if (besitzer.equals(gradDran)){
-            ausgabe += GrammatikHandler.pronomenFür(grundstück, true) + "gehört dir.";
+            ausgabe += GrammatikHandler.getGroßesPronomenFür(grundstück) + "gehört dir.";
             darsteller.ausgabe(ausgabe);
             return;
         }else {
-            ausgabe += GrammatikHandler.pronomenFür(grundstück, true) + "gehört " + besitzer.getName() + ".";
+            ausgabe += GrammatikHandler.getGroßesPronomenFür(grundstück) + "gehört " + besitzer.getName() + ".";
             darsteller.ausgabe(ausgabe);
             int miete = grundstück.mieteBerechnen(besitzer, grundbuch, würfel.getLetztenWurf());
             orgGrundstücke.mieteZahlenBei(grundstück, besitzer, miete);

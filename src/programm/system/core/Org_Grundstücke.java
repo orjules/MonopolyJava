@@ -30,7 +30,7 @@ public class Org_Grundstücke {
         while (true){
             darsteller.umbruch();
             darsteller.ausgabe(
-                    "Der Kaufpreis für " + GrammatikHandler.artikelFür(grundstück, true, false)
+                    "Der Kaufpreis von " + GrammatikHandler.getkleineDativArtikel(grundstück)
                             + grundstück.getName() + " ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
                             + gradDran.getKapital() + "€.");
             // Checken ob genug Geld für den Kauf vorhanden ist und danach die Ausgabe anpassen
@@ -69,7 +69,7 @@ public class Org_Grundstücke {
         while (true){
             // Sagen was los ist
             darsteller.umbruch();
-            darsteller.ausgabe("Die Miete von " + GrammatikHandler.artikelFür(grundstück, false, false) +
+            darsteller.ausgabe("Die Miete von " + GrammatikHandler.getkleineDativArtikel(grundstück) + " " +
                     grundstück.getName() + " ist " + miete + "€.");
 
             // Bestätigung fragen, bzw weiterleiten, wenn man zu wenig Geld hat

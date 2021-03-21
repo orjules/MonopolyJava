@@ -69,7 +69,7 @@ public class Grundbuch{
     // gibt die Kaufbestätigung zurück
     public String übertragenAn(Grundstück grundstück, Spieler an){
         grundbuch.put(grundstück, an);
-        return GrammatikHandler.artikelFür(grundstück, true, true) + grundstück.getName() + " gehört nun " + an.getName() + ".";
+        return GrammatikHandler.getGroßeNominativArtikel(grundstück) + grundstück.getName() + " gehört nun " + an.getName() + ".";
     }
 
     // Hilfsfunktionen für Klassen im Package
