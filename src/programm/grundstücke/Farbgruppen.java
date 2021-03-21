@@ -1,5 +1,7 @@
 package programm.grundstücke;
 
+import programm.system.spieler.Spieler;
+
 public class Farbgruppen {
     private Farben farbe;
     private Straße[] zugehörigeStraßen;
@@ -12,4 +14,14 @@ public class Farbgruppen {
     }
 
 
+    public boolean istkomplett(Grundbuch grundbuch) {
+        Spieler letzteSpieler = null;
+        for (Straße s : zugehörigeStraßen){
+            if (letzteSpieler != null && !letzteSpieler.equals(grundbuch.getBesitzerVon(s))) {
+                return false;
+            }
+            letzteSpieler = grundbuch.getBesitzerVon(s);
+        }
+        return true;
+    }
 }

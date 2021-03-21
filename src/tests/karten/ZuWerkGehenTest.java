@@ -1,4 +1,4 @@
-package tests.karten;
+package karten;
 
 
 public class ZuWerkGehenTest {
