@@ -10,4 +10,6 @@ public class Farbgruppen {
         this.zugehörigeStraßen = zugehörigeStraßen;
         this.istKomplett = false;
     }
+
+
 }

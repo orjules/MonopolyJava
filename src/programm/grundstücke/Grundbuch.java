@@ -73,7 +73,7 @@ public class Grundbuch{
     }
 
     // Hilfsfunktionen für Klassen im Package
-    int bahnhöfeVon(Spieler besitzer){
+    public int bahnhöfeVon(Spieler besitzer){
         int anzahl = 0;
         for (Map.Entry<Grundstück, Spieler> entry : grundbuch.entrySet()){
             if (entry.getValue() != null && entry.getValue().equals(besitzer) && entry.getKey().getClass().equals(Bahnhof.class)){
