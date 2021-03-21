@@ -1,6 +1,7 @@
 package programm.system.core;
 
 
+import programm.grundstücke.GrammatikHandler;
 import programm.grundstücke.Grundbuch;
 import programm.grundstücke.Grundstück;
 import programm.karten.Ereigniskarte;
@@ -144,19 +145,19 @@ public class Organisator {
         }
         Spieler besitzer = grundbuch.getBesitzerVon(grundstück);
         String ausgabe = "";
-        ausgabe += "Du bist auf " + grundbuch.artikelFür(grundstück, false, false) +
+        ausgabe += "Du bist auf " + GrammatikHandler.artikelFür(grundstück, false, false) +
                 grundstück.getName() + " gelandet. ";
         if (besitzer == null){
-            ausgabe += grundbuch.pronomenFür(grundstück, true) + "ist noch zu verkaufen.";
+            ausgabe += GrammatikHandler.pronomenFür(grundstück, true) + "ist noch zu verkaufen.";
             darsteller.ausgabe(ausgabe);
             orgGrundstücke.kaufenVon(grundstück);
             return;
         }else if (besitzer.equals(gradDran)){
-            ausgabe += grundbuch.pronomenFür(grundstück, true) + "gehört dir.";
+            ausgabe += GrammatikHandler.pronomenFür(grundstück, true) + "gehört dir.";
             darsteller.ausgabe(ausgabe);
             return;
         }else {
-            ausgabe += grundbuch.pronomenFür(grundstück, true) + "gehört " + besitzer.getName() + ".";
+            ausgabe += GrammatikHandler.pronomenFür(grundstück, true) + "gehört " + besitzer.getName() + ".";
             darsteller.ausgabe(ausgabe);
             int miete = grundstück.mieteBerechnen(besitzer, grundbuch, würfel.getLetztenWurf());
             orgGrundstücke.mieteZahlenBei(grundstück, besitzer, miete);

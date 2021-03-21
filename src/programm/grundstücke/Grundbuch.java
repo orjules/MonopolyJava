@@ -4,7 +4,6 @@ import programm.system.spieler.Spieler;
 import programm.system.Felder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,70 +69,7 @@ public class Grundbuch{
     // gibt die Kaufbestätigung zurück
     public String übertragenAn(Grundstück grundstück, Spieler an){
         grundbuch.put(grundstück, an);
-        return artikelFür(grundstück, true, true) + grundstück.getName() + " gehört nun " + an.getName() + ".";
-    }
-
-    public String artikelFür(Grundstück grundstück, boolean tNom_fDativ, boolean istGroß){
-        if (tNom_fDativ){
-            if (grundstück.getClass().equals(Bahnhof.class)){
-                if (istGroß){
-                    return "Der ";
-                }else {
-                    return "der ";
-                }
-            }else if (grundstück.getClass().equals(Straße.class)) {
-                if (istGroß){
-                    return "Die ";
-                }else {
-                    return "die ";
-                }
-            }else if (grundstück.getClass().equals(Werk.class)){
-                if (istGroß){
-                    return "Das ";
-                }else {
-                    return "das ";
-                }
-            }else
-                throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
-        }else {
-            if (grundstück.getClass().equals(Bahnhof.class) || grundstück.getClass().equals(Werk.class)){
-                if (istGroß){
-                    return "Dem ";
-                }else {
-                    return "dem ";
-                }
-            }else if (grundstück.getClass().equals(Straße.class)){
-                if (istGroß){
-                    return "Der ";
-                }else {
-                    return "der ";
-                }
-            }else
-                throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
-        }
-    }
-
-    public String pronomenFür(Grundstück grundstück, boolean istGroß){
-        if (grundstück.getClass().equals(Bahnhof.class)){
-            if (istGroß){
-                return "Er ";
-            }else {
-                return "er ";
-            }
-        }else if (grundstück.getClass().equals(Straße.class)) {
-            if (istGroß){
-                return "Sie ";
-            }else {
-                return "sie ";
-            }
-        }else if (grundstück.getClass().equals(Werk.class)){
-            if (istGroß){
-                return "Es ";
-            }else {
-                return "es ";
-            }
-        }else
-            throw new IllegalArgumentException("Gegebenes Grundstück ist kein Grundstück oder es ist null.");
+        return GrammatikHandler.artikelFür(grundstück, true, true) + grundstück.getName() + " gehört nun " + an.getName() + ".";
     }
 
     // Hilfsfunktionen für Klassen im Package
