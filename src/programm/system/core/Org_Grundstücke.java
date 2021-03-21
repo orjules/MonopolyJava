@@ -1,5 +1,6 @@
 package programm.system.core;
 
+import programm.grundstücke.Fälle;
 import programm.grundstücke.GrammatikHandler;
 import programm.grundstücke.Grundbuch;
 import programm.grundstücke.Grundstück;
@@ -30,7 +31,7 @@ public class Org_Grundstücke {
         while (true){
             darsteller.umbruch();
             darsteller.ausgabe(
-                    "Der Kaufpreis von " + GrammatikHandler.getkleineDativArtikel(grundstück)
+                    "Der Kaufpreis " + GrammatikHandler.getkleineArtikel(grundstück, Fälle.Genitiv)
                             + grundstück.getName() + " ist " + grundstück.getGrundstücksWert() + "€. Dein Kapital ist "
                             + gradDran.getKapital() + "€.");
             // Checken ob genug Geld für den Kauf vorhanden ist und danach die Ausgabe anpassen
@@ -69,7 +70,7 @@ public class Org_Grundstücke {
         while (true){
             // Sagen was los ist
             darsteller.umbruch();
-            darsteller.ausgabe("Die Miete von " + GrammatikHandler.getkleineDativArtikel(grundstück) + " " +
+            darsteller.ausgabe("Die Miete " + GrammatikHandler.getkleineArtikel(grundstück, Fälle.Genitiv) + " " +
                     grundstück.getName() + " ist " + miete + "€.");
 
             // Bestätigung fragen, bzw weiterleiten, wenn man zu wenig Geld hat

@@ -1,6 +1,7 @@
 package programm.system.core;
 
 
+import programm.grundstücke.Fälle;
 import programm.grundstücke.GrammatikHandler;
 import programm.grundstücke.Grundbuch;
 import programm.grundstücke.Grundstück;
@@ -145,7 +146,7 @@ public class Organisator {
         }
         Spieler besitzer = grundbuch.getBesitzerVon(grundstück);
         String ausgabe = "";
-        ausgabe += "Du bist auf " + GrammatikHandler.getkleineDativArtikel(grundstück) +
+        ausgabe += "Du bist auf " + GrammatikHandler.getkleineArtikel(grundstück, Fälle.Nominativ) +
                 grundstück.getName() + " gelandet. ";
         if (besitzer == null){
             ausgabe += GrammatikHandler.getGroßesPronomenFür(grundstück) + "ist noch zu verkaufen.";

@@ -2,12 +2,7 @@ package tests.grundstücke;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import programm.grundstücke.Bahnhof;
-import programm.grundstücke.GrammatikHandler;
-import programm.grundstücke.Straße;
-import programm.grundstücke.Werk;
-import programm.system.Felder;
+import programm.grundstücke.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,32 +36,46 @@ public class GrammatikHandlerTests {
     }
 
     @Test
-    public void großeNominativArtikel(){
-        assertEquals("Der ", GrammatikHandler.getGroßeNominativArtikel(testBahnhof));
-        assertEquals("Die ", GrammatikHandler.getGroßeNominativArtikel(testStraße));
-        assertEquals("Das ", GrammatikHandler.getGroßeNominativArtikel(testWerk));
+    public void nominativArtikel(){
+        assertEquals("Der ", GrammatikHandler.getGroßeArtikel(testBahnhof, Fälle.Nominativ));
+        assertEquals("Die ", GrammatikHandler.getGroßeArtikel(testStraße, Fälle.Nominativ));
+        assertEquals("Das ", GrammatikHandler.getGroßeArtikel(testWerk, Fälle.Nominativ));
+
+        assertEquals("der ", GrammatikHandler.getkleineArtikel(testBahnhof, Fälle.Nominativ));
+        assertEquals("die ", GrammatikHandler.getkleineArtikel(testStraße, Fälle.Nominativ));
+        assertEquals("das ", GrammatikHandler.getkleineArtikel(testWerk, Fälle.Nominativ));
     }
 
     @Test
-    public void kleineNominativArtikel(){
-        assertEquals("der ", GrammatikHandler.getkleineNominativArtikel(testBahnhof));
-        assertEquals("die ", GrammatikHandler.getkleineNominativArtikel(testStraße));
-        assertEquals("das ", GrammatikHandler.getkleineNominativArtikel(testWerk));
+    public void genitivArtikel(){
+        assertEquals("Des ", GrammatikHandler.getGroßeArtikel(testBahnhof, Fälle.Genitiv));
+        assertEquals("Der ", GrammatikHandler.getGroßeArtikel(testStraße, Fälle.Genitiv));
+        assertEquals("Des ", GrammatikHandler.getGroßeArtikel(testWerk, Fälle.Genitiv));
+
+        assertEquals("des ", GrammatikHandler.getkleineArtikel(testBahnhof, Fälle.Genitiv));
+        assertEquals("der ", GrammatikHandler.getkleineArtikel(testStraße, Fälle.Genitiv));
+        assertEquals("des ", GrammatikHandler.getkleineArtikel(testWerk, Fälle.Genitiv));
     }
 
     @Test
-    public void großeDativArtikel(){
-        assertEquals("Dem ", GrammatikHandler.getGroßeDativArtikel(testBahnhof));
-        assertEquals("Der ", GrammatikHandler.getGroßeDativArtikel(testStraße));
-        assertEquals("Dem ", GrammatikHandler.getGroßeDativArtikel(testWerk));
+    public void dativArtikel(){
+        assertEquals("Dem ", GrammatikHandler.getGroßeArtikel(testBahnhof, Fälle.Dativ));
+        assertEquals("Der ", GrammatikHandler.getGroßeArtikel(testStraße, Fälle.Dativ));
+        assertEquals("Dem ", GrammatikHandler.getGroßeArtikel(testWerk, Fälle.Dativ));
+
+        assertEquals("dem ", GrammatikHandler.getkleineArtikel(testBahnhof, Fälle.Dativ));
+        assertEquals("der ", GrammatikHandler.getkleineArtikel(testStraße, Fälle.Dativ));
+        assertEquals("dem ", GrammatikHandler.getkleineArtikel(testWerk, Fälle.Dativ));
     }
 
     @Test
-    public void kleineDativArtikel(){
-        assertEquals("dem ", GrammatikHandler.getkleineDativArtikel(testBahnhof));
-        assertEquals("der ", GrammatikHandler.getkleineDativArtikel(testStraße));
-        assertEquals("dem ", GrammatikHandler.getkleineDativArtikel(testWerk));
+    public void akkusativArtikel(){
+        assertEquals("Den ", GrammatikHandler.getGroßeArtikel(testBahnhof, Fälle.Akkusativ));
+        assertEquals("Die ", GrammatikHandler.getGroßeArtikel(testStraße, Fälle.Akkusativ));
+        assertEquals("Das ", GrammatikHandler.getGroßeArtikel(testWerk, Fälle.Akkusativ));
+
+        assertEquals("den ", GrammatikHandler.getkleineArtikel(testBahnhof, Fälle.Akkusativ));
+        assertEquals("die ", GrammatikHandler.getkleineArtikel(testStraße, Fälle.Akkusativ));
+        assertEquals("das ", GrammatikHandler.getkleineArtikel(testWerk, Fälle.Akkusativ));
     }
-
-
 }

@@ -22,9 +22,9 @@ public class GrammatikHandler {
             rückgabe.put(vergleichswerk, new String[]{"Es ","es "});
             return rückgabe;
         }else {
-            rückgabe.put(vergleichsStraße, new String[]{"Die ", "die ", "Der ", "der "});
-            rückgabe.put(vergleichsBahnhof, new String[]{"Der ", "der ", "Dem ", "dem "});
-            rückgabe.put(vergleichswerk, new String[]{"Das ", "das ", "Dem ", "dem "});
+            rückgabe.put(vergleichsStraße, new String[]{"Die ", "die ", "Der ", "der ", "Der ", "der ", "Die ", "die "});
+            rückgabe.put(vergleichsBahnhof, new String[]{"Der ", "der ", "Des ", "des ", "Dem ", "dem ", "Den ", "den "});
+            rückgabe.put(vergleichswerk, new String[]{"Das ", "das ", "Des ", "des ", "Dem ", "dem ", "Das ", "das "});
             return rückgabe;
         }
     }
@@ -37,20 +37,12 @@ public class GrammatikHandler {
         return iterater(grundstück, pronomen, 1);
     }
 
-    public static String getGroßeNominativArtikel(Grundstück grundstück) {
-        return iterater(grundstück, artikel, 0);
+    public static String getGroßeArtikel(Grundstück grundstück, Fälle fall) {
+        return iterater(grundstück, artikel, 2 * fall.ordinal());
     }
 
-    public static String getkleineNominativArtikel(Grundstück grundstück) {
-        return iterater(grundstück, artikel, 1);
-    }
-
-    public static String getGroßeDativArtikel(Grundstück grundstück) {
-        return iterater(grundstück, artikel, 2);
-    }
-
-    public static String getkleineDativArtikel(Grundstück grundstück) {
-        return iterater(grundstück, artikel, 3);
+    public static String getkleineArtikel(Grundstück grundstück, Fälle fall) {
+        return iterater(grundstück, artikel, 2 * fall.ordinal() + 1);
     }
 
     private static String iterater(Grundstück grundstück, Map<Grundstück, String[]> map, int index){
