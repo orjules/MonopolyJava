@@ -35,32 +35,22 @@ public class Straße extends Grundstück{
     }
 
     public String getAusbauLevel(){
-        String ausgabe = "";
+        if (hatHotel)
+            return "Ein Hotel";
         switch (anzahlHaus){
             case 0:
-                ausgabe += "Kein Haus ";
-                break;
+                return "Kein Haus";
             case 1:
-                ausgabe += "Ein Haus ";
-                break;
+                return "Ein Haus ";
             case 2:
-                ausgabe += "Zwei Häuser ";
-                break;
+                return "Zwei Häuser ";
             case 3:
-                ausgabe += "Drei Häuser ";
-                break;
+                return "Drei Häuser ";
             case 4:
-                ausgabe += "Vier Häuser ";
-                break;
+                return "Vier Häuser ";
             default:
                 throw new IllegalStateException("Ein Grundstück darf nur zwischen 0 und 4 Häusern haben!");
         }
-        if (hatHotel){
-            ausgabe += "und ein Hotel";
-        }else {
-            ausgabe += "und kein Hotel";
-        }
-        return ausgabe;
     }
 
     @Override
