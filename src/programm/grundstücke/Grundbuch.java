@@ -28,9 +28,9 @@ public class Grundbuch{
         alleGrundstücke[9] = new Straße(Felder.NeueStraße.name(), Felder.NeueStraße, 120, 60, Farben.rosa, 8, 40, 100,300, 450, 600, 50);   // Bis auf Kaufpreis sind die Werte falsch
         alleGrundstücke[10] = new Bahnhof(Felder.Westbahnhof.name(), Felder.Westbahnhof);
         // hier die Werte für alleFarbgruppen initialisieren
-        alleFarbgruppen[0] = new Farbgruppen(Farben.braun, new Straße[]{(Straße) alleGrundstücke[0], (Straße) alleGrundstücke[1]});
-        alleFarbgruppen[1] = new Farbgruppen(Farben.hellblau, new Straße[]{(Straße) alleGrundstücke[3], (Straße) alleGrundstücke[4], (Straße) alleGrundstücke[5]});
-        alleFarbgruppen[2] = new Farbgruppen(Farben.rosa, new Straße[]{(Straße) alleGrundstücke[6], (Straße) alleGrundstücke[8], (Straße) alleGrundstücke[9]});
+        alleFarbgruppen[0] = new Farbgruppen(Farben.braun, new Straße[]{(Straße) alleGrundstücke[0], (Straße) alleGrundstücke[1]}, this);
+        alleFarbgruppen[1] = new Farbgruppen(Farben.hellblau, new Straße[]{(Straße) alleGrundstücke[3], (Straße) alleGrundstücke[4], (Straße) alleGrundstücke[5]}, this);
+        alleFarbgruppen[2] = new Farbgruppen(Farben.rosa, new Straße[]{(Straße) alleGrundstücke[6], (Straße) alleGrundstücke[8], (Straße) alleGrundstücke[9]}, this);
         // hier die Werte für grundbuch initialisieren
         for (Grundstück grund : alleGrundstücke){
             grundbuch.put(grund, null);
