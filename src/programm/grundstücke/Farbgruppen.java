@@ -6,24 +6,22 @@ public class Farbgruppen {
     private Farben farbe;
     private Straße[] zugehörigeStraßen;
     private boolean istKomplett;
-    private Grundbuch grundbuch;
 
-    public Farbgruppen(Farben farbe, Straße[] zugehörigeStraßen, Grundbuch grundbuch) {
+    public Farbgruppen(Farben farbe, Straße[] zugehörigeStraßen) {
         this.farbe = farbe;
         this.zugehörigeStraßen = zugehörigeStraßen;
         this.istKomplett = false;
-        this.grundbuch = grundbuch;
     }
 
 
-    public boolean istkomplett() {
+    public boolean istkomplett(Grundbuch grundbuch) {
         if(istKomplett){
             return true;
         }
-        checkStatus();
+        checkStatus(grundbuch);
         return istKomplett;
     }
-    private void checkStatus(){
+    private void checkStatus(Grundbuch grundbuch){
         Spieler letzteSpieler = null;
         for (Straße s : zugehörigeStraßen){
             if (letzteSpieler != null && !letzteSpieler.equals(grundbuch.getBesitzerVon(s))) {

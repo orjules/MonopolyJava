@@ -1,6 +1,7 @@
 package programm;
 
 import programm.grundstücke.Grundbuch;
+import programm.grundstücke.GrundstückFactory;
 import programm.karten.KartenFactory;
 import programm.karten.Kartenmanager;
 import programm.system.*;
@@ -24,7 +25,7 @@ public class Main {
         ));
         Spielleiter spielleiter = new Spielleiter(testSpieler);
         Darsteller darsteller = new Darsteller(spielleiter);
-        Grundbuch grundbuch = new Grundbuch();
+        Grundbuch grundbuch = new Grundbuch(GrundstückFactory.erstelleAlleGrundstücke(), GrundstückFactory.erstelleAlleFarbgruppen());
         KartenFactory factory = new KartenFactory(spielleiter, grundbuch);
         Org_Hilfe orgHilfe = new Org_Hilfe(darsteller, grundbuch, spielleiter);
         Kartenmanager kartenmanager = new Kartenmanager(factory.erstelleFesteKarten(), factory.erstelleRandomKarten(), orgHilfe);

@@ -2,7 +2,6 @@ package programm.karten;
 
 import programm.grundstücke.Grundbuch;
 import programm.system.Felder;
-import programm.system.Würfel;
 import programm.system.spieler.Spielleiter;
 
 import java.util.HashMap;
