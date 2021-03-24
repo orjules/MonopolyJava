@@ -2,14 +2,13 @@ package programm.grundstücke;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.configuration.IMockitoConfiguration;
 import programm.system.spieler.Spieler;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class WerkTest {
+class WerkTests {
 
     Spieler spieler;
     Grundbuch grundbuch;
@@ -24,21 +23,21 @@ class WerkTest {
 
     @Test
     public void einWerk(){
-        when(grundbuch.beideWerke(spieler)).thenReturn(false);
+        when(grundbuch.hatBeideWerke(spieler)).thenReturn(false);
 
         assertEquals(24, testWerk.mieteBerechnen(spieler, grundbuch, 6));
     }
 
     @Test
     public void beideWerke(){
-        when(grundbuch.beideWerke(spieler)).thenReturn(true);
+        when(grundbuch.hatBeideWerke(spieler)).thenReturn(true);
 
         assertEquals(60, testWerk.mieteBerechnen(spieler, grundbuch, 6));
     }
 
     @Test
     public void illegalerWurf(){
-        when(grundbuch.beideWerke(spieler)).thenReturn(true);
+        when(grundbuch.hatBeideWerke(spieler)).thenReturn(true);
 
         assertThrows(IllegalArgumentException.class, () ->{
             testWerk.mieteBerechnen(spieler, grundbuch, 13);

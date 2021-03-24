@@ -3,12 +3,11 @@ package programm.grundstücke;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mockito;
-import programm.grundstücke.*;
 import programm.system.spieler.Spieler;
 
 import static org.mockito.Mockito.when;
 
-public class BahnhofTest {
+public class BahnhofTests {
 
     Grundbuch grundbuch;
     Spieler spieler;
@@ -18,7 +17,7 @@ public class BahnhofTest {
         grundbuch = Mockito.mock(Grundbuch.class);
         spieler = Mockito.mock(Spieler.class);
         bahnhof = new Bahnhof("bahnhof", null);
-        when(grundbuch.bahnhöfeVon(spieler)).thenReturn(anzahlBanhöfe);
+        when(grundbuch.anzahlBahnhöfeVon(spieler)).thenReturn(anzahlBanhöfe);
     }
 
 

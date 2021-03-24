@@ -7,7 +7,7 @@ import programm.system.spieler.Spieler;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-class StraßeTest {
+class StraßeTests {
 
     Straße testStraße;
     int mieteAllein = 10;

@@ -24,9 +24,17 @@ public class Grundbuch{
         }
     }
 
+
+    // Funktionen zu Status ändern
+    public void übertragenAn(Grundstück grundstück, Spieler an){
+        grundbuch.put(grundstück, an);
+    }
+
+
+    // Funktionen für Anfragen
     public Grundstück grundstückVon(Felder feld){
         for (Grundstück grund : alleGrundstücke){
-            if (grund.feld == feld){
+            if (grund.getFeld() == feld){
                 return grund;
             }
         }
@@ -39,7 +47,7 @@ public class Grundbuch{
                 return entry.getValue();
             }
         }
-        return null;
+        throw new IllegalArgumentException("Dieses Grundstück gibt es nicht im Grundbuch!");
     }
 
     public Grundstück[] alleGrundstückeVon(Spieler spieler){
@@ -49,30 +57,25 @@ public class Grundbuch{
                 ausgabe.add(entry.getKey());
             }
         }
-        return ausgabe.toArray(new Grundstück[ausgabe.size()]);
+        return ausgabe.toArray(new Grundstück[0]);
     }
 
-
-    // gibt die Kaufbestätigung zurück
-    public String übertragenAn(Grundstück grundstück, Spieler an){
-        grundbuch.put(grundstück, an);
-        return GrammatikHandler.getGroßeArtikel(grundstück, Fälle.Nominativ) + grundstück.getName() + " gehört nun " + an.getName() + ".";
-    }
 
     // Hilfsfunktionen für Klassen im Package
-    public int bahnhöfeVon(Spieler besitzer){
+    public int anzahlBahnhöfeVon(Spieler besitzer){
         int anzahl = 0;
         for (Map.Entry<Grundstück, Spieler> entry : grundbuch.entrySet()){
-            if (entry.getValue() != null && entry.getValue().equals(besitzer) && entry.getKey().getClass().equals(Bahnhof.class)){
+            if (entry.getValue() != null && entry.getValue().equals(besitzer) && entry.getKey() instanceof Bahnhof){
                 anzahl ++;
             }
         }
         return anzahl;
     }
-    boolean beideWerke(Spieler besitzer){
+
+    boolean hatBeideWerke(Spieler besitzer){
         int anzahl = 0;
         for (Map.Entry<Grundstück, Spieler> entry : grundbuch.entrySet()){
-            if (entry.getValue() != null && entry.getValue().equals(besitzer) && entry.getKey().getClass().equals(Werk.class)){
+            if (entry.getValue() != null && entry.getValue().equals(besitzer) && entry.getKey() instanceof Werk){
                 anzahl ++;
             }
         }
@@ -83,5 +86,10 @@ public class Grundbuch{
         }else {
             throw new IllegalStateException("Der Besitzer muss mind ein Werk haben, weil die Funktion sonst nicht aufgerufen wird.");
         }
+    }
+
+    // Funktionen für die Tests
+    Map<Grundstück, Spieler> getGrundbuch(){
+        return grundbuch;
     }
 }

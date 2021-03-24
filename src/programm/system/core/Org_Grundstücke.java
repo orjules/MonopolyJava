@@ -52,7 +52,9 @@ public class Org_Grundstücke {
             switch (darsteller.eingabeFragen(frage, erlaubteEingaben)){
                 case "a":
                     spielleiter.kapitalÄndernVon(gradDran, -grundstück.getGrundstücksWert());
-                    darsteller.ausgabe(grundbuch.übertragenAn(grundstück, gradDran)
+                    grundbuch.übertragenAn(grundstück, gradDran);
+                    darsteller.ausgabe(GrammatikHandler.getGroßeArtikel(grundstück, Fälle.Nominativ) +
+                            grundstück.getName() + " gehört nun " + gradDran.getName() + "."
                             + " Dein neues Kapital ist: " + gradDran.getKapital() + "€.");
                     return;
                 case "n":

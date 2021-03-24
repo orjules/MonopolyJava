@@ -1,7 +1,6 @@
 package programm.grundstücke;
 
 import programm.system.Felder;
-import programm.system.Würfel;
 import programm.system.spieler.Spieler;
 
 public class Werk extends Grundstück{
@@ -19,7 +18,7 @@ public class Werk extends Grundstück{
         if (letzterWurf < 2 || letzterWurf > 12){
             throw new IllegalArgumentException("Der Wurf darf nicht großer 12 oder kleiner 2 sein");
         }
-        if (grundbuch.beideWerke(besitzer)){
+        if (grundbuch.hatBeideWerke(besitzer)){
             return letzterWurf * 10;
         }else {
             return letzterWurf * 4;
