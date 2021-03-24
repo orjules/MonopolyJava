@@ -26,9 +26,9 @@ public class Main {
         Spielleiter spielleiter = new Spielleiter(testSpieler);
         Darsteller darsteller = new Darsteller(spielleiter);
         Grundbuch grundbuch = new Grundbuch(GrundstückFactory.erstelleAlleGrundstücke(), GrundstückFactory.erstelleAlleFarbgruppen());
-        KartenFactory factory = new KartenFactory(spielleiter, grundbuch);
         Org_Hilfe orgHilfe = new Org_Hilfe(darsteller, grundbuch, spielleiter);
-        Kartenmanager kartenmanager = new Kartenmanager(factory.erstelleFesteKarten(), factory.erstelleRandomKarten(), orgHilfe);
+        Kartenmanager kartenmanager = new Kartenmanager(KartenFactory.erstelleFesteKarten(spielleiter),
+                KartenFactory.erstelleRandomKarten(spielleiter, grundbuch), orgHilfe);
         Organisator organisator = new Organisator(spielleiter, darsteller, würfel, grundbuch, kartenmanager, orgHilfe);
 
         // eigentliches Spiel starten

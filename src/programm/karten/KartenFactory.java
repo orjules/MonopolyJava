@@ -7,15 +7,8 @@ import programm.system.spieler.Spielleiter;
 import java.util.HashMap;
 
 public class KartenFactory {
-    Spielleiter spielleiter;
-    Grundbuch grundbuch;
 
-    public KartenFactory(Spielleiter spielleiter, Grundbuch grundbuch) {
-        this.spielleiter = spielleiter;
-        this.grundbuch = grundbuch;
-    }
-
-    public HashMap<Felder, Ereigniskarte> erstelleFesteKarten(){
+    public static HashMap<Felder, Ereigniskarte> erstelleFesteKarten(Spielleiter spielleiter){
         HashMap<Felder, Ereigniskarte> ausgabe = new HashMap<>();
         ausgabe.put(Felder.Einkommenssteuer, new BankGeld("Einkommenssteuer. Zahle 200€.", spielleiter, -200));
         // new FeldGehen("Gehen sie in das Gefängnis. Begeben Sie sich direkt dorthin. Gehen Sie nicht" +
@@ -23,7 +16,7 @@ public class KartenFactory {
         return ausgabe;
     }
 
-    public Ereigniskarte[] erstelleRandomKarten(){
+    public static Ereigniskarte[] erstelleRandomKarten(Spielleiter spielleiter, Grundbuch grundbuch){
         return new Ereigniskarte[]{
                 new BankGeld("Schuldgeld. Zahlen sie 50€", spielleiter, -50),
                 new BankGeld("Urlaubsgeld! Sie erhalten 100€", spielleiter, 100),
