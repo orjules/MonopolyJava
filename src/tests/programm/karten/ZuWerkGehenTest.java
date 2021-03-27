@@ -25,6 +25,9 @@ class ZuWerkGehenTest {
     Felder nächstesWerk = Felder.Elektrizitätswerk;
     Werk nächstesGrundstück = mock(Werk.class);
 
+    int miete;
+    int gesamtWurf;
+
     ZuWerkGehen zuWerkGehen;
 
     @BeforeEach
@@ -39,90 +42,103 @@ class ZuWerkGehenTest {
 
     @Test
     public void zuWerkNochFreiOhneLos(){
-        when(grundbuch.getBesitzerVon(nächstesGrundstück)).thenReturn(null);
-        // Miete ist null
-        assertEquals(0, zuWerkGehen.getWert());
-        // Korrekter String erstellt "Du wirst landen auf, sie gehört niemandem"
-        assertEquals(beschreibung+"\n"+"Du wirst auf dem " + nächstesWerk.name() + " landen. " +
-                "Es gehört noch niemandem.", zuWerkGehen.getBeschreibung());
+        setUp(null, false);
 
-        // Bei Bestätigung auf Feld springen ohne was anderes zu machen (dann weiter mit kaufen auf Feld)
-        zuWerkGehen.bestätigen();
-        verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
-        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 0);
-        // Korrekte Bestätigung bekommen
-        assertEquals(spieler1Name+" ist nun auf dem "+nächstesWerk.name()+".", zuWerkGehen.getBestätigung());
-        // Karte wurde resettet
-        assertNull(zuWerkGehen.getBesitzer());
+        mieteIst0();
+        korrekteBeschreibungWirdErstellt(beschreibung+"\n"+"Du wirst auf dem " + nächstesWerk.name()
+                + " landen. Es gehört noch niemandem.");
+        beiBestätigungSetzenMit0(false);
+        korrekteBestätigungBeiFrei(false);
+        korrektesReset();
     }
 
     @Test
     public void zuWerkNochFreiMitLos(){
-        when(spieler1.getAktuellePos()).thenReturn(aktuellePosDahinter);
-        when(grundbuch.getBesitzerVon(nächstesGrundstück)).thenReturn(null);
-        // Miete ist null
-        assertEquals(0, zuWerkGehen.getWert());
-        // Korrekter String erstellt "Du wirst landen auf, du wirst 200 einziehen, sie gehört niemandem"
-        assertEquals(beschreibung+"\n"+"Du wirst über Los gehen und 200€ einziehen. Du wirst auf dem " + nächstesWerk.name() + " landen. " +
-                "Es gehört noch niemandem.", zuWerkGehen.getBeschreibung());
+        setUp(null, true);
 
-        // Bei Bestätigung auf Feld springen und 200 geben (dann weiter mit kaufen auf Feld)
-        zuWerkGehen.bestätigen();
-        verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
-        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 200);
-        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 0);
-        // Korrekte Bestätigung bekommen
-        assertEquals("Du bist über Los geganen und hast 200€ eingezogen. "+spieler1Name+" ist nun auf dem "
-                +nächstesWerk.name()+".", zuWerkGehen.getBestätigung());
-        // Karte wurde resettet
-        assertNull(zuWerkGehen.getBesitzer());
+        mieteIst0();
+        korrekteBeschreibungWirdErstellt(beschreibung+"\n"+"Du wirst über Los gehen und 200€ einziehen. " +
+                "Du wirst auf dem " + nächstesWerk.name() + " landen. " + "Es gehört noch niemandem.");
+
+        beiBestätigungSetzenMit0(true);
+        korrekteBestätigungBeiFrei(true);
+        korrektesReset();
     }
 
     @Test
     public void zuWerkBesetztOhneLos(){
-        when(grundbuch.getBesitzerVon(nächstesGrundstück)).thenReturn(spieler2);
-        // Miete ist wurf * 10
-        int miete = zuWerkGehen.getWert();
-        int gesamtWurf = zuWerkGehen.getWurf()[2];
-        assertEquals(gesamtWurf*10, miete);
-        // Korrekter String erstellt
-        assertEquals(beschreibung+"\n"+"Du wirst auf dem "+nächstesWerk.name()+" landen, welches "+spieler2Name+
-                " gehört. Weil du eine "+gesamtWurf+" gewürfelt hast, musst du "+miete+" zahlen.",
-                zuWerkGehen.getBeschreibung());
-        // Bei Bestätigung wird Geld übertragen und auf Feld gesprungen
-        zuWerkGehen.bestätigen();
-        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, -miete);
-        verify(spielleiter, times(1)).kapitalÄndernVon(spieler2, miete);
-        verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
-        // Korrekte Bestätigung bekommen
-        assertEquals(spieler1Name + " ist auf dem " + nächstesWerk.name() + " von " + spieler2Name +
-                " gelandet und hat " + miete + "€ gezahlt.", zuWerkGehen.getBestätigung());
-        // Karte wurde resettet
-        assertNull(zuWerkGehen.getBesitzer());
+        setUp(spieler2, false);
+
+        mieteIst10malWurf();
+        korrekteBeschreibungWirdErstellt(beschreibung+"\n"+"Du wirst auf dem "+nächstesWerk.name()+
+                " landen, welches "+spieler2Name+ " gehört. Weil du eine "+gesamtWurf+" gewürfelt hast, musst du "
+                +miete+" zahlen.");
+        beiBestätigungSetzenMitMiete(false);
+        korrekteBestätigungBesetzt(false);
+        korrektesReset();
     }
 
     @Test
     public void zuWerkBesetztMitLos(){
-        when(grundbuch.getBesitzerVon(nächstesGrundstück)).thenReturn(spieler2);
-        when(spieler1.getAktuellePos()).thenReturn(aktuellePosDahinter);
-        // Miete ist wurf * 10
-        int miete = zuWerkGehen.getWert();
-        int gesamtWurf = zuWerkGehen.getWurf()[2];
+        setUp(spieler2, true);
+
+        mieteIst10malWurf();
+        korrekteBeschreibungWirdErstellt(beschreibung+"\n"+"Du wirst über Los gehen und 200€ einziehen. " +
+                "Du wirst auf dem "+ nächstesWerk.name()+" landen, welches "+spieler2Name+ " gehört. Weil du eine "+
+                gesamtWurf+ " gewürfelt hast, musst du "+miete+" zahlen.");
+        beiBestätigungSetzenMitMiete(true);
+        korrekteBestätigungBesetzt(true);
+        korrektesReset();
+    }
+
+    private void setUp(Spieler spieler, boolean mitLos){
+        if (mitLos)
+            when(spieler1.getAktuellePos()).thenReturn(aktuellePosDahinter);
+        when(grundbuch.getBesitzerVon(nächstesGrundstück)).thenReturn(spieler);
+    }
+    private void mieteIst0(){
+        assertEquals(0, zuWerkGehen.getWert());
+    }
+    private void korrekteBeschreibungWirdErstellt(String erwartet){
+        assertEquals(erwartet, zuWerkGehen.getBeschreibung());
+    }
+    private void mieteIst10malWurf(){
+        miete = zuWerkGehen.getWert();
+        gesamtWurf = zuWerkGehen.getWurf()[2];
         assertEquals(gesamtWurf*10, miete);
-        // Korrekter String "Du wirst landen auf, du wirst 200 einziehen, sie gehört..., miete ist..."
-        assertEquals(beschreibung+"\n"+"Du wirst über Los gehen und 200€ einziehen. Du wirst auf dem "+
-                        nächstesWerk.name()+" landen, welches "+spieler2Name+ " gehört. Weil du eine "+gesamtWurf+
-                        " gewürfelt hast, musst du "+miete+" zahlen.", zuWerkGehen.getBeschreibung());
-        // Bei Bestätigung wird 200 übertragen, dann springen und dann miete abziehen
+    }
+    private void beiBestätigungSetzenMit0(boolean mitLos){
         zuWerkGehen.bestätigen();
-        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 200);
+        if (mitLos)
+            verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 200);
+        verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
+        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 0);
+    }
+    private void beiBestätigungSetzenMitMiete(boolean mitLos){
+        zuWerkGehen.bestätigen();
+        if (mitLos)
+            verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 200);
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, -miete);
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler2, miete);
         verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
-        // Korrekte Bestätigung bekommen
-        assertEquals("Du bist über Los geganen und hast 200€ eingezogen. "+spieler1Name + " ist auf dem " + nächstesWerk.name() + " von " + spieler2Name +
-                " gelandet und hat " + miete + "€ gezahlt.", zuWerkGehen.getBestätigung());
-        // Karte wurde resettet
+    }
+    private void korrekteBestätigungBeiFrei(boolean mitLos){
+        if (mitLos){
+            assertEquals("Du bist über Los geganen und hast 200€ eingezogen. "+spieler1Name+" ist nun auf dem "
+                    +nächstesWerk.name()+".", zuWerkGehen.getBestätigung());
+        }else
+            assertEquals(spieler1Name+" ist nun auf dem "+nächstesWerk.name()+".", zuWerkGehen.getBestätigung());
+    }
+    private void korrekteBestätigungBesetzt(boolean mitLos){
+        if (mitLos){
+            assertEquals("Du bist über Los geganen und hast 200€ eingezogen. "+spieler1Name + " ist auf dem "
+                            + nächstesWerk.name() + " von " + spieler2Name + " gelandet und hat " + miete
+                            + "€ gezahlt.", zuWerkGehen.getBestätigung());
+        }else
+            assertEquals(spieler1Name + " ist auf dem " + nächstesWerk.name() + " von " + spieler2Name +
+                    " gelandet und hat " + miete + "€ gezahlt.", zuWerkGehen.getBestätigung());
+    }
+    private void korrektesReset(){
         assertNull(zuWerkGehen.getBesitzer());
     }
 }
