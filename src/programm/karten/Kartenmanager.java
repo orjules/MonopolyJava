@@ -36,11 +36,11 @@ public class Kartenmanager {
             return true;
         }
 
-        if (NormaleKarte.class.isAssignableFrom(karte.getClass())){     // isAssignable, weil NormaleKarte abstract ist
+        if (NormaleKarte.class.isAssignableFrom(karte.getClass())){
             ((NormaleKarte)karte).aktionAusführen();
-        }else if(karte.getClass().equals(ZuWerkGehen.class)){
+        }else if(karte instanceof ZuWerkGehen){
             ((ZuWerkGehen) karte).bestätigen();
-        }else if (karte.getClass().equals(Gefängnisfrei.class)){
+        }else if (karte instanceof Gefängnisfrei){
 
         }else {
             throw new IllegalArgumentException("Typ von Ereigniskarte nicht erkannt.");

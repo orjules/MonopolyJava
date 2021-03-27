@@ -43,4 +43,12 @@ class DreiFelderZurückTest {
         assertEquals(geradeDranString + " ist nun auf " + neuesFeld.name(), dreiFelderZurück.getBestätigung());
     }
 
+    @Test
+    public void aktionWennLosUnterschritten(){
+        when(geradeDran.getAktuellePos()).thenReturn(Felder.Badstraße);
+        dreiFelderZurück.aktionAusführen();
+        Felder vorletztesFeld = Felder.values()[Felder.values().length-2];
+        verify(spielleiter,times(1)).spielerSetzten(vorletztesFeld);
+    }
+
 }
