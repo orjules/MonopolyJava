@@ -17,6 +17,7 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
     private Felder werk;
     private int miete;
     private Spieler besitzer;
+    private int[] wurf;
 
     public ZuWerkGehen(String beschreibung, Spielleiter spielleiter, Grundbuch grundbuch) {
         super(beschreibung);
@@ -30,11 +31,13 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
         besitzerFindenVon(werk);
         if (besitzer == null){
             zweiteBeschreibung =  "Du bist auf dem " + werk.name() + " gelandet. Es geöhrt noch niemandem.";
+            return 0;
+        }else{
+            mieteBerechnen();
+            zweiteBeschreibung = "Du bist auf dem " + werk.name() + " von " + besitzer.toString() +
+                    " gelandet und musst " + miete + "€ zahlen.";
+            return miete;
         }
-        mieteBerechnen();
-        zweiteBeschreibung = "Du bist auf dem " + werk.name() + " von " + besitzer.toString() +
-                " gelandet und musst " + miete + "€ zahlen.";
-        return miete;
     }
 
     @Override
@@ -71,7 +74,11 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
     private void mieteBerechnen(){
         // Neuer Würfel, weil die pasche nicht gespeichert werden sollen
         Würfel würfel = new Würfel();
-        int[] wurf = würfel.würfeln();
+        wurf = würfel.würfeln();
         miete = wurf[2] * 10;
+    }
+
+    public int[] getWurf(){
+        return wurf;
     }
 }
