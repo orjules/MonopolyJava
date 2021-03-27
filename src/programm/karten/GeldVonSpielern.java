@@ -24,22 +24,38 @@ public class GeldVonSpielern extends NormaleKarte{
 
     @Override
     public String getBestätigung() {
-        return spielleiter.getGeradeDran().toString() + " hat insgesamt " + gesamt + "€ bekommen.";
+        if (gesamt == 0){
+            throw new IllegalStateException("Es kann nicht sein, dass ein Spieler nichts von den anderen bekommt.");
+        }
+        if (istBekommen)
+            return spielleiter.getGeradeDran().toString() + " hat insgesamt " + gesamt + "€ bekommen.";
+        else
+            return spielleiter.getGeradeDran().toString() + " hat insgesamt " + gesamt + "€ bezahlt.";
     }
 
     private void geldBekommen(){
+        Spieler gradDran = spielleiter.getGeradeDran();
         for (Spieler p : spielleiter.getAlleSpieler()){
-            spielleiter.kapitalÄndernVon(p, -wert);
-            gesamt += wert;
+            if (p.equals(gradDran)){
+                continue;
+            }else{
+                spielleiter.kapitalÄndernVon(p, -wert);
+                gesamt += wert;
+            }
         }
-        spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), gesamt);
+        spielleiter.kapitalÄndernVon(gradDran, gesamt);
     }
 
     private void geldZahlen(){
+        Spieler gradDran = spielleiter.getGeradeDran();
         for (Spieler p : spielleiter.getAlleSpieler()){
-            spielleiter.kapitalÄndernVon(p, wert);
-            gesamt -= wert;
+            if (p.equals(gradDran)){
+                continue;
+            }else{
+                spielleiter.kapitalÄndernVon(p, wert);
+                gesamt -= wert;
+            }
         }
-        spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), gesamt);
+        spielleiter.kapitalÄndernVon(gradDran, gesamt);
     }
 }
