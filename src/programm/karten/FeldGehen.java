@@ -9,6 +9,7 @@ public class FeldGehen extends NormaleKarte{
     Felder zielFeld;
     Felder altesFeld;
     boolean istGefängnisKarte = false;
+    boolean wurdeGestzt = false;
 
     protected FeldGehen(String beschreibung, Spielleiter spielleiter, Felder zielFeld, boolean istGefängnisKarte) {
         super(beschreibung, spielleiter);
@@ -29,18 +30,22 @@ public class FeldGehen extends NormaleKarte{
         }else if(zielFeld.ordinal() < altesFeld.ordinal()){
             spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), 200);
         }
+        wurdeGestzt = true;
     }
 
     @Override
     public String getBestätigung() {
         Spieler gradDran = spielleiter.getGeradeDran();
-        if (istGefängnisKarte){
+        if (istGefängnisKarte && wurdeGestzt){
+            wurdeGestzt = false;
             return gradDran.toString() + " sitzt nun im Gefängnis.";
-        }else if(zielFeld.ordinal() < altesFeld.ordinal()){
+        }else if(altesFeld != null && zielFeld.ordinal() < altesFeld.ordinal()){
+            wurdeGestzt = false;
             return gradDran.toString() + " ist über Los gegangen und hat 200€ eingezogen.";
-        }else if (gradDran.getAktuellePos().equals(zielFeld)){
+        }else if (gradDran.getAktuellePos().equals(zielFeld) && wurdeGestzt){
+            wurdeGestzt = false;
             return spielleiter.getGeradeDran().toString() + " ist nun auf " + zielFeld.name() + ".";
         }else
-            throw new IllegalStateException("Etwas ist beim setzten des Spilers schiefgelaufen!");
+            throw new IllegalStateException("Etwas ist beim setzten des Spielers schiefgelaufen!");
     }
 }
