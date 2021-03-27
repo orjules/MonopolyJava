@@ -13,11 +13,12 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
     private Spielleiter spielleiter;
     private Grundbuch grundbuch;
 
-    private String zweiteBeschreibung;
+    private String zweiteBeschreibung = "";
     private Felder werk;
     private int miete;
     private Spieler besitzer;
     private int[] wurf;
+    private boolean gehtÜberLos = false;
 
     public ZuWerkGehen(String beschreibung, Spielleiter spielleiter, Grundbuch grundbuch) {
         super(beschreibung);
@@ -28,14 +29,17 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
     @Override
     public int getWert() {
         feldVomNächstenWerkFinden();
+        if (gehtÜberLos){
+            zweiteBeschreibung += "Du wirst über Los gehen und 200€ einziehen. ";
+        }
         besitzerFindenVon(werk);
         if (besitzer == null){
-            zweiteBeschreibung =  "Du bist auf dem " + werk.name() + " gelandet. Es geöhrt noch niemandem.";
+            zweiteBeschreibung += "Du wirst auf dem " + werk.name() + " landen. Es gehört noch niemandem.";
             return 0;
         }else{
             mieteBerechnen();
-            zweiteBeschreibung = "Du bist auf dem " + werk.name() + " von " + besitzer.toString() +
-                    " gelandet und musst " + miete + "€ zahlen.";
+            zweiteBeschreibung += "Du wirst auf dem "+werk.name()+" landen, welches "+besitzer.toString()+
+                    " gehört. Weil du eine "+wurf[2]+" gewürfelt hast, musst du "+miete+" zahlen.";
             return miete;
         }
     }
@@ -46,8 +50,11 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
     }
 
     public void bestätigen(){
-        spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), -miete);
         spielleiter.spielerSetzten(werk);
+        if (gehtÜberLos)
+            spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), 200);
+        spielleiter.kapitalÄndernVon(spielleiter.getGeradeDran(), -miete);
+        spielleiter.kapitalÄndernVon(besitzer, miete);
     }
 
     @Override
@@ -57,12 +64,19 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
     }
 
     private void feldVomNächstenWerkFinden(){
+        int spielerPos = spielleiter.getGeradeDran().getAktuellePos().ordinal();
+
+        for (int i = spielerPos; i < Felder.values().length; i++){
+            if (Felder.values()[i].equals(Felder.Elektrizitätswerk)) {  // Oder das Wasserwerk
+                werk = Felder.values()[i];
+                return;
+            }
+        }
+        gehtÜberLos = true;
         for (Felder feld : Felder.values()){
-            if (feld.ordinal() > spielleiter.getGeradeDran().getAktuellePos().ordinal()){
-                if (feld.equals(Felder.Elektrizitätswerk)) {  // Oder das Wasserwerk
-                    werk = feld;
-                    return;
-                }
+            if (feld.equals(Felder.Elektrizitätswerk)) {  // Oder das Wasserwerk
+                werk = feld;
+                return;
             }
         }
         throw new IllegalStateException("Es wurde kein Werk gefunden, was nicht passieren sollte");
