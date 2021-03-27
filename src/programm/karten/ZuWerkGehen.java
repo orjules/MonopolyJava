@@ -59,8 +59,18 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
 
     @Override
     public String getBestätigung() {
-        return spielleiter.getGeradeDran().toString() + " ist auf dem " + werk.name() + " von " + besitzer.toString() +
+        Spieler geradeDran = spielleiter.getGeradeDran();
+        String ausgabe = "";
+        if (gehtÜberLos){
+            ausgabe += "Du bist über Los geganen und hast 200€ eingezogen. ";
+        }
+        if (besitzer == null){
+            ausgabe += geradeDran.toString()+" ist nun auf dem "+werk.name()+".";
+        }else
+            ausgabe +=  geradeDran.toString() + " ist auf dem " + werk.name() + " von " + besitzer.toString() +
                 " gelandet und hat " + miete + "€ gezahlt.";
+        reset();
+        return ausgabe;
     }
 
     private void feldVomNächstenWerkFinden(){
@@ -92,7 +102,20 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
         miete = wurf[2] * 10;
     }
 
+    private void reset(){
+        zweiteBeschreibung = "";
+        werk = null;
+        miete = 0;
+        besitzer = null;
+        wurf = new int[]{0,0,0};
+        gehtÜberLos = false;
+    }
+
+    // Für die Tests
     public int[] getWurf(){
         return wurf;
+    }
+    public Spieler getBesitzer(){
+        return besitzer;
     }
 }

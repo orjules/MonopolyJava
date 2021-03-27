@@ -17,6 +17,7 @@ class ZuWerkGehenTest {
     Spielleiter spielleiter = mock(Spielleiter.class);
     Grundbuch grundbuch = mock(Grundbuch.class);
     Spieler spieler1 = mock(Spieler.class);
+    String spieler1Name = "spieler1 (!)";
     Spieler spieler2 = mock(Spieler.class);
     String spieler2Name = "spieler2 (?)";
     Felder aktuellePosDavor = Felder.Los;
@@ -32,6 +33,7 @@ class ZuWerkGehenTest {
         when(spielleiter.getGeradeDran()).thenReturn(spieler1);
         when(spieler1.getAktuellePos()).thenReturn(aktuellePosDavor);
         when(grundbuch.grundstückVon(nächstesWerk)).thenReturn(nächstesGrundstück);
+        when(spieler1.toString()).thenReturn(spieler1Name);
         when(spieler2.toString()).thenReturn(spieler2Name);
     }
 
@@ -48,6 +50,10 @@ class ZuWerkGehenTest {
         zuWerkGehen.bestätigen();
         verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 0);
+        // Korrekte Bestätigung bekommen
+        assertEquals(spieler1Name+" ist nun auf dem "+nächstesWerk.name()+".", zuWerkGehen.getBestätigung());
+        // Karte wurde resettet
+        assertNull(zuWerkGehen.getBesitzer());
     }
 
     @Test
@@ -65,6 +71,11 @@ class ZuWerkGehenTest {
         verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 200);
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, 0);
+        // Korrekte Bestätigung bekommen
+        assertEquals("Du bist über Los geganen und hast 200€ eingezogen. "+spieler1Name+" ist nun auf dem "
+                +nächstesWerk.name()+".", zuWerkGehen.getBestätigung());
+        // Karte wurde resettet
+        assertNull(zuWerkGehen.getBesitzer());
     }
 
     @Test
@@ -83,6 +94,11 @@ class ZuWerkGehenTest {
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, -miete);
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler2, miete);
         verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
+        // Korrekte Bestätigung bekommen
+        assertEquals(spieler1Name + " ist auf dem " + nächstesWerk.name() + " von " + spieler2Name +
+                " gelandet und hat " + miete + "€ gezahlt.", zuWerkGehen.getBestätigung());
+        // Karte wurde resettet
+        assertNull(zuWerkGehen.getBesitzer());
     }
 
     @Test
@@ -103,7 +119,10 @@ class ZuWerkGehenTest {
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, -miete);
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler2, miete);
         verify(spielleiter, times(1)).spielerSetzten(nächstesWerk);
+        // Korrekte Bestätigung bekommen
+        assertEquals("Du bist über Los geganen und hast 200€ eingezogen. "+spieler1Name + " ist auf dem " + nächstesWerk.name() + " von " + spieler2Name +
+                " gelandet und hat " + miete + "€ gezahlt.", zuWerkGehen.getBestätigung());
+        // Karte wurde resettet
+        assertNull(zuWerkGehen.getBesitzer());
     }
-
-    // TODO irgendwie eine reset möglichkeit implementieren
 }
