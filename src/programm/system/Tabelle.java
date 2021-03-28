@@ -40,37 +40,37 @@ public class Tabelle {
         }
 
         // 2. Rand Oben und unten bestimmen
-        int breiteGanzeTabelle = 2 + (gesetzteSpaltenZahl - 1) + 1; // für die Ränder + mitteltrenner + 1 keine Ahnung warum
+        int breiteGanzeTabelle = 2 + (gesetzteSpaltenZahl - 1);
         for (int i = 0; i < gesetzteSpaltenZahl; i++){
             breiteGanzeTabelle += breiteProSpalte[i] + 2; // eigentliches Wort + 2 padding
         }
-        for (int i = 0; i <= breiteGanzeTabelle; i++ ){
+        for (int i = 0; i < breiteGanzeTabelle; i++ ){
             ausgabe += obenUntenRand;
         }
         ausgabe += "\n";
 
         // 3. Kopfzeile
-        printZeile(0, breiteProSpalte);
+        zeileErstellen(0, breiteProSpalte);
         ausgabe += seitenRand;
 
-        for (int i = 0; i <= breiteGanzeTabelle-2; i++ ){
+        for (int i = 0; i < breiteGanzeTabelle-2; i++ ){
             ausgabe += kopfTrennung;
         }
         ausgabe += seitenRand + "\n";
 
         // 4. alle weiteren Zeilen
         for (int d = 1; d < daten.size(); d++){
-            printZeile(d, breiteProSpalte);
+            zeileErstellen(d, breiteProSpalte);
         }
 
         // 5. Unteres Ende
-        for (int i = 0; i <= breiteGanzeTabelle; i++ ){
+        for (int i = 0; i < breiteGanzeTabelle; i++ ){
             ausgabe += obenUntenRand;
         }
         ausgabe += "\n";
     }
 
-    private void printZeile(int nummer, int[] breiteProSpalte){
+    private void zeileErstellen(int nummer, int[] breiteProSpalte){
         ausgabe += seitenRand;
         for (int i = 0; i < gesetzteSpaltenZahl; i++){
             int wortlänge = daten.get(nummer)[i].length();
@@ -80,11 +80,11 @@ public class Tabelle {
             }
             ausgabe += daten.get(nummer)[i];
             if (anzahlLeerzeichen%2 == 0){
-                for (int j = 0; j <= (anzahlLeerzeichen/2) + 1; j++){
+                for (int j = 0; j <= (anzahlLeerzeichen/2); j++){
                     ausgabe += " ";
                 }
             }else {
-                for (int j = 0; j <= (anzahlLeerzeichen/2) + 2; j++){
+                for (int j = 0; j <= (anzahlLeerzeichen/2)+1; j++){
                     ausgabe += " ";
                 }
             }
@@ -93,9 +93,24 @@ public class Tabelle {
         ausgabe += "\n";
     }
 
+    private boolean istVoll(){
+        for (String[] s : daten){
+            for (String x : s){
+                if (x.length() > 0)
+                    return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString(){
-        tabelleErstellen();
+        if (istVoll())
+            tabelleErstellen();
         return ausgabe;
     }
+
+
+
+
 }
