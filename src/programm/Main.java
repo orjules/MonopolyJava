@@ -12,12 +12,13 @@ import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
 
     public static void main(String[] args) {
         // Setup, damit es von den wichtigen Objekten nur jeweils eins gibt
-        Würfel würfel = new Würfel();
+        Würfel würfel = new Würfel(new Random());
         ArrayList<Spieler> testSpieler = new ArrayList<>(Arrays.asList(
                 new Spieler("Günther", '#', Felder.Los, false, 15),
                 new Spieler("Monika", '?', Felder.Los, false, 5),

@@ -8,6 +8,8 @@ import programm.system.Würfel;
 import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
+import java.util.Random;
+
 public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
 
     private Spielleiter spielleiter;
@@ -97,7 +99,7 @@ public class ZuWerkGehen extends Ereigniskarte implements MussZahlen{
     }
     private void mieteBerechnen(){
         // Neuer Würfel, weil die pasche nicht gespeichert werden sollen
-        Würfel würfel = new Würfel();
+        Würfel würfel = new Würfel(new Random());
         wurf = würfel.würfeln();
         miete = wurf[2] * 10;
     }

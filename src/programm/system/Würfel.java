@@ -5,9 +5,14 @@ public class Würfel {
     private boolean hatPasch = false;
     private int anzahlPasche = 0;
     private int letzterWurf = 0;
+    Random rnd;
+
+    public Würfel(Random rnd) {
+        this.rnd = rnd;
+    }
 
     public int[] würfeln(){
-        Random rnd = new Random();
+
         hatPasch = false;
 
         int ersteZahl = rnd.nextInt(6) + 1;
