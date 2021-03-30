@@ -5,7 +5,7 @@ import programm.system.Felder;
 import java.util.ArrayList;
 
 public class Spielleiter {
-    private ArrayList<Spieler> alleSpieler = new ArrayList<>();
+    private ArrayList<Spieler> alleSpieler;
     private Spieler geradeDran;
     private boolean jemandHatGeradeAufgegeben = false;
     private boolean wurdeGradBewegt = false;
