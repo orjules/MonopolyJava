@@ -1,15 +1,17 @@
 package programm.karten;
 
 
-public class Ereigniskarte{
+public abstract class Ereigniskarte{
 
-    String beschreibung;
+    protected String beschreibung;
 
-    public Ereigniskarte(String beschreibung) {
+    protected Ereigniskarte(String beschreibung){
         this.beschreibung = beschreibung;
     }
 
-    public String getBeschreibung() {
+    public String getBeschreibung(){
         return beschreibung;
     }
+
+    public abstract String getBestätigung();
 }

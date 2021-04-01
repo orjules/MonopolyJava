@@ -2,12 +2,17 @@ package programm.system;
 import java.util.Random;
 
 public class Würfel {
-
     private boolean hatPasch = false;
     private int anzahlPasche = 0;
+    private int letzterWurf = 0;
+    Random rnd;
+
+    public Würfel(Random rnd) {
+        this.rnd = rnd;
+    }
 
     public int[] würfeln(){
-        Random rnd = new Random();
+
         hatPasch = false;
 
         int ersteZahl = rnd.nextInt(6) + 1;
@@ -18,6 +23,7 @@ public class Würfel {
             anzahlPasche ++;
         }
         int [] ausgabe = {ersteZahl, zweiteZahl, summe};
+        letzterWurf = summe;
         return ausgabe;
     }
 
@@ -38,5 +44,9 @@ public class Würfel {
     public void reset(){
         hatPasch = false;
         anzahlPasche = 0;
+    }
+
+    public int getLetztenWurf(){
+        return letzterWurf;
     }
 }

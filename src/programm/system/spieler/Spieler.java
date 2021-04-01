@@ -37,4 +37,9 @@ public class Spieler {
         return kapital;
     }
 
+    @Override
+    public String toString(){
+        return name + " (" + symbol + ")";
+    }
+
 }

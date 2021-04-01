@@ -1,6 +1,8 @@
 package programm.grundstücke;
 
 import programm.system.Felder;
+import programm.system.Würfel;
+import programm.system.spieler.Spieler;
 
 public abstract class Grundstück {
 
@@ -20,4 +22,6 @@ public abstract class Grundstück {
     public int getGrundstücksWert() {
         return grundstücksWert;
     }
+
+    public abstract int mieteBerechnen(Spieler besitzer, Grundbuch grundbuch, int letzterWurf);
 }
