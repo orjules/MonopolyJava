@@ -83,4 +83,8 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 
 - Klassendiagramm angepasst
 
-Als nächstes: Tests verbessern und Plan machen, wie man die Karten implementiert
+=== 18.3.21
+
+- Funktionierenden Prototyp für die Karten erstellt
+
+Als nächstes: Tests erstellen und refaktorisieren, bis es schön ist
