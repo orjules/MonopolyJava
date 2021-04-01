@@ -19,7 +19,7 @@ Am stärksten Verknüpft ist der "Organisator", der mit den Klassen im "System"-
 
 === Klassendiagramm
 
-image::https://github.com/orjules/MonopolyJava/blob/kaufenUndBewegung/Dokumentation/Entwurf/Klassendiagramm_neusterStand.svg[Das Klassendiagramm]
+image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/Entwurf/Klassendiagramm_neusterStand.svg[Das Klassendiagramm]
 
 Das Programm ist in drei Teile unterteilt:
 
@@ -31,7 +31,7 @@ Das Programm ist in drei Teile unterteilt:
 
 === Aktivitätsdiagramm
 
-image::https://github.com/orjules/MonopolyJava/blob/kaufenUndBewegung/Dokumentation/Entwurf/gameLoop_MitPackages.svg[Das Aktivitätsdiagramm]
+image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/Entwurf/gameLoop_MitPackages.svg[Das Aktivitätsdiagramm]
 
 Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht in ein Diagramm übertragen. (Noch nicht vollständig)
 
@@ -87,4 +87,9 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 
 - Funktionierenden Prototyp für die Karten erstellt
 
-Als nächstes: Tests erstellen und refaktorisieren, bis es schön ist
+=== 1.4.21
+
+- Tests für alles außer System erstellt
+- Erkannt, dass das System Package nicht gut designed ist und erneuert werden muss
+
+Als nächstes: System neu schreiben mit besserer Entkoppelung und Testgetrieben
