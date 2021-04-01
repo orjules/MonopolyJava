@@ -19,7 +19,7 @@ Am stärksten Verknüpft ist der "Organisator", der mit den Klassen im "System"-
 
 === Klassendiagramm
 
-image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/Entwurf/Klassendiagramm_neusterStand.svg[Das Klassendiagramm]
+image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/KlassendiagrammeExporte/Klassendiagramm_neusterStand.svg[Das Klassendiagramm]
 
 Das Programm ist in drei Teile unterteilt:
 
@@ -29,58 +29,55 @@ Das Programm ist in drei Teile unterteilt:
 
 - Grundstücke (Verwaltet die Informationen über Grundstückbesitze und wie viel was kostet)
 
+
+
+image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/NeueArchitekturExporte/NeueArchitektur1.svg[Das neue Klassendiagramm]
+
+Das neue System nutzt eine Design Idee aus der "Clean Code" Video Reihe von Robert Martin. 
+
+Es gibt nun eine bessere Trennung zwischen UI und System. Ziel ist es das System Package so umzuschreiben, dass im System keine Strings generiert werden, sondern nur ein Modell, dass alle Daten enthält um die String auszulesen. Dadurch kann die Darstellung später leicht angepasst werden. Außerdem wird der klarere Ablauf von Eingabe zu Eingabe-Modell zu Systemreaktion zu Ausgabe-Modell zu Ausgabe das Zwischenschalten von Server Kommunikation erleichtern.
+
+
 === Aktivitätsdiagramm
 
-image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/Entwurf/gameLoop_MitPackages.svg[Das Aktivitätsdiagramm]
+image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/AktivitätsdiagrammExporte/gameLoop_MitPackages.svg[Das Aktivitätsdiagramm]
 
-Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht in ein Diagramm übertragen. (Noch nicht vollständig)
+Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht in ein Diagramm übertragen. (Noch nicht vollständig
+
 
 == Fortschritt
 
 === 9.3.21
 
 - Repo und Projekt erstellt
-
 - Ersten Entwurf von python Prototyp übernommen
-
 - Würfel implementiert
-
 - Brett zeichnen mit aktuellen Spielerpositionen
-
 - Erste Version der Bewegung
 
 === 10.3.21
 
 - Prototyp für GameLoop erstellt und überarbeitet
-
 - Weitere Klassen erstellt
-
 - Interfaces und Mocks für Integrationtest erstellt
 
 === 11.3.21
 
 - Interfaces, Mocks und Integrationtest entfernt (weil sie mehr arbeit gemacht haben als gespart)
-
 - Darstellung überarbeitet
-
 - Akzeptable, lauffähige Version erstellt und somut Meilenstein "Spieler bewegen" erreicht
-
 - Dokumentation verbessert
 
 === 12.3.21
 
 - Erkennen auf welchem Feld man landet implementiert
-
 - Grundstücke kaufen und Miete zahlen implementiert
-
 - Aktivitätsdiagramm überarbeitet
 
 === 13.3.21
 
 - Refactorisiert
-
 - Versucht Tests zu schreiben
-
 - Klassendiagramm angepasst
 
 === 18.3.21
@@ -91,5 +88,6 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 
 - Tests für alles außer System erstellt
 - Erkannt, dass das System Package nicht gut designed ist und erneuert werden muss
+- Ersten Plan für das Redesign erstellt
 
 Als nächstes: System neu schreiben mit besserer Entkoppelung und Testgetrieben
