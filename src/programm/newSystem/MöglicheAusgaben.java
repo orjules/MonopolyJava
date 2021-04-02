@@ -2,8 +2,10 @@ package programm.newSystem;
 
 public enum MöglicheAusgaben {
     würfeln,
-    aufLeeremGrundstück,
-    auBesetztemGrundstück,
+    kaufen,
+    mieteZahlen,
     aufKarte,
-    überLos
+    überLos,
+    übersicht,
+    imGefängnis
 }

@@ -1,14 +1,16 @@
 package programm.newSystem;
 
+import java.util.ArrayList;
+
 public class AusgabeModell {
 
-    MöglicheAusgaben ausgabe;
+    ArrayList<MöglicheAusgaben> ausgaben;
 
-    public AusgabeModell(MöglicheAusgaben ausgabe) {
-        this.ausgabe = ausgabe;
+    public AusgabeModell(ArrayList<MöglicheAusgaben> ausgaben) {
+        this.ausgaben = ausgaben;
     }
 
-    public MöglicheAusgaben getFrage() {
-        return ausgabe;
+    public ArrayList<MöglicheAusgaben> getAusgaben() {
+        return ausgaben;
     }
 }

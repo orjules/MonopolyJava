@@ -3,13 +3,15 @@ package programm.newSystem;
 import org.junit.jupiter.api.Test;
 import programm.grundstücke.Grundbuch;
 import programm.grundstücke.Grundstück;
+import programm.system.Felder;
 import programm.system.Würfel;
 import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ErsterVerwalterTest {
 
@@ -21,32 +23,53 @@ class ErsterVerwalterTest {
     Grundstück grundstück = mock(Grundstück.class);
     EingabeModell eingabe = mock(EingabeModell.class);
 
-    ErsterVerwalter ersterVerwalter = new ErsterVerwalter();
+    ErsterVerwalter ersterVerwalter = new ErsterVerwalter(würfel, spielleiter, grundbuch);
 
     public void initialerZustandErstellen(){
         when(spielleiter.getGeradeDran()).thenReturn(spieler1);
+        when(spieler1.getAktuellePos()).thenReturn(Felder.Los);
     }
 
     @Test
     public void initialeEingabe(){
+        initialerZustandErstellen();
         when(eingabe.getAntwort()).thenReturn(MöglicheEingaben.start);
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = new ArrayList<>();
+        erwarteteAusgaben.add(MöglicheAusgaben.würfeln);
 
         AusgabeModell ausgabe = ersterVerwalter.modellErstellen(eingabe);
-        assertEquals(MöglicheAusgaben.würfeln, ausgabe.getFrage());
+        assertEquals(erwarteteAusgaben, ausgabe.getAusgaben());
     }
 
     @Test
     public void initialerWurfBisFreiesGrundstück(){
-        // System ist im initalzustand (Spieler auf Los)
-        // Eingabe Modell gibt 'wurf'
+        initialerZustandErstellen();
+        werfenBisBadstraßeSetzen();
+        when(grundbuch.getBesitzerVon(grundstück)).thenReturn(null);
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = new ArrayList<>();
+        erwarteteAusgaben.add(MöglicheAusgaben.kaufen);
+        erwarteteAusgaben.add(MöglicheAusgaben.übersicht);
 
-        // System soll würfeln, Spieler bewegen, neues Feld als Grundstück erkennen und allen in das Ausgabe-Modell schreiben
+        assertVerwalterMachtSeinenJobBeimWerfen(erwarteteAusgaben);
     }
+
+    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'übersicht' ist
+    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
 
     @Test
     public void initialerWurfBisBesetzesGrundstück(){
+        initialerZustandErstellen();
+        werfenBisBadstraßeSetzen();
+        when(grundbuch.getBesitzerVon(grundstück)).thenReturn(spieler2);
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = new ArrayList<>();
+        erwarteteAusgaben.add(MöglicheAusgaben.mieteZahlen);
+        erwarteteAusgaben.add(MöglicheAusgaben.übersicht);
 
+        assertVerwalterMachtSeinenJobBeimWerfen(erwarteteAusgaben);
     }
+
+    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'übersicht' ist
+    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
 
     @Test
     public void initialerWurfBisFreiesGrundstückMitZuWenigGeld(){
@@ -58,5 +81,20 @@ class ErsterVerwalterTest {
 
     }
 
+    private void werfenBisBadstraßeSetzen(){
+        when(eingabe.getAntwort()).thenReturn(MöglicheEingaben.wurf);
+        when(würfel.würfeln()).thenReturn(new int[]{1,2,3});
+        when(spieler1.getAktuellePos()).thenReturn(Felder.Badstraße);
+        when(grundbuch.grundstückVon(Felder.Badstraße)).thenReturn(grundstück);
+    }
+
+    private void assertVerwalterMachtSeinenJobBeimWerfen(ArrayList<MöglicheAusgaben> erwarteteAusgaben){
+        AusgabeModell ausgabe = ersterVerwalter.modellErstellen(eingabe);
+        assertEquals(erwarteteAusgaben, ausgabe.getAusgaben());
+        verify(würfel, times(1)).würfeln();
+        verify(spielleiter, times(1)).spielerBewegen(3);
+        verify(grundbuch, times(1)).grundstückVon(Felder.Badstraße);
+
+    }
 
 }

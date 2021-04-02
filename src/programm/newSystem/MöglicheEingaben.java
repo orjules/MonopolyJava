@@ -1,5 +1,8 @@
 package programm.newSystem;
 
 public enum MöglicheEingaben {
-    start
+    start,
+    wurf,
+    bestätigen,
+    übersicht
 }
