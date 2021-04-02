@@ -28,6 +28,10 @@ public class ErsterVerwalter extends Verwalter implements ControllerGrenze {
             ausgaben.add(MöglicheAusgaben.würfeln);
             return new AusgabeModell(ausgaben);
         }
+        if (eingabe.getAntwort().equals(MöglicheEingaben.übersicht)){
+            ausgaben.add(MöglicheAusgaben.übersichtAnzeigen);
+            return new AusgabeModell(ausgaben);
+        }
 
         int[] wurf = würfel.würfeln();
         spielleiter.spielerBewegen(wurf[2]);
@@ -41,7 +45,7 @@ public class ErsterVerwalter extends Verwalter implements ControllerGrenze {
             }
         }
 
-        ausgaben.add(MöglicheAusgaben.übersicht);
+        ausgaben.add(MöglicheAusgaben.übersichtErmöglichen);
         return new AusgabeModell(ausgaben);
     }
 }

@@ -41,6 +41,7 @@ class ErsterVerwalterTest {
         assertEquals(erwarteteAusgaben, ausgabe.getAusgaben());
     }
 
+
     @Test
     public void initialerWurfBisFreiesGrundstück(){
         initialerZustandErstellen();
@@ -48,13 +49,23 @@ class ErsterVerwalterTest {
         when(grundbuch.getBesitzerVon(grundstück)).thenReturn(null);
         ArrayList<MöglicheAusgaben> erwarteteAusgaben = new ArrayList<>();
         erwarteteAusgaben.add(MöglicheAusgaben.kaufen);
-        erwarteteAusgaben.add(MöglicheAusgaben.übersicht);
+        erwarteteAusgaben.add(MöglicheAusgaben.übersichtErmöglichen);
 
         assertVerwalterMachtSeinenJobBeimWerfen(erwarteteAusgaben);
     }
+    @Test
+    public void übersichtNachWurfBisFreiesGrundstück(){
+        initialerWurfBisFreiesGrundstück();
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = getErwartetBeiÜbersichtAnzeigen();
 
-    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'übersicht' ist
-    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
+        AusgabeModell zweiteAusgabe = ersterVerwalter.modellErstellen(eingabe);
+        assertEquals(erwarteteAusgaben, zweiteAusgabe.getAusgaben());
+    }
+    @Test
+    public void bestätigenNachWurfBisFreiesGrundstück(){
+        // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
+    }
+
 
     @Test
     public void initialerWurfBisBesetzesGrundstück(){
@@ -63,14 +74,24 @@ class ErsterVerwalterTest {
         when(grundbuch.getBesitzerVon(grundstück)).thenReturn(spieler2);
         ArrayList<MöglicheAusgaben> erwarteteAusgaben = new ArrayList<>();
         erwarteteAusgaben.add(MöglicheAusgaben.mieteZahlen);
-        erwarteteAusgaben.add(MöglicheAusgaben.übersicht);
+        erwarteteAusgaben.add(MöglicheAusgaben.übersichtErmöglichen);
 
         assertVerwalterMachtSeinenJobBeimWerfen(erwarteteAusgaben);
     }
+    @Test
+    public void übersichtNachWurfBisBesetztesGrundstück(){
+        initialerWurfBisBesetzesGrundstück();
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = getErwartetBeiÜbersichtAnzeigen();
 
-    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'übersicht' ist
-    // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
+        AusgabeModell zweiteAusgabe = ersterVerwalter.modellErstellen(eingabe);
+        assertEquals(erwarteteAusgaben, zweiteAusgabe.getAusgaben());
+    }
+    @Test
+    public void bestätigenNachWurfBisBesetzesGrundstück(){
+        // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
+    }
 
+    
     @Test
     public void initialerWurfBisFreiesGrundstückMitZuWenigGeld(){
 
@@ -94,7 +115,13 @@ class ErsterVerwalterTest {
         verify(würfel, times(1)).würfeln();
         verify(spielleiter, times(1)).spielerBewegen(3);
         verify(grundbuch, times(1)).grundstückVon(Felder.Badstraße);
+    }
 
+    private ArrayList<MöglicheAusgaben> getErwartetBeiÜbersichtAnzeigen(){
+        when(eingabe.getAntwort()).thenReturn(MöglicheEingaben.übersicht);
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = new ArrayList<>();
+        erwarteteAusgaben.add(MöglicheAusgaben.übersichtAnzeigen);
+        return erwarteteAusgaben;
     }
 
 }

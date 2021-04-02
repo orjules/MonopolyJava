@@ -6,6 +6,7 @@ public enum MöglicheAusgaben {
     mieteZahlen,
     aufKarte,
     überLos,
-    übersicht,
+    übersichtErmöglichen,
+    übersichtAnzeigen,
     imGefängnis
 }
