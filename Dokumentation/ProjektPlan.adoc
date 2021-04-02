@@ -90,4 +90,9 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 - Erkannt, dass das System Package nicht gut designed ist und erneuert werden muss
 - Ersten Plan für das Redesign erstellt
 
-Als nächstes: System neu schreiben mit besserer Entkoppelung und Testgetrieben
+=== 2.4.21
+
+- Bei Testen und implementieren des Redesigns sind einige Probleme aufgefallen, was zu einem neuen Redesign geführt hat
+- Neuer Plan ist ähnlich dem ersten Redesign aber mit dem State Pattern im Herzen vom System
+
+Als nächstes: System mit State Pattern neu schreiben mit besserer Entkoppelung und Testgetrieben
