@@ -14,6 +14,8 @@ public class ErsterVerwalter extends Verwalter implements ControllerGrenze {
     Spielleiter spielleiter;
     Grundbuch grundbuch;
 
+    AusgabeModell letzteAusgabe = null;
+
     public ErsterVerwalter(Würfel würfel, Spielleiter spielleiter, Grundbuch grundbuch) {
         this.würfel = würfel;
         this.spielleiter = spielleiter;
@@ -26,11 +28,11 @@ public class ErsterVerwalter extends Verwalter implements ControllerGrenze {
 
         if (eingabe.getAntwort().equals(MöglicheEingaben.start)){
             ausgaben.add(MöglicheAusgaben.würfeln);
-            return new AusgabeModell(ausgaben);
+            return modellVon(ausgaben);
         }
         if (eingabe.getAntwort().equals(MöglicheEingaben.übersicht)){
             ausgaben.add(MöglicheAusgaben.übersichtAnzeigen);
-            return new AusgabeModell(ausgaben);
+            return modellVon(ausgaben);
         }
 
         int[] wurf = würfel.würfeln();
@@ -46,6 +48,12 @@ public class ErsterVerwalter extends Verwalter implements ControllerGrenze {
         }
 
         ausgaben.add(MöglicheAusgaben.übersichtErmöglichen);
-        return new AusgabeModell(ausgaben);
+        return modellVon(ausgaben);
+    }
+
+    private AusgabeModell modellVon(ArrayList<MöglicheAusgaben> ausgaben){
+        AusgabeModell modell =  new AusgabeModell(ausgaben);
+        letzteAusgabe = modell;
+        return modell;
     }
 }

@@ -21,6 +21,8 @@ class ErsterVerwalterTest {
     Würfel würfel = mock(Würfel.class);
     Grundbuch grundbuch = mock(Grundbuch.class);
     Grundstück grundstück = mock(Grundstück.class);
+    int grundstückPreis = 100;
+    int grundstückMiete = 5;
     EingabeModell eingabe = mock(EingabeModell.class);
 
     ErsterVerwalter ersterVerwalter = new ErsterVerwalter(würfel, spielleiter, grundbuch);
@@ -63,7 +65,13 @@ class ErsterVerwalterTest {
     }
     @Test
     public void bestätigenNachWurfBisFreiesGrundstück(){
-        // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
+        initialerWurfBisFreiesGrundstück();
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = getErwartetBeiKaufBestätigung();
+
+        AusgabeModell zweiteAusgabe = ersterVerwalter.modellErstellen(eingabe);
+        assertEquals(erwarteteAusgaben, zweiteAusgabe.getAusgaben());
+        verify(grundbuch, times(1)).übertragenAn(grundstück, spieler1);
+        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, -grundstückPreis);
     }
 
 
@@ -91,7 +99,7 @@ class ErsterVerwalterTest {
         // Hier einen Test, dass nach dem Vorherigen Test die nächste Eingabe 'bestätigen' ist
     }
 
-    
+
     @Test
     public void initialerWurfBisFreiesGrundstückMitZuWenigGeld(){
 
@@ -124,4 +132,12 @@ class ErsterVerwalterTest {
         return erwarteteAusgaben;
     }
 
+    private ArrayList<MöglicheAusgaben> getErwartetBeiKaufBestätigung(){
+        when(eingabe.getAntwort()).thenReturn(MöglicheEingaben.bestätigen);
+        ArrayList<MöglicheAusgaben> erwarteteAusgaben = new ArrayList<>();
+        erwarteteAusgaben.add(MöglicheAusgaben.kaufbestätigung);
+        erwarteteAusgaben.add(MöglicheAusgaben.übersichtAnzeigen);
+        erwarteteAusgaben.add(MöglicheAusgaben.zugBeenden);
+        return erwarteteAusgaben;
+    }
 }

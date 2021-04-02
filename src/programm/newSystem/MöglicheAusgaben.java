@@ -8,5 +8,7 @@ public enum MöglicheAusgaben {
     überLos,
     übersichtErmöglichen,
     übersichtAnzeigen,
+    kaufbestätigung,
+    zugBeenden,
     imGefängnis
 }

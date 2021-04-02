@@ -4,5 +4,6 @@ public enum MöglicheEingaben {
     start,
     wurf,
     bestätigen,
-    übersicht
+    übersicht,
+    beenden
 }
