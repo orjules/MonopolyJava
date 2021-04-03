@@ -40,7 +40,7 @@ Es gibt nun eine bessere Trennung zwischen UI und System. Ziel ist es das System
 
 === State Diagramm
 
-image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/StateDiagramm%20Exporte/State%20Diagramm.svg[Das neue Klassendiagramm]
+image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/StateDiagramm%20Exporte/State%20Diagramm2.svg[Das neue Klassendiagramm]
 
 Für das neue Design will ich das State Pattern nutzen. 
 
