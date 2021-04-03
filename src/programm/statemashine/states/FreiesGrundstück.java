@@ -1,8 +1,15 @@
 package programm.statemashine.states;
 
+import programm.statemashine.Kontext;
 import programm.statemashine.NeuesAusgabeModell;
 
 public class FreiesGrundstück implements State {
+
+    Kontext kontext;
+
+    public FreiesGrundstück(Kontext kontext) {
+        this.kontext = kontext;
+    }
 
     @Override
     public NeuesAusgabeModell werfen() {

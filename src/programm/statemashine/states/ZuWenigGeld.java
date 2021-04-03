@@ -1,9 +1,16 @@
 package programm.statemashine.states;
 
+import programm.statemashine.Kontext;
 import programm.statemashine.NeuesAusgabeModell;
 import programm.statemashine.states.State;
 
 public class ZuWenigGeld implements State {
+
+    Kontext kontext;
+
+    public ZuWenigGeld(Kontext kontext) {
+        this.kontext = kontext;
+    }
 
     @Override
     public NeuesAusgabeModell werfen() {
