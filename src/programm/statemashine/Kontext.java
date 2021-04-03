@@ -1,5 +1,6 @@
 package programm.statemashine;
 
+import programm.statemashine.enums.Eingaben;
 import programm.statemashine.states.*;
 
 public class Kontext {
@@ -9,19 +10,24 @@ public class Kontext {
     State ersterWurf;
     State freiesGrundstück;
     State imGefängnis;
+    State karteZiehen;
+    State versteigern;
     State zuWenigGeld;
     State übersicht;
 
     State aktuellerState;
 
-    public Kontext() {
-        allesErledigt = new AllesErledigt(this);
-        besetzesGrundstück = new BesetzesGrundstück(this);
-        ersterWurf = new ErsterWurf(this);
-        freiesGrundstück = new FreiesGrundstück(this);
-        imGefängnis = new ImGefängnis(this);
-        zuWenigGeld = new ZuWenigGeld(this);
-        übersicht = new Übersicht(this);
+    public void statesReingeben(State allesErledigt, State besetzesGrundstück, State ersterWurf, State freiesGrundstück,
+                                State imGefängnis, State karteZiehen, State versteigern, State zuWenigGeld, State übersicht) {
+        this.allesErledigt = allesErledigt;
+        this.besetzesGrundstück = besetzesGrundstück;
+        this.ersterWurf = ersterWurf;
+        this.freiesGrundstück = freiesGrundstück;
+        this.imGefängnis = imGefängnis;
+        this.karteZiehen = karteZiehen;
+        this.versteigern = versteigern;
+        this.zuWenigGeld = zuWenigGeld;
+        this.übersicht = übersicht;
 
         aktuellerState = ersterWurf;
     }
@@ -34,14 +40,6 @@ public class Kontext {
             case übersicht -> aktuellerState.übersicht();
             case zurück -> aktuellerState.zurück();
         };
-    }
-
-    public State getState() {
-        return aktuellerState;
-    }
-
-    public void setState(State newState){
-        aktuellerState = newState;
     }
 
     public State getAllesErledigt() {
@@ -62,6 +60,14 @@ public class Kontext {
 
     public State getImGefängnis() {
         return imGefängnis;
+    }
+
+    public State getKarteZiehen() {
+        return karteZiehen;
+    }
+
+    public State getVersteigern() {
+        return versteigern;
     }
 
     public State getZuWenigGeld() {

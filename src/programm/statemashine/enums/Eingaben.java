@@ -1,4 +1,4 @@
-package programm.statemashine;
+package programm.statemashine.enums;
 
 public enum Eingaben {
     werfen,

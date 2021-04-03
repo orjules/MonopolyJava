@@ -1,6 +1,6 @@
 package programm.statemashine;
 
-import programm.newSystem.MöglicheEingaben;
+import programm.statemashine.enums.Eingaben;
 
 public class NeuesEingabeModell {
     Eingaben eingabe;
