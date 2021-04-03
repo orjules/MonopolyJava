@@ -45,6 +45,7 @@ image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/S
 Für das neue Design will ich das State Pattern nutzen. 
 
 Monopoly hat 8 States:
+
 - Erster Wurf (Wenn ein Spieler seinen Zug beginnt und nicht im Gefängnis ist, muss man würfeln)
 - Auf freiem Grundstück gelandet (nach einem Wurf kann man auf einem kaufbaren Grundstück landen)
 - Versteigern (Wenn man auf einem freien Grundstück gelandet ist, aber es nicht kaufen will)
@@ -54,6 +55,13 @@ Monopoly hat 8 States:
 - Zu wenig Geld (Wenn man Miete oder bei einer Karte zahlen muss aber nicht genug Geld hat)
 - Alles erledigt (Wenn man alles auf dem neuen Feld erledigt hat und keinen pasch hatte)
 - Im Gefängnis (Es gibt mehrere Arten ins Gefängnis zu gehen und herauszukommen)
+
+Der Nutzer hat 4 mögliche Aktionen:
+
+- werfen (Sofern möglich wird gewürfelt und der State verändert)
+- bestätigen (Stark Kontextabhängig. Wird genutzt um sicherzustellen, dass der Nutzer die letzte Ausgabe gesehen hat und zustimmt.)
+- übersicht (Sofern möglich wird die Übersicht geöffnet)
+- zurück (Entweder man kommt aus dem Momentanen State in den letzten oder beendet den Zug. Spezielle Anwendung bei verneinen eines Grundstückkaufes)
 
 
 === Aktivitätsdiagramm
