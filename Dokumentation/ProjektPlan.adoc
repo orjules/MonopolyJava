@@ -38,6 +38,24 @@ Das neue System nutzt eine Design Idee aus der "Clean Code" Video Reihe von Robe
 Es gibt nun eine bessere Trennung zwischen UI und System. Ziel ist es das System Package so umzuschreiben, dass im System keine Strings generiert werden, sondern nur ein Modell, dass alle Daten enthält um die String auszulesen. Dadurch kann die Darstellung später leicht angepasst werden. Außerdem wird der klarere Ablauf von Eingabe zu Eingabe-Modell zu Systemreaktion zu Ausgabe-Modell zu Ausgabe das Zwischenschalten von Server Kommunikation erleichtern.
 
 
+=== State Diagramm
+
+image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/StateDiagramm%20Exporte/State%20Diagramm.svg[Das neue Klassendiagramm]
+
+Für das neue Design will ich das State Pattern nutzen. 
+
+Monopoly hat 8 States:
+- Erster Wurf (Wenn ein Spieler seinen Zug beginnt und nicht im Gefängnis ist, muss man würfeln)
+- Auf freiem Grundstück gelandet (nach einem Wurf kann man auf einem kaufbaren Grundstück landen)
+- Versteigern (Wenn man auf einem freien Grundstück gelandet ist, aber es nicht kaufen will)
+- Auf besetztem Grunstück gelandet (nach einem Wurf kann auf einem Grundstück landen wo man Miete zahlen muss)
+- Karte ziehen (nach einem Wurf kann man auf einem Feld landen wo etwas spezielles passiert oder nichts. So oder so muss man bestätigen)
+- Übersicht (Zeigt die eine Übersicht über den eigenen Besitz und ermöglicht das Handeln mit anderen)
+- Zu wenig Geld (Wenn man Miete oder bei einer Karte zahlen muss aber nicht genug Geld hat)
+- Alles erledigt (Wenn man alles auf dem neuen Feld erledigt hat und keinen pasch hatte)
+- Im Gefängnis (Es gibt mehrere Arten ins Gefängnis zu gehen und herauszukommen)
+
+
 === Aktivitätsdiagramm
 
 image::https://github.com/orjules/MonopolyJava/blob/coreRedesign/Dokumentation/AktivitätsdiagrammExporte/gameLoop_MitPackages.svg[Das Aktivitätsdiagramm]
