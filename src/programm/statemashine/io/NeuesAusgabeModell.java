@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class NeuesAusgabeModell {
 
-    private FehlerMeldungen fehlerMeldung;
+    private FehlerMeldungen fehlerMeldung;  // Kann ich evtl rausnehmen
     private Spieler geradeDran;
     // Brett
     private HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben;

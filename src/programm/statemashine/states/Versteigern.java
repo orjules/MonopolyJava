@@ -1,8 +1,15 @@
 package programm.statemashine.states;
 
+import programm.statemashine.Kontext;
 import programm.statemashine.io.NeuesAusgabeModell;
 
 public class Versteigern implements State {
+
+    Kontext kontext;
+
+    public Versteigern(Kontext kontext) {
+        this.kontext = kontext;
+    }
 
     @Override
     public NeuesAusgabeModell werfen() {

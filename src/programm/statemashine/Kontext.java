@@ -1,11 +1,12 @@
 package programm.statemashine;
 
+import programm.consoleUI.KontextGrenze;
 import programm.statemashine.enums.Eingaben;
 import programm.statemashine.io.NeuesAusgabeModell;
 import programm.statemashine.io.NeuesEingabeModell;
 import programm.statemashine.states.*;
 
-public class Kontext {
+public class Kontext implements KontextGrenze {
 
     State allesErledigt;
     State besetzesGrundstück;
@@ -34,6 +35,7 @@ public class Kontext {
         aktuellerState = ersterWurf;
     }
 
+    @Override
     public NeuesAusgabeModell erstelleModell(NeuesEingabeModell eingabe) {
         Eingaben eingaben = eingabe.getAntwort();
         return switch (eingaben) {
