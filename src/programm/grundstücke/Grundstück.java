@@ -24,4 +24,15 @@ public abstract class Grundstück {
     }
 
     public abstract int mieteBerechnen(Spieler besitzer, Grundbuch grundbuch, int letzterWurf);
+
+    public abstract String getPronomenKlein();
+    public String getPronomenGroß(){
+        String klein = getPronomenKlein();
+        return klein.substring(0,1).toUpperCase() + klein.substring(1);
+    }
+    public abstract String getArtikelKlein(Fälle fall);
+    public String getArtikelGroß(Fälle fall) {
+        String klein = getArtikelKlein(fall);
+        return klein.substring(0,1).toUpperCase() + klein.substring(1);
+    }
 }

@@ -2,8 +2,8 @@ package programm.consoleUI;
 
 import programm.statemashine.enums.EingabeBeschreibungen;
 import programm.statemashine.enums.Eingaben;
-import programm.statemashine.io.NeuesAusgabeModell;
-import programm.statemashine.io.NeuesEingabeModell;
+import programm.statemashine.io.AusgabeModell;
+import programm.statemashine.io.EingabeModell;
 
 import java.util.HashMap;
 
@@ -11,7 +11,7 @@ public class Controller {
 
     KontextGrenze kontext;
     ConsoleHandler consoleHandler;
-    NeuesAusgabeModell letzteAusgabe;
+    AusgabeModell letzteAusgabe;
 
     public Controller(KontextGrenze kontext, ConsoleHandler consoleHandler) {
         this.kontext = kontext;
@@ -19,7 +19,7 @@ public class Controller {
         letzteAusgabe = null;
     }
 
-    public NeuesAusgabeModell eingabeErfragen(){
+    public AusgabeModell eingabeErfragen(){
         Eingaben eingabe;
         if (letzteAusgabe == null){
             HashMap<Eingaben, EingabeBeschreibungen> ersteEingabe = new HashMap<>();
@@ -28,8 +28,8 @@ public class Controller {
         }else {
             eingabe = consoleHandler.getEingabe(letzteAusgabe.getErlaubteEingaben());
         }
-        NeuesEingabeModell eingabeModell = new NeuesEingabeModell(eingabe);
-        NeuesAusgabeModell ausgabeModell = kontext.erstelleModell(eingabeModell);
+        EingabeModell eingabeModell = new EingabeModell(eingabe);
+        AusgabeModell ausgabeModell = kontext.erstelleModell(eingabeModell);
         letzteAusgabe = ausgabeModell;
         return ausgabeModell;
     }

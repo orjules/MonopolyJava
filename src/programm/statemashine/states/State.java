@@ -1,10 +1,10 @@
 package programm.statemashine.states;
 
-import programm.statemashine.io.NeuesAusgabeModell;
+import programm.statemashine.io.AusgabeModell;
 
 public interface State {
-    NeuesAusgabeModell werfen();
-    NeuesAusgabeModell bestätigen();
-    NeuesAusgabeModell übersicht();
-    NeuesAusgabeModell zurück();
+    AusgabeModell werfen();
+    AusgabeModell bestätigen();
+    AusgabeModell übersicht();
+    AusgabeModell zurück();
 }

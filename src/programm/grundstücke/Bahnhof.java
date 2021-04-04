@@ -21,4 +21,19 @@ public class Bahnhof extends Grundstück{
             default -> throw new IllegalStateException("Es dürfen weder weniger als 1, noch mehr als 4 Bahnhöfe im Besitz geben.");
         };
     }
+
+    @Override
+    public String getPronomenKlein() {
+        return "der";
+    }
+
+    @Override
+    public String getArtikelKlein(Fälle fall) {
+        return switch (fall) {
+            case Nominativ -> "der";
+            case Genitiv -> "des";
+            case Dativ -> "dem";
+            case Akkusativ -> "den";
+        };
+    }
 }

@@ -3,7 +3,7 @@ package programm.statemashine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programm.statemashine.enums.Eingaben;
-import programm.statemashine.io.NeuesEingabeModell;
+import programm.statemashine.io.EingabeModell;
 import programm.statemashine.states.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,24 +12,20 @@ import static org.mockito.Mockito.when;
 
 class KontextTest {
 
-    NeuesEingabeModell eingabe = mock(NeuesEingabeModell.class);
+    EingabeModell eingabe = mock(EingabeModell.class);
 
-    AllesErledigt allesErledigt = mock(AllesErledigt.class);
-    BesetzesGrundstück besetzesGrundstück = mock(BesetzesGrundstück.class);
-    ErsterWurf ersterWurf = mock(ErsterWurf.class);
-    FreiesGrundstück freiesGrundstück = mock(FreiesGrundstück.class);
-    ImGefängnis imGefängnis = mock(ImGefängnis.class);
-    KarteZiehen karteZiehen = mock(KarteZiehen.class);
-    Versteigern versteigern = mock(Versteigern.class);
-    ZuWenigGeld zuWenigGeld = mock(ZuWenigGeld.class);
-    Übersicht übersicht = mock(Übersicht.class);
+    S_BesetzesGrundstück SBesetzesGrundstück = mock(S_BesetzesGrundstück.class);
+    S_ErsterWurf SErsterWurf = mock(S_ErsterWurf.class);
+    S_FreiesGrundstück SFreiesGrundstück = mock(S_FreiesGrundstück.class);
+    S_KarteZiehen SKarteZiehen = mock(S_KarteZiehen.class);
+    S_Übersicht SÜbersicht = mock(S_Übersicht.class);
 
     Kontext kontext = new Kontext();
 
     @BeforeEach
     public void init(){
-        kontext.statesReingeben(allesErledigt, besetzesGrundstück, ersterWurf, freiesGrundstück, imGefängnis,
-                karteZiehen, versteigern, zuWenigGeld, übersicht);
+        kontext.statesReingeben(SBesetzesGrundstück, SErsterWurf, SFreiesGrundstück,
+                SKarteZiehen, SÜbersicht);
     }
 
     @Test
@@ -41,7 +37,7 @@ class KontextTest {
     @Test
     public void ersterStateIstErsterWurf(){
         State state = kontext.getAktuellerState();
-        assertTrue(state instanceof ErsterWurf);
+        assertTrue(state instanceof S_ErsterWurf);
     }
 
 }

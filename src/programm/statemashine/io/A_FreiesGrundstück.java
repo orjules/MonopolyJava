@@ -2,7 +2,7 @@ package programm.statemashine.io;
 
 import programm.grundstücke.Grundstück;
 
-public class A_FreiesGrundstück implements Ausgabe{
+public class A_FreiesGrundstück extends AusgabeModell{
 
     Grundstück grundstück;
 
@@ -10,8 +10,4 @@ public class A_FreiesGrundstück implements Ausgabe{
         this.grundstück = grundstück;
     }
 
-    @Override
-    public Object[] getAlles() {
-        return new Object[]{grundstück};
-    }
 }

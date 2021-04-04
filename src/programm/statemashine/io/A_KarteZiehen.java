@@ -2,7 +2,7 @@ package programm.statemashine.io;
 
 import programm.karten.Ereigniskarte;
 
-public class A_KarteZiehen implements Ausgabe{
+public class A_KarteZiehen extends AusgabeModell{
 
     Ereigniskarte karte;
 
@@ -10,8 +10,4 @@ public class A_KarteZiehen implements Ausgabe{
         this.karte = karte;
     }
 
-    @Override
-    public Object[] getAlles() {
-        return new Object[0];
-    }
 }

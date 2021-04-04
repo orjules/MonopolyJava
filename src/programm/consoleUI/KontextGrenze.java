@@ -1,8 +1,8 @@
 package programm.consoleUI;
 
-import programm.statemashine.io.NeuesAusgabeModell;
-import programm.statemashine.io.NeuesEingabeModell;
+import programm.statemashine.io.AusgabeModell;
+import programm.statemashine.io.EingabeModell;
 
 public interface KontextGrenze {
-    NeuesAusgabeModell erstelleModell(NeuesEingabeModell eingabe);
+    AusgabeModell erstelleModell(EingabeModell eingabe);
 }

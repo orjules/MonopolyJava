@@ -8,7 +8,6 @@ import programm.karten.Ereigniskarte;
 import programm.karten.Kartenmanager;
 import programm.statemashine.Kontext;
 import programm.statemashine.io.*;
-import programm.statemashine.enums.FehlerMeldungen;
 import programm.system.Felder;
 import programm.system.Würfel;
 import programm.system.spieler.Spieler;
@@ -33,87 +32,44 @@ class ErsterWurfTest {
     Felder freiesGrundstückFeld = Felder.Badstraße;
     Felder besetzesGrundstückFeld = Felder.Turmstraße;
     Felder karteZiehenFeld = Felder.Ereignisfeld1;
-    FreiesGrundstück freiesGrundstück = mock(FreiesGrundstück.class);
-    BesetzesGrundstück besetzesGrundstück = mock(BesetzesGrundstück.class);
-    KarteZiehen karteZiehen = mock(KarteZiehen.class);
+    S_FreiesGrundstück SFreiesGrundstück = mock(S_FreiesGrundstück.class);
+    S_BesetzesGrundstück SBesetzesGrundstück = mock(S_BesetzesGrundstück.class);
+    S_KarteZiehen SKarteZiehen = mock(S_KarteZiehen.class);
 
     int[] wurfOhnePasch = new int[]{2,3,5};
 
-    ErsterWurf ersterWurf;
+    S_ErsterWurf SErsterWurf;
 
     @BeforeEach
     public void init(){
         when(spielleiter.getGeradeDran()).thenReturn(spieler1);
-        ersterWurf = new ErsterWurf(kontext, spielleiter, würfel, grundbuch, kartenmanager);
+        SErsterWurf = new S_ErsterWurf(kontext, spielleiter, würfel, grundbuch, kartenmanager);
     }
 
     @Test
     public void übersichtIstNichtErlaubt(){
-        gehtNichtWurdeKorrektErstellt(ersterWurf.übersicht());
+        assertTrue(false);
     }
     @Test
     public void bestätigenIstNichtErlaubt(){
-        gehtNichtWurdeKorrektErstellt(ersterWurf.bestätigen());
+        assertTrue(false);
     }
     @Test
     public void zurückIstNichtErlaubt(){
-        gehtNichtWurdeKorrektErstellt(ersterWurf.zurück());
+        assertTrue(false);
     }
-    private void gehtNichtWurdeKorrektErstellt(NeuesAusgabeModell eigentlicheAusgabe){
-        assertEquals(FehlerMeldungen.gehtGeradeNicht, eigentlicheAusgabe.getFehlerMeldung());
-        assertEquals(spieler1, eigentlicheAusgabe.getGeradeDran());
-    }
-
 
     @Test
     public void werfenBisFreiesGrundstück(){
-        when(kontext.getFreiesGrundstück()).thenReturn(freiesGrundstück);
-        when(würfel.würfeln()).thenReturn(wurfOhnePasch);
-        when(spieler1.getAktuellePos()).thenReturn(freiesGrundstückFeld);
-        when(grundbuch.grundstückVon(freiesGrundstückFeld)).thenReturn(grundstück);
-        when(grundbuch.getBesitzerVon(grundstück)).thenReturn(null);
-
-        NeuesAusgabeModell eigentlicheAusgabe = ersterWurf.werfen();
-
-        ArrayList<Ausgabe> ausgaben = eigentlicheAusgabe.getAusgaben();
-        assertTrue(ausgaben.get(0) instanceof A_Gewürfelt);
-        assertTrue(ausgaben.get(1) instanceof A_FreiesGrundstück);
-        assertEquals(spieler1, eigentlicheAusgabe.getGeradeDran());
-        verify(spielleiter, times(1)).spielerBewegen(wurfOhnePasch[2]);
-        verify(kontext, times(1)).setAktuellerState(freiesGrundstück);
+        assertTrue(false);
     }
     @Test
     public void werfenBisBesetztesGrundstück(){
-        when(kontext.getBesetzesGrundstück()).thenReturn(besetzesGrundstück);
-        when(würfel.würfeln()).thenReturn(wurfOhnePasch);
-        when(spieler1.getAktuellePos()).thenReturn(besetzesGrundstückFeld);
-        when(grundbuch.grundstückVon(besetzesGrundstückFeld)).thenReturn(grundstück);
-        when(grundbuch.getBesitzerVon(grundstück)).thenReturn(spieler2);
-
-        NeuesAusgabeModell eigentlicheAusgabe = ersterWurf.werfen();
-
-        ArrayList<Ausgabe> ausgaben = eigentlicheAusgabe.getAusgaben();
-        assertTrue(ausgaben.get(0) instanceof A_Gewürfelt);
-        assertTrue(ausgaben.get(1) instanceof A_BesetztesGrundstück);
-        assertEquals(spieler1, eigentlicheAusgabe.getGeradeDran());
-        verify(spielleiter, times(1)).spielerBewegen(wurfOhnePasch[2]);
-        verify(kontext, times(1)).setAktuellerState(besetzesGrundstück);
+        assertTrue(false);
     }
     @Test
     public void werfenBisKarte(){
-        when(kontext.getKarteZiehen()).thenReturn(karteZiehen);
-        when(würfel.würfeln()).thenReturn(wurfOhnePasch);
-        when(spieler1.getAktuellePos()).thenReturn(karteZiehenFeld);
-        when(grundbuch.grundstückVon(besetzesGrundstückFeld)).thenReturn(null);
-        when(kartenmanager.karteZiehen(karteZiehenFeld)).thenReturn(karte);
-
-        NeuesAusgabeModell eigentlicheAusgabe = ersterWurf.werfen();
-
-        ArrayList<Ausgabe> ausgaben = eigentlicheAusgabe.getAusgaben();
-        assertTrue(ausgaben.get(0) instanceof A_Gewürfelt);
-        assertTrue(ausgaben.get(1) instanceof A_KarteZiehen);
-        assertEquals(spieler1, eigentlicheAusgabe.getGeradeDran());
-        verify(kontext, times(1)).setAktuellerState(karteZiehen);
+        assertTrue(false);
     }
 
     // Werfen beim dritten Pasch Test schreiben

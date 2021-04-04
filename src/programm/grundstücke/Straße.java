@@ -73,4 +73,17 @@ public class Straße extends Grundstück{
                 throw new IllegalStateException("Das Grundstück darf nicht mehr als 4 bzw weniger als 0 Häuser haben.");
         }
     }
+
+    @Override
+    public String getPronomenKlein() {
+        return "die";
+    }
+
+    @Override
+    public String getArtikelKlein(Fälle fall) {
+        return switch (fall) {
+            case Nominativ, Akkusativ -> "die";
+            case Genitiv, Dativ -> "der";
+        };
+    }
 }

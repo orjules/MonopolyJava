@@ -3,7 +3,7 @@ package programm.statemashine.io;
 import programm.grundstücke.Grundstück;
 import programm.system.spieler.Spieler;
 
-public class A_BesetztesGrundstück implements Ausgabe{
+public class A_BesetztesGrundstück extends AusgabeModell{
 
     Grundstück grundstück;
     Spieler besitzer;
@@ -13,8 +13,4 @@ public class A_BesetztesGrundstück implements Ausgabe{
         this.besitzer = besitzer;
     }
 
-    @Override
-    public Object[] getAlles() {
-        return new Object[]{grundstück, besitzer};
-    }
 }

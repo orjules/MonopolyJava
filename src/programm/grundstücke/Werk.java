@@ -24,4 +24,18 @@ public class Werk extends Grundstück{
             return letzterWurf * 4;
         }
     }
+
+    @Override
+    public String getPronomenKlein() {
+        return "das";
+    }
+
+    @Override
+    public String getArtikelKlein(Fälle fall) {
+        return switch (fall) {
+            case Nominativ, Akkusativ -> "das";
+            case Genitiv -> "des";
+            case Dativ -> "dem";
+        };
+    }
 }

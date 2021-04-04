@@ -1,7 +1,6 @@
 package programm.consoleUI;
 
-import programm.statemashine.io.Ausgabe;
-import programm.statemashine.io.NeuesAusgabeModell;
+import programm.statemashine.io.AusgabeModell;
 
 import java.util.ArrayList;
 
@@ -13,10 +12,7 @@ public class Presenter {
         this.consoleHandler = consoleHandler;
     }
 
-    public void present(NeuesAusgabeModell ausgabe) {
-        ArrayList<Ausgabe> ausgaben = ausgabe.getAusgaben();
-        if (ausgaben.isEmpty()){
-            consoleHandler.ausgeben("Hello World!");
-        }
+    public void present(AusgabeModell ausgabe) {
+
     }
 }

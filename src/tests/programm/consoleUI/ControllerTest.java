@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import programm.statemashine.enums.EingabeBeschreibungen;
 import programm.statemashine.enums.Eingaben;
-import programm.statemashine.io.NeuesAusgabeModell;
-import programm.statemashine.io.NeuesEingabeModell;
+import programm.statemashine.io.AusgabeModell;
+import programm.statemashine.io.EingabeModell;
 
 import java.util.HashMap;
 
@@ -24,9 +24,9 @@ class ControllerTest {
         HashMap<Eingaben, EingabeBeschreibungen> ersteEingabe = new HashMap<>();
         ersteEingabe.put(Eingaben.werfen, EingabeBeschreibungen.ersterWurf);
         when(consoleHandler.getEingabe(ersteEingabe)).thenReturn(Eingaben.werfen);
-        ArgumentCaptor<NeuesEingabeModell> eingabe = ArgumentCaptor.forClass(NeuesEingabeModell.class);
+        ArgumentCaptor<EingabeModell> eingabe = ArgumentCaptor.forClass(EingabeModell.class);
 
-        NeuesAusgabeModell ausgabe = controller.eingabeErfragen();
+        AusgabeModell ausgabe = controller.eingabeErfragen();
 
         verify(kontext, times(1)).erstelleModell(eingabe.capture());
         assertEquals(Eingaben.werfen, eingabe.getValue().getAntwort());
