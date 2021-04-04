@@ -1,9 +1,15 @@
 package programm;
 
+import programm.consoleUI.ConsoleHandler;
+import programm.consoleUI.Controller;
+import programm.consoleUI.Presenter;
 import programm.grundstücke.Grundbuch;
 import programm.grundstücke.GrundstückFactory;
 import programm.karten.KartenFactory;
 import programm.karten.Kartenmanager;
+import programm.statemashine.Kontext;
+import programm.statemashine.io.NeuesAusgabeModell;
+import programm.statemashine.states.*;
 import programm.system.*;
 import programm.system.core.Org_Hilfe;
 import programm.system.core.Organisator;
@@ -32,9 +38,35 @@ public class Main {
                 KartenFactory.erstelleRandomKarten(spielleiter, grundbuch), orgHilfe);
         Organisator organisator = new Organisator(spielleiter, darsteller, würfel, grundbuch, kartenmanager, orgHilfe);
 
+        /*
         // eigentliches Spiel starten
         // TODO implemtierung, dass man am Anfang wirft um die Reihenfolge zu entscheiden
         darsteller.brettZeichnen();         // Am Anfang einmal das Spielbrett zeichnen
         organisator.gameLoop();
+        */
+
+        // Setup 2
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        Kontext kontext = new Kontext();
+        kontext.statesReingeben(
+                new AllesErledigt(kontext),
+                new BesetzesGrundstück(kontext),
+                new ErsterWurf(kontext,spielleiter,würfel,grundbuch,kartenmanager),
+                new FreiesGrundstück(kontext),
+                new ImGefängnis(kontext),
+                new KarteZiehen(kontext),
+                new Versteigern(kontext),
+                new ZuWenigGeld(kontext),
+                new Übersicht(kontext)
+        );
+        Controller controller = new Controller(kontext, consoleHandler);
+        Presenter presenter = new Presenter(consoleHandler);
+
+
+        boolean spielläuft = true;
+        while (spielläuft){
+            NeuesAusgabeModell ausgabe = controller.eingabeErfragen();
+            presenter.present(ausgabe);
+        }
     }
 }

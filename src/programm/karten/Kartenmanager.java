@@ -51,7 +51,7 @@ public class Kartenmanager {
         return true;
     }
 
-    private Ereigniskarte karteZiehen(Felder feld){
+    public Ereigniskarte karteZiehen(Felder feld){
         // Feste Felder überprüfen
         for (Felder fest : festeKartenMitFeld.keySet()){
             if (fest.equals(feld))
