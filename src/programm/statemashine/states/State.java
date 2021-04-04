@@ -1,7 +1,6 @@
 package programm.statemashine.states;
 
-import programm.newSystem.AusgabeModell;
-import programm.statemashine.NeuesAusgabeModell;
+import programm.statemashine.io.NeuesAusgabeModell;
 
 public interface State {
     NeuesAusgabeModell werfen();

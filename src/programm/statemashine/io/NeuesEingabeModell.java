@@ -1,4 +1,4 @@
-package programm.statemashine;
+package programm.statemashine.io;
 
 import programm.statemashine.enums.Eingaben;
 

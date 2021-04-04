@@ -1,7 +1,7 @@
 package programm.statemashine.states;
 
 import programm.statemashine.Kontext;
-import programm.statemashine.NeuesAusgabeModell;
+import programm.statemashine.io.NeuesAusgabeModell;
 
 public class ImGefängnis implements State {
 

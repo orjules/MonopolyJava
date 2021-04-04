@@ -1,5 +1,5 @@
 package programm.statemashine.enums;
 
-public enum AusgabeBeschreibungen {
+public enum EingabeBeschreibungen {
     standard
 }

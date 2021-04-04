@@ -1,6 +1,8 @@
 package programm.statemashine;
 
 import programm.statemashine.enums.Eingaben;
+import programm.statemashine.io.NeuesAusgabeModell;
+import programm.statemashine.io.NeuesEingabeModell;
 import programm.statemashine.states.*;
 
 public class Kontext {
@@ -40,6 +42,10 @@ public class Kontext {
             case übersicht -> aktuellerState.übersicht();
             case zurück -> aktuellerState.zurück();
         };
+    }
+
+    public void setAktuellerState(State aktuellerState) {
+        this.aktuellerState = aktuellerState;
     }
 
     public State getAllesErledigt() {

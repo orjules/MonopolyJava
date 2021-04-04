@@ -1,6 +1,6 @@
 package programm.statemashine.states;
 
-import programm.statemashine.NeuesAusgabeModell;
+import programm.statemashine.io.NeuesAusgabeModell;
 
 public class KarteZiehen implements State {
 

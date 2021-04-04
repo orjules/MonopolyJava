@@ -3,6 +3,7 @@ package programm.statemashine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import programm.statemashine.enums.Eingaben;
+import programm.statemashine.io.NeuesEingabeModell;
 import programm.statemashine.states.*;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,7 +1,6 @@
 package programm.statemashine.states;
 
-import programm.statemashine.NeuesAusgabeModell;
-import programm.statemashine.states.State;
+import programm.statemashine.io.NeuesAusgabeModell;
 
 public class Versteigern implements State {
 
