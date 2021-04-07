@@ -2,5 +2,9 @@ package programm.statemashine.enums;
 
 public enum EingabeBeschreibungen {
     standard,
-    ersterWurf
+    ersterWurf,
+    kaufen,
+    übersicht,
+    mieteZahlen,
+    karteBestätigen
 }
