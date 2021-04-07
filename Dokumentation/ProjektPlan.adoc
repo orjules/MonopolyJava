@@ -121,4 +121,8 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 - Bei Testen und implementieren des Redesigns sind einige Probleme aufgefallen, was zu einem neuen Redesign geführt hat
 - Neuer Plan ist ähnlich dem ersten Redesign aber mit dem State Pattern im Herzen vom System
 
+=== 7.4.21
+
+- Erste Testgetriebene Implementierung der neuen Architektur mit vielversprechenden Erfolgen
+
 Als nächstes: System mit State Pattern neu schreiben mit besserer Entkoppelung und Testgetrieben
