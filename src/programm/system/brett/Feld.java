@@ -1,5 +1,4 @@
 package programm.system.brett;
 
-public class BrettManager {
-
+public class Feld {
 }

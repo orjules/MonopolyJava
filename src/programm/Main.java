@@ -11,6 +11,7 @@ import programm.statemashine.Kontext;
 import programm.statemashine.io.AusgabeModell;
 import programm.statemashine.states.*;
 import programm.system.*;
+import programm.system.brett.Brett;
 import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
@@ -34,12 +35,11 @@ public class Main {
                 KartenFactory.erstelleRandomKarten(spielleiter, grundbuch));
         ConsoleHandler consoleHandler = new ConsoleHandler();
         Kontext kontext = new Kontext();
+        Brett brett = new Brett();
         kontext.statesReingeben(
-                new S_BesetzesGrundstück(kontext),
-                new S_ErsterWurf(kontext,spielleiter,würfel,grundbuch,kartenmanager),
-                new S_FreiesGrundstück(kontext),
-                new S_KarteZiehen(kontext),
-                new S_Übersicht(kontext)
+                new AufNeuemFeld(kontext, würfel, spielleiter, brett),
+                new ErsterWurf(kontext, würfel, spielleiter, brett),
+                new Übersicht(kontext, würfel, spielleiter, brett)
         );
         Controller controller = new Controller(kontext, consoleHandler);
         Presenter presenter = new Presenter(consoleHandler);

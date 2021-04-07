@@ -7,7 +7,7 @@ import programm.system.spieler.Spieler;
 
 import java.util.HashMap;
 
-public abstract class AusgabeModell {
+public class AusgabeModell {
 
     private Spieler geradeDran;
     private Brett brett;
