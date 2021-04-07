@@ -9,12 +9,14 @@ import programm.statemashine.states.*;
 public class Kontext implements KontextGrenze {
 
     State aufNeuemFeld;
+    State ersterWurf;
     State übersicht;
 
     State aktuellerState;
 
-    public void statesReingeben(State aufNeuemFeld, State ersterWurf, State übersicht) {
+    public void statesFüllen(State aufNeuemFeld, State ersterWurf, State übersicht) {
         this.aufNeuemFeld = aufNeuemFeld;
+        this.ersterWurf = ersterWurf;
         this.übersicht = übersicht;
 
         aktuellerState = ersterWurf;
@@ -33,6 +35,14 @@ public class Kontext implements KontextGrenze {
 
     public void setAktuellerState(State aktuellerState) {
         this.aktuellerState = aktuellerState;
+    }
+
+    public State getAufNeuemFeld() {
+        return aufNeuemFeld;
+    }
+
+    public State getErsterWurf() {
+        return ersterWurf;
     }
 
     public State getÜbersicht() {

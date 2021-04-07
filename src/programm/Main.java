@@ -36,7 +36,7 @@ public class Main {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         Kontext kontext = new Kontext();
         Brett brett = new Brett();
-        kontext.statesReingeben(
+        kontext.statesFüllen(
                 new AufNeuemFeld(kontext, würfel, spielleiter, brett),
                 new ErsterWurf(kontext, würfel, spielleiter, brett),
                 new Übersicht(kontext, würfel, spielleiter, brett)
