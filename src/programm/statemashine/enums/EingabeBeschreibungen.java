@@ -5,6 +5,7 @@ public enum EingabeBeschreibungen {
     ersterWurf,
     nochmalWerfen,
     kaufen,
+    versteigern,
     übersicht,
     mieteZahlen,
     karteBestätigen,

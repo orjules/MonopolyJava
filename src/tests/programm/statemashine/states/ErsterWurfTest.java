@@ -89,6 +89,7 @@ class ErsterWurfTest {
         HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
         erwartet.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
         erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        erwartet.put(Eingaben.zurück, EingabeBeschreibungen.versteigern);
         return erwartet;
     }
     private ArrayList<Ausgaben> ausgabenBeiFrei(){

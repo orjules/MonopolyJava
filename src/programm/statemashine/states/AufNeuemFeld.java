@@ -9,4 +9,5 @@ public class AufNeuemFeld extends State{
     public AufNeuemFeld(Kontext kontext, Würfel würfel, Spielleiter spielleiter, Brett brett) {
         super(kontext, würfel, spielleiter, brett);
     }
+
 }

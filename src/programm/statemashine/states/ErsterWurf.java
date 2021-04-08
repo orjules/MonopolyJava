@@ -74,6 +74,7 @@ public class ErsterWurf extends State {
                 }
             }else {
                 erlaubteEingaben.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
+                erlaubteEingaben.put(Eingaben.zurück, EingabeBeschreibungen.versteigern);
                 ausgaben.add(Ausgaben.aufFreiemGrundstück);
             }
         }else {
