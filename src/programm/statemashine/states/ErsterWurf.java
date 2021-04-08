@@ -60,13 +60,13 @@ public class ErsterWurf extends State {
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
 
         erlaubteEingaben.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
-        kontext.setAktuellerState(kontext.getAufNeuemFeld());
         if (neuesFeld.istGrundstück()){
             Spieler besitzer = neuesFeld.getBesitzer();
             if (besitzer != null){
                 if (besitzer != geradeDran){
                     erlaubteEingaben.put(Eingaben.bestätigen, EingabeBeschreibungen.mieteZahlen);
                     ausgaben.add(Ausgaben.aufBesetztemGrundstück);
+                    kontext.setAktuellerState(kontext.getAufBesetztemGrundstück());
                 }else {
                     erlaubteEingaben.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
                     ausgaben.add(Ausgaben.nichtsPassiert);
@@ -76,10 +76,12 @@ public class ErsterWurf extends State {
                 erlaubteEingaben.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
                 erlaubteEingaben.put(Eingaben.zurück, EingabeBeschreibungen.versteigern);
                 ausgaben.add(Ausgaben.aufFreiemGrundstück);
+                kontext.setAktuellerState(kontext.getAufFreiemGrundstück());
             }
         }else {
             erlaubteEingaben.put(Eingaben.bestätigen, EingabeBeschreibungen.karteBestätigen);
             ausgaben.add(Ausgaben.aufKartenFeld);
+            kontext.setAktuellerState(kontext.getAufKarte());
         }
 
         if (brett.istÜberLosGegangen()){

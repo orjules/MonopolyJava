@@ -36,12 +36,13 @@ public class Main {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         Kontext kontext = new Kontext();
         Brett brett = new Brett();
-        kontext.statesFüllen(
-                new AufNeuemFeld(kontext, würfel, spielleiter, brett),
+        /*kontext.statesFüllen(
+
                 new ErsterWurf(kontext, würfel, spielleiter, brett),
                 new Übersicht(kontext, würfel, spielleiter, brett),
                 new AllesErledigt(kontext, würfel, spielleiter, brett)
         );
+         */
         Controller controller = new Controller(kontext, consoleHandler);
         Presenter presenter = new Presenter(consoleHandler);
 

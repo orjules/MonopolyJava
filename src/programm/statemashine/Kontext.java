@@ -8,8 +8,10 @@ import programm.statemashine.states.*;
 
 public class Kontext implements KontextGrenze {
 
-    State aufNeuemFeld;
     State ersterWurf;
+    State aufFreiemGrundstück;
+    State aufBesetztemGrundstück;
+    State aufKarte;
     State übersicht;
     State allesErledigt;
 
@@ -17,10 +19,13 @@ public class Kontext implements KontextGrenze {
     State letzterState;
     AusgabeModell letzteAusgabe;
 
-    public void statesFüllen(AufNeuemFeld aufNeuemFeld, ErsterWurf ersterWurf, Übersicht übersicht,
+    public void statesFüllen(ErsterWurf ersterWurf, AufFreiemGrundstück aufFreiemGrundstück,
+                             AufBesetztemGrundstück aufBesetztemGrundstück, AufKarte aufKarte, Übersicht übersicht,
                              AllesErledigt allesErledigt) {
-        this.aufNeuemFeld = aufNeuemFeld;
         this.ersterWurf = ersterWurf;
+        this.aufFreiemGrundstück = aufFreiemGrundstück;
+        this.aufBesetztemGrundstück = aufBesetztemGrundstück;
+        this.aufKarte = aufKarte;
         this.übersicht = übersicht;
         this.allesErledigt = allesErledigt;
 
@@ -45,12 +50,20 @@ public class Kontext implements KontextGrenze {
         aktuellerState = neuerState;
     }
 
-    public State getAufNeuemFeld() {
-        return aufNeuemFeld;
-    }
-
     public State getErsterWurf() {
         return ersterWurf;
+    }
+
+    public State getAufFreiemGrundstück() {
+        return aufFreiemGrundstück;
+    }
+
+    public State getAufBesetztemGrundstück() {
+        return aufBesetztemGrundstück;
+    }
+
+    public State getAufKarte() {
+        return aufKarte;
     }
 
     public State getÜbersicht() {

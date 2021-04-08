@@ -12,8 +12,10 @@ import static org.mockito.Mockito.*;
 
 class KontextTest {
 
-    AufNeuemFeld aufNeuemFeld = mock(AufNeuemFeld.class);
     ErsterWurf ersterWurf = mock(ErsterWurf.class);
+    AufFreiemGrundstück aufFreiemGrundstück = mock(AufFreiemGrundstück.class);
+    AufBesetztemGrundstück aufBesetztemGrundstück = mock(AufBesetztemGrundstück.class);
+    AufKarte aufKarte = mock(AufKarte.class);
     Übersicht übersicht = mock(Übersicht.class);
     AllesErledigt allesErledigt = mock(AllesErledigt.class);
 
@@ -24,7 +26,7 @@ class KontextTest {
 
     @BeforeEach
     public void init(){
-        kontext.statesFüllen(aufNeuemFeld, ersterWurf, übersicht, allesErledigt);
+        kontext.statesFüllen(ersterWurf, aufFreiemGrundstück, aufBesetztemGrundstück, aufKarte, übersicht, allesErledigt);
         when(ersterWurf.werfen()).thenReturn(ausgabeModell);
         when(ersterWurf.bestätigen()).thenReturn(ausgabeModell);
         when(ersterWurf.übersicht()).thenReturn(ausgabeModell);
@@ -69,11 +71,26 @@ class KontextTest {
     }
 
     @Test
-    public void vonErsterWurfZuNeuemFeld(){
-        kontext.setAktuellerState(kontext.getAufNeuemFeld());
-        assertEquals(aufNeuemFeld, kontext.getAktuellerState());
+    public void vonErsterWurfZuFreiemGrundstück(){
+        kontext.setAktuellerState(kontext.getAufFreiemGrundstück());
+        assertEquals(aufFreiemGrundstück, kontext.getAktuellerState());
         assertEquals(ersterWurf, kontext.getLetzterState());
     }
+
+    @Test
+    public void vonErsterWurfZuBesetztemGrundstück(){
+        kontext.setAktuellerState(kontext.getAufBesetztemGrundstück());
+        assertEquals(aufBesetztemGrundstück, kontext.getAktuellerState());
+        assertEquals(ersterWurf, kontext.getLetzterState());
+    }
+
+    @Test
+    public void vonErsterWurfZuKarte(){
+        kontext.setAktuellerState(kontext.getAufKarte());
+        assertEquals(aufKarte, kontext.getAktuellerState());
+        assertEquals(ersterWurf, kontext.getLetzterState());
+    }
+
 
     @Test
     public void vonErsterWurfZuÜbersicht(){

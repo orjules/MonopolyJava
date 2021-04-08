@@ -26,7 +26,9 @@ class ErsterWurfTest {
     Spielleiter spielleiter = mock(Spielleiter.class);
     Brett brett = mock(Brett.class);
 
-    AufNeuemFeld aufNeuemFeld = mock(AufNeuemFeld.class);
+    AufFreiemGrundstück aufFreiemGrundstück = mock(AufFreiemGrundstück.class);
+    AufBesetztemGrundstück aufBesetztemGrundstück = mock(AufBesetztemGrundstück.class);
+    AufKarte aufKarte = mock(AufKarte.class);
     AllesErledigt allesErledigt = mock(AllesErledigt.class);
 
     Spieler spieler1 = mock(Spieler.class);
@@ -42,7 +44,9 @@ class ErsterWurfTest {
         when(spielleiter.getGeradeDran()).thenReturn(spieler1);
         when(würfel.würfeln()).thenReturn(festerWürfelWert);
         when(brett.spielerBewegen(festerWürfelWert[2])).thenReturn(feld);
-        when(kontext.getAufNeuemFeld()).thenReturn(aufNeuemFeld);
+        when(kontext.getAufFreiemGrundstück()).thenReturn(aufFreiemGrundstück);
+        when(kontext.getAufBesetztemGrundstück()).thenReturn(aufBesetztemGrundstück);
+        when(kontext.getAufKarte()).thenReturn(aufKarte);
         when(kontext.getAllesErledigt()).thenReturn(allesErledigt);
         when(feld.istGrundstück()).thenReturn(true);
     }
@@ -83,7 +87,7 @@ class ErsterWurfTest {
         assertEquals(eingabenBeiFrei(), ausgabeModell.getErlaubteEingaben());
         assertEquals(ausgabenBeiFrei(), ausgabeModell.getAusgaben());
         standartModellIstKorrekt(ausgabeModell);
-        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+        verify(kontext, times(1)).setAktuellerState(aufFreiemGrundstück);
     }
     private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiFrei(){
         HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
@@ -107,7 +111,7 @@ class ErsterWurfTest {
         assertEquals(eingabenBeiBesetzt(), ausgabeModell.getErlaubteEingaben());
         assertEquals(ausgabenBeiBesetzt(), ausgabeModell.getAusgaben());
         standartModellIstKorrekt(ausgabeModell);
-        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+        verify(kontext, times(1)).setAktuellerState(aufBesetztemGrundstück);
     }
     private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiBesetzt(){
         HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
@@ -153,7 +157,7 @@ class ErsterWurfTest {
         standartModellIstKorrekt(ausgabeModell);
         assertEquals(eingabenBeiKarte(), ausgabeModell.getErlaubteEingaben());
         assertEquals(ausgabenBeiKarte(), ausgabeModell.getAusgaben());
-        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+        verify(kontext, times(1)).setAktuellerState(aufKarte);
     }
     private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiKarte(){
         HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
@@ -177,7 +181,7 @@ class ErsterWurfTest {
         standartModellIstKorrekt(ausgabeModell);
         assertEquals(eingabenBeiFrei(), ausgabeModell.getErlaubteEingaben());
         assertEquals(ausgabenBeiFrei(), ausgabeModell.getAusgaben());
-        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+        verify(kontext, times(1)).setAktuellerState(aufFreiemGrundstück);
     }
 
     @Test
@@ -189,7 +193,7 @@ class ErsterWurfTest {
         standartModellIstKorrekt(ausgabeModell);
         assertEquals(eingabenBeiFrei(), ausgabeModell.getErlaubteEingaben());
         assertEquals(ausgabenWennÜberLos(), ausgabeModell.getAusgaben());
-        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+        verify(kontext, times(1)).setAktuellerState(aufFreiemGrundstück);
     }
 
     private ArrayList<Ausgaben> ausgabenWennÜberLos(){
@@ -208,5 +212,4 @@ class ErsterWurfTest {
         assertEquals(brett, ausgabeModell.getBrett());
         assertEquals(festerWürfelWert, ausgabeModell.getLetzterWurf());
     }
-
 }
