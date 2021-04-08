@@ -6,5 +6,7 @@ public enum Ausgaben {
     aufBesetztemGrundstück,
     aufKartenFeld,
     überLosGegangen,
-    nichtsPassiert
+    nichtsPassiert,
+    gekauft,
+    fertig
 }

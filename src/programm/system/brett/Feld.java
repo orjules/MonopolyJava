@@ -17,4 +17,8 @@ public class Feld {
     public Spieler getBesitzer() {
         return besitzer;
     }
+
+    public void setBesitzer(Spieler neuerBesitzer) {
+        besitzer = neuerBesitzer;
+    }
 }

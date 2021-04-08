@@ -1,13 +1,46 @@
 package programm.statemashine.states;
 
 import programm.statemashine.Kontext;
+import programm.statemashine.enums.Ausgaben;
+import programm.statemashine.enums.EingabeBeschreibungen;
+import programm.statemashine.enums.Eingaben;
+import programm.statemashine.io.AusgabeModell;
 import programm.system.Würfel;
 import programm.system.brett.Brett;
+import programm.system.brett.Feld;
+import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AufFreiemGrundstück extends State{
 
     public AufFreiemGrundstück(Kontext kontext, Würfel würfel, Spielleiter spielleiter, Brett brett) {
         super(kontext, würfel, spielleiter, brett);
+    }
+
+    @Override
+    public AusgabeModell werfen(){
+        return kontext.getLetzteAusgabe();
+    }
+
+    @Override
+    public AusgabeModell bestätigen(){
+        Spieler geradeDran = spielleiter.getGeradeDran();
+        Feld aktuellesFeld = brett.getAktuellesFeldVon(geradeDran);
+
+        spielleiter.kapitalÄndernVon(geradeDran, brett.mieteVon(aktuellesFeld));
+        aktuellesFeld.setBesitzer(geradeDran);
+        kontext.setAktuellerState(kontext.getAllesErledigt());
+
+        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
+        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
+        ausgaben.add(Ausgaben.fertig);
+        ausgaben.add(Ausgaben.gekauft);
+
+        return new AusgabeModell(aktuellesFeld, geradeDran, brett, null, erlaubt, ausgaben);
     }
 }
