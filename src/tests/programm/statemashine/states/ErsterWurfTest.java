@@ -145,17 +145,57 @@ class ErsterWurfTest {
 
     @Test
     public void würfeltBisKarte(){
-        assertTrue(false);
+        when(feld.istGrundstück()).thenReturn(false);
+
+        AusgabeModell ausgabeModell = ersterWurf.werfen();
+
+        standartModellIstKorrekt(ausgabeModell);
+        assertEquals(eingabenBeiKarte(), ausgabeModell.getErlaubteEingaben());
+        assertEquals(ausgabenBeiKarte(), ausgabeModell.getAusgaben());
+        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+    }
+    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiKarte(){
+        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+        erwartet.put(Eingaben.bestätigen, EingabeBeschreibungen.karteBestätigen);
+        erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        return erwartet;
+    }
+    private ArrayList<Ausgaben> ausgabenBeiKarte(){
+        ArrayList<Ausgaben> erwartet = new ArrayList<>();
+        erwartet.add(Ausgaben.aufKartenFeld);
+        return erwartet;
     }
 
     @Test
     public void würfeltPaschBisFreiesGrunstück(){
-        assertTrue(false);
+        // Pasch darf nur nochmal genutzt werden, wenn alles erledigt ist
+        when(würfel.darfNochmalWerfen()).thenReturn(true);
+
+        AusgabeModell ausgabeModell = ersterWurf.werfen();
+
+        standartModellIstKorrekt(ausgabeModell);
+        assertEquals(eingabenBeiFrei(), ausgabeModell.getErlaubteEingaben());
+        assertEquals(ausgabenBeiFrei(), ausgabeModell.getAusgaben());
+        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
     }
 
     @Test
     public void würfeltÜberLosBisFreiesGrunstück(){
-        assertTrue(false);
+        when(brett.istÜberLosGegangen()).thenReturn(true);
+
+        AusgabeModell ausgabeModell = ersterWurf.werfen();
+
+        standartModellIstKorrekt(ausgabeModell);
+        assertEquals(eingabenBeiFrei(), ausgabeModell.getErlaubteEingaben());
+        assertEquals(ausgabenWennÜberLos(), ausgabeModell.getAusgaben());
+        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+    }
+
+    private ArrayList<Ausgaben> ausgabenWennÜberLos(){
+        ArrayList<Ausgaben> erwartet = new ArrayList<>();
+        erwartet.add(Ausgaben.aufFreiemGrundstück);
+        erwartet.add(Ausgaben.überLosGegangen);
+        return erwartet;
     }
 
 
