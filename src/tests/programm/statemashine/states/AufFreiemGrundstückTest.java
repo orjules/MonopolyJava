@@ -88,11 +88,23 @@ class AufFreiemGrundstückTest {
 
     @Test
     public void übersichtGibtÜbersicht(){
+        // kontext -> übersicht
+        // Feld ist leer
+        // geradeDran ist spieler1
+        // brett ist brett
+        // erlaubt ist zurück, zurück und später mehr
+        // Ausgabe ist übersicht
         assertTrue(false);
     }
 
     @Test
     public void zurückGibtVersteigerung(){
+        // kontext -> versteigerung
+        // Feld ist feld
+        // geradeDran ist spieler1
+        // brett ist brett
+        // erlaubt ist ??
+        // Ausgabe ist versteigerung
         assertTrue(false);
     }
 }
