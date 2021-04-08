@@ -41,6 +41,7 @@ class KontextTest {
         when(eingabeModell.getAntwort()).thenReturn(Eingaben.werfen);
         assertEquals(ausgabeModell, kontext.erstelleModell(eingabeModell));
         verify(ersterWurf, times(1)).werfen();
+        assertEquals(ausgabeModell, kontext.getLetzteAusgabe());
     }
 
     @Test
@@ -48,6 +49,7 @@ class KontextTest {
         when(eingabeModell.getAntwort()).thenReturn(Eingaben.bestätigen);
         assertEquals(ausgabeModell, kontext.erstelleModell(eingabeModell));
         verify(ersterWurf, times(1)).bestätigen();
+        assertEquals(ausgabeModell, kontext.getLetzteAusgabe());
     }
 
     @Test
@@ -55,6 +57,7 @@ class KontextTest {
         when(eingabeModell.getAntwort()).thenReturn(Eingaben.übersicht);
         assertEquals(ausgabeModell, kontext.erstelleModell(eingabeModell));
         verify(ersterWurf, times(1)).übersicht();
+        assertEquals(ausgabeModell, kontext.getLetzteAusgabe());
     }
 
     @Test
@@ -62,17 +65,27 @@ class KontextTest {
         when(eingabeModell.getAntwort()).thenReturn(Eingaben.zurück);
         assertEquals(ausgabeModell, kontext.erstelleModell(eingabeModell));
         verify(ersterWurf, times(1)).zurück();
+        assertEquals(ausgabeModell, kontext.getLetzteAusgabe());
     }
 
     @Test
-    public void jedeStateÄnderungIstMöglich(){
+    public void vonErsterWurfZuNeuemFeld(){
         kontext.setAktuellerState(kontext.getAufNeuemFeld());
         assertEquals(aufNeuemFeld, kontext.getAktuellerState());
+        assertEquals(ersterWurf, kontext.getLetzterState());
+    }
+
+    @Test
+    public void vonErsterWurfZuÜbersicht(){
         kontext.setAktuellerState(kontext.getÜbersicht());
         assertEquals(übersicht, kontext.getAktuellerState());
-        kontext.setAktuellerState(kontext.getErsterWurf());
-        assertEquals(ersterWurf, kontext.getAktuellerState());
+        assertEquals(ersterWurf, kontext.getLetzterState());
+    }
+
+    @Test
+    public void vonErsterWurfZuAllesErledigt(){
         kontext.setAktuellerState(kontext.getAllesErledigt());
         assertEquals(allesErledigt, kontext.getAktuellerState());
+        assertEquals(ersterWurf, kontext.getLetzterState());
     }
 }

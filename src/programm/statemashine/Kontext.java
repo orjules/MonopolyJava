@@ -14,6 +14,8 @@ public class Kontext implements KontextGrenze {
     State allesErledigt;
 
     State aktuellerState;
+    State letzterState;
+    AusgabeModell letzteAusgabe;
 
     public void statesFüllen(AufNeuemFeld aufNeuemFeld, ErsterWurf ersterWurf, Übersicht übersicht,
                              AllesErledigt allesErledigt) {
@@ -28,16 +30,19 @@ public class Kontext implements KontextGrenze {
     @Override
     public AusgabeModell erstelleModell(EingabeModell eingabe) {
         Eingaben eingaben = eingabe.getAntwort();
-        return switch (eingaben) {
+        AusgabeModell ausgabeModell = switch (eingaben) {
             case werfen -> aktuellerState.werfen();
             case bestätigen -> aktuellerState.bestätigen();
             case übersicht -> aktuellerState.übersicht();
             case zurück -> aktuellerState.zurück();
         };
+        letzteAusgabe = ausgabeModell;
+        return ausgabeModell;
     }
 
-    public void setAktuellerState(State aktuellerState) {
-        this.aktuellerState = aktuellerState;
+    public void setAktuellerState(State neuerState) {
+        letzterState = aktuellerState;
+        aktuellerState = neuerState;
     }
 
     public State getAufNeuemFeld() {
@@ -58,5 +63,13 @@ public class Kontext implements KontextGrenze {
 
     public State getAllesErledigt() {
         return allesErledigt;
+    }
+
+    public State getLetzterState() {
+        return letzterState;
+    }
+
+    public AusgabeModell getLetzteAusgabe() {
+        return letzteAusgabe;
     }
 }
