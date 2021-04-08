@@ -26,10 +26,13 @@ class ErsterWurfTest {
     Spielleiter spielleiter = mock(Spielleiter.class);
     Brett brett = mock(Brett.class);
 
+    AufNeuemFeld aufNeuemFeld = mock(AufNeuemFeld.class);
+    AllesErledigt allesErledigt = mock(AllesErledigt.class);
+
     Spieler spieler1 = mock(Spieler.class);
+    Spieler spieler2 = mock(Spieler.class);
     int[] festerWürfelWert = new int[]{1,2,3};
     Feld feld = mock(Feld.class);
-    AufNeuemFeld aufNeuemFeld = mock(AufNeuemFeld.class);
 
     ErsterWurf ersterWurf;
 
@@ -40,6 +43,8 @@ class ErsterWurfTest {
         when(würfel.würfeln()).thenReturn(festerWürfelWert);
         when(brett.spielerBewegen(festerWürfelWert[2])).thenReturn(feld);
         when(kontext.getAufNeuemFeld()).thenReturn(aufNeuemFeld);
+        when(kontext.getAllesErledigt()).thenReturn(allesErledigt);
+        when(feld.istGrundstück()).thenReturn(true);
     }
 
     @Test
@@ -73,32 +78,69 @@ class ErsterWurfTest {
 
     @Test
     public void würfeltBisFreiesGrundstück(){
-        when(feld.istGrundstück()).thenReturn(true);
-
         AusgabeModell ausgabeModell = ersterWurf.werfen();
-        assertEquals(feld, ausgabeModell.getFeld());
-        assertEquals(spieler1, ausgabeModell.getGeradeDran());
-        assertEquals(neuErlaubt(), ausgabeModell.getErlaubteEingaben());
-        assertEquals(neueErwarteteAusgaben(), ausgabeModell.getAusgaben());
-        assertEquals(brett, ausgabeModell.getBrett());
-        assertEquals(festerWürfelWert, ausgabeModell.getLetzterWurf());
-        verify(kontext,times(1)).setAktuellerState(aufNeuemFeld);
+
+        assertEquals(eingabenBeiFrei(), ausgabeModell.getErlaubteEingaben());
+        assertEquals(ausgabenBeiFrei(), ausgabeModell.getAusgaben());
+        standartModellIstKorrekt(ausgabeModell);
+        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
     }
-    private HashMap<Eingaben, EingabeBeschreibungen> neuErlaubt(){
+    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiFrei(){
         HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
         erwartet.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
         erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         return erwartet;
     }
-    private ArrayList<Ausgaben> neueErwarteteAusgaben(){
+    private ArrayList<Ausgaben> ausgabenBeiFrei(){
         ArrayList<Ausgaben> erwartet = new ArrayList<>();
-        erwartet.add(Ausgaben.aufNeuemFeldGelandet);
+        erwartet.add(Ausgaben.aufFreiemGrundstück);
         return erwartet;
     }
 
     @Test
     public void würfeltBisBesetztesGrundstück(){
-        assertTrue(false);
+        when(feld.getBesitzer()).thenReturn(spieler2);
+
+        AusgabeModell ausgabeModell = ersterWurf.werfen();
+
+        assertEquals(eingabenBeiBesetzt(), ausgabeModell.getErlaubteEingaben());
+        assertEquals(ausgabenBeiBesetzt(), ausgabeModell.getAusgaben());
+        standartModellIstKorrekt(ausgabeModell);
+        verify(kontext, times(1)).setAktuellerState(aufNeuemFeld);
+    }
+    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiBesetzt(){
+        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+        erwartet.put(Eingaben.bestätigen, EingabeBeschreibungen.mieteZahlen);
+        erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        return erwartet;
+    }
+    private ArrayList<Ausgaben> ausgabenBeiBesetzt(){
+        ArrayList<Ausgaben> erwartet = new ArrayList<>();
+        erwartet.add(Ausgaben.aufBesetztemGrundstück);
+        return erwartet;
+    }
+
+    @Test
+    public void würfeltBisEigenesGrundstück(){
+        when(feld.getBesitzer()).thenReturn(spieler1);
+
+        AusgabeModell ausgabeModell = ersterWurf.werfen();
+
+        standartModellIstKorrekt(ausgabeModell);
+        assertEquals(eingabenBeiEigenes(), ausgabeModell.getErlaubteEingaben());
+        assertEquals(ausgabenBeiEigenes(), ausgabeModell.getAusgaben());
+        verify(kontext, times(1)).setAktuellerState(allesErledigt);
+    }
+    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiEigenes(){
+        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+        erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        erwartet.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
+        return erwartet;
+    }
+    private ArrayList<Ausgaben> ausgabenBeiEigenes(){
+        ArrayList<Ausgaben> erwartet = new ArrayList<>();
+        erwartet.add(Ausgaben.nichtsPassiert);
+        return erwartet;
     }
 
     @Test
@@ -116,6 +158,14 @@ class ErsterWurfTest {
         assertTrue(false);
     }
 
-    //TODO Refactor wenn sich Code in den Tests wiederholt
+
+    // Hilfsfunktionen für alle
+
+    private void standartModellIstKorrekt(AusgabeModell ausgabeModell){
+        assertEquals(feld, ausgabeModell.getFeld());
+        assertEquals(spieler1, ausgabeModell.getGeradeDran());
+        assertEquals(brett, ausgabeModell.getBrett());
+        assertEquals(festerWürfelWert, ausgabeModell.getLetzterWurf());
+    }
 
 }

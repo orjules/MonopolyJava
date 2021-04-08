@@ -6,5 +6,6 @@ public enum EingabeBeschreibungen {
     kaufen,
     übersicht,
     mieteZahlen,
-    karteBestätigen
+    karteBestätigen,
+    zugBeenden
 }

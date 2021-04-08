@@ -39,7 +39,8 @@ public class Main {
         kontext.statesFüllen(
                 new AufNeuemFeld(kontext, würfel, spielleiter, brett),
                 new ErsterWurf(kontext, würfel, spielleiter, brett),
-                new Übersicht(kontext, würfel, spielleiter, brett)
+                new Übersicht(kontext, würfel, spielleiter, brett),
+                new AllesErledigt(kontext, würfel, spielleiter, brett)
         );
         Controller controller = new Controller(kontext, consoleHandler);
         Presenter presenter = new Presenter(consoleHandler);

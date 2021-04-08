@@ -24,10 +24,11 @@ public class ErsterWurf extends State {
         int[] wurf = würfel.würfeln();
         Feld neuesFeld = brett.spielerBewegen(wurf[2]);
         Spieler geradeDran = spielleiter.getGeradeDran();
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = erlaubteEingabenErstellen(neuesFeld, geradeDran);
-        kontext.setAktuellerState(kontext.getAufNeuemFeld());
 
-        return new AusgabeModell(neuesFeld, geradeDran, brett, wurf, erlaubteEingaben, ausgabenErstellen());
+        Object[] ausgabeEingabe = eingabeUndAusgabeErstellen(neuesFeld, geradeDran);
+
+        return new AusgabeModell(neuesFeld, geradeDran, brett, wurf,
+                (HashMap<Eingaben, EingabeBeschreibungen>) ausgabeEingabe[0], (ArrayList<Ausgaben>)ausgabeEingabe[1]);
     }
 
     @Override
@@ -54,23 +55,30 @@ public class ErsterWurf extends State {
         return new AusgabeModell(null, geradeDran, brett, new int[]{0,0,0}, erlaubteEingaben, ausgaben);
     }
 
-    private ArrayList<Ausgaben> ausgabenErstellen(){
-        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
-        ausgaben.add(Ausgaben.aufNeuemFeldGelandet);
-        return ausgaben;
-    }
-
-    private HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingabenErstellen(Feld neuesFeld, Spieler geradeDran){
+    private Object[] eingabeUndAusgabeErstellen(Feld neuesFeld, Spieler geradeDran){
         HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = new HashMap<>();
+        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
+
         erlaubteEingaben.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         if (neuesFeld.istGrundstück()){
             Spieler besitzer = neuesFeld.getBesitzer();
-            if (besitzer != null && besitzer != geradeDran){
-                // Miete zahlen
+            if (besitzer != null){
+                if (besitzer != geradeDran){
+                    erlaubteEingaben.put(Eingaben.bestätigen, EingabeBeschreibungen.mieteZahlen);
+                    ausgaben.add(Ausgaben.aufBesetztemGrundstück);
+                    kontext.setAktuellerState(kontext.getAufNeuemFeld());
+                }else {
+                    erlaubteEingaben.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
+                    ausgaben.add(Ausgaben.nichtsPassiert);
+                    kontext.setAktuellerState(kontext.getAllesErledigt());
+                }
             }else {
                 erlaubteEingaben.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
+                ausgaben.add(Ausgaben.aufFreiemGrundstück);
+                kontext.setAktuellerState(kontext.getAufNeuemFeld());
             }
         }
-        return erlaubteEingaben;
+
+        return new Object[]{erlaubteEingaben, ausgaben};
     }
 }

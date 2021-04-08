@@ -2,6 +2,9 @@ package programm.statemashine.enums;
 
 public enum Ausgaben {
     mussErstWürfeln,
-    aufNeuemFeldGelandet,
+    aufFreiemGrundstück,
+    aufBesetztemGrundstück,
+    aufKartenFeld,
     überLosGegangen,
+    nichtsPassiert
 }

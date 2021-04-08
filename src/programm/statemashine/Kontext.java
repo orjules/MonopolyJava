@@ -11,13 +11,16 @@ public class Kontext implements KontextGrenze {
     State aufNeuemFeld;
     State ersterWurf;
     State übersicht;
+    State allesErledigt;
 
     State aktuellerState;
 
-    public void statesFüllen(State aufNeuemFeld, State ersterWurf, State übersicht) {
+    public void statesFüllen(AufNeuemFeld aufNeuemFeld, ErsterWurf ersterWurf, Übersicht übersicht,
+                             AllesErledigt allesErledigt) {
         this.aufNeuemFeld = aufNeuemFeld;
         this.ersterWurf = ersterWurf;
         this.übersicht = übersicht;
+        this.allesErledigt = allesErledigt;
 
         aktuellerState = ersterWurf;
     }
@@ -51,5 +54,9 @@ public class Kontext implements KontextGrenze {
 
     public State getAktuellerState() {
         return aktuellerState;
+    }
+
+    public State getAllesErledigt() {
+        return allesErledigt;
     }
 }

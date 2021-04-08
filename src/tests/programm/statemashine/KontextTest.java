@@ -15,6 +15,7 @@ class KontextTest {
     AufNeuemFeld aufNeuemFeld = mock(AufNeuemFeld.class);
     ErsterWurf ersterWurf = mock(ErsterWurf.class);
     Übersicht übersicht = mock(Übersicht.class);
+    AllesErledigt allesErledigt = mock(AllesErledigt.class);
 
     AusgabeModell ausgabeModell = mock(AusgabeModell.class);
     EingabeModell eingabeModell = mock(EingabeModell.class);
@@ -23,7 +24,7 @@ class KontextTest {
 
     @BeforeEach
     public void init(){
-        kontext.statesFüllen(aufNeuemFeld, ersterWurf, übersicht);
+        kontext.statesFüllen(aufNeuemFeld, ersterWurf, übersicht, allesErledigt);
         when(ersterWurf.werfen()).thenReturn(ausgabeModell);
         when(ersterWurf.bestätigen()).thenReturn(ausgabeModell);
         when(ersterWurf.übersicht()).thenReturn(ausgabeModell);
@@ -71,5 +72,7 @@ class KontextTest {
         assertEquals(übersicht, kontext.getAktuellerState());
         kontext.setAktuellerState(kontext.getErsterWurf());
         assertEquals(ersterWurf, kontext.getAktuellerState());
+        kontext.setAktuellerState(kontext.getAllesErledigt());
+        assertEquals(allesErledigt, kontext.getAktuellerState());
     }
 }
