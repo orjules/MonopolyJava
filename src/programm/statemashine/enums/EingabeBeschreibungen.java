@@ -9,5 +9,6 @@ public enum EingabeBeschreibungen {
     übersicht,
     mieteZahlen,
     karteBestätigen,
-    zugBeenden
+    zugBeenden,
+    zurück
 }

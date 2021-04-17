@@ -8,5 +8,7 @@ public enum Ausgaben {
     überLosGegangen,
     nichtsPassiert,
     gekauft,
-    fertig
+    fertig,
+    übersicht,
+    versteigerung
 }

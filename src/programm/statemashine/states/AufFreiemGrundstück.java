@@ -43,4 +43,18 @@ public class AufFreiemGrundstück extends State{
 
         return new AusgabeModell(aktuellesFeld, geradeDran, brett, null, erlaubt, ausgaben);
     }
+
+    @Override
+    public AusgabeModell übersicht(){
+        Spieler geradeDran = spielleiter.getGeradeDran();
+
+        kontext.setAktuellerState(kontext.getÜbersicht());
+
+        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zurück);
+        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
+        ausgaben.add(Ausgaben.übersicht);
+
+        return new AusgabeModell(null, geradeDran, brett, null, erlaubt, ausgaben);
+    }
 }

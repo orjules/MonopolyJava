@@ -2,7 +2,6 @@ package programm.statemashine.states;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import programm.grundstücke.Grundstück;
 import programm.statemashine.Kontext;
 import programm.statemashine.enums.Ausgaben;
 import programm.statemashine.enums.EingabeBeschreibungen;
@@ -16,7 +15,6 @@ import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -30,10 +28,8 @@ class AufFreiemGrundstückTest {
 
     AusgabeModell letztesAusgabeModell = mock(AusgabeModell.class);
 
-    ErsterWurf ersterWurf = mock(ErsterWurf.class);
-    AufBesetztemGrundstück aufBesetztemGrundstück = mock(AufBesetztemGrundstück.class);
-    AufKarte aufKarte = mock(AufKarte.class);
     AllesErledigt allesErledigt = mock(AllesErledigt.class);
+    Übersicht übersicht = mock(Übersicht.class);
 
     Spieler spieler1 = mock(Spieler.class);
     int[] festerWürfelWert = new int[]{1,2,3};
@@ -50,6 +46,7 @@ class AufFreiemGrundstückTest {
         when(brett.getAktuellesFeldVon(spieler1)).thenReturn(feld);
         when(brett.mieteVon(feld)).thenReturn(miete);
         when(kontext.getAllesErledigt()).thenReturn(allesErledigt);
+        when(kontext.getÜbersicht()).thenReturn(übersicht);
     }
 
     @Test
@@ -66,16 +63,6 @@ class AufFreiemGrundstückTest {
         verify(kontext, times(1)).setAktuellerState(allesErledigt);
         modelleSindGleich(modellWennAllesErledigt(), ausgabeModell);
     }
-    private AusgabeModell modellWennAllesErledigt(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
-        erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
-        erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
-        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
-        ausgaben.add(Ausgaben.fertig);
-        ausgaben.add(Ausgaben.gekauft);
-
-        return new AusgabeModell(feld, spieler1, brett, null, erlaubt, ausgaben);
-    }
 
     private void modelleSindGleich(AusgabeModell erwartet, AusgabeModell wirklich){
         assertEquals(erwartet.getFeld(), wirklich.getFeld());
@@ -88,13 +75,18 @@ class AufFreiemGrundstückTest {
 
     @Test
     public void übersichtGibtÜbersicht(){
-        // kontext -> übersicht
-        // Feld ist leer
-        // geradeDran ist spieler1
-        // brett ist brett
-        // erlaubt ist zurück, zurück und später mehr
-        // Ausgabe ist übersicht
-        assertTrue(false);
+        AusgabeModell ausgabeModell = aufFreiemGrundstück.übersicht();
+
+        verify(kontext, times(1)).setAktuellerState(übersicht);
+        modelleSindGleich(modellWennÜbersicht(), ausgabeModell);
+    }
+    private AusgabeModell modellWennÜbersicht(){
+        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zurück);
+        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
+        ausgaben.add(Ausgaben.übersicht);
+
+        return new AusgabeModell(null, spieler1, brett, null, erlaubt, ausgaben);
     }
 
     @Test
@@ -106,5 +98,17 @@ class AufFreiemGrundstückTest {
         // erlaubt ist ??
         // Ausgabe ist versteigerung
         assertTrue(false);
+    }
+
+    // Hilfsfunktion für alle
+    private AusgabeModell modellWennAllesErledigt(){
+        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
+        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
+        ausgaben.add(Ausgaben.fertig);
+        ausgaben.add(Ausgaben.gekauft);
+
+        return new AusgabeModell(feld, spieler1, brett, null, erlaubt, ausgaben);
     }
 }
