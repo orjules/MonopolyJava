@@ -29,11 +29,6 @@ public class AusgabeModell {
         this.ausgaben = ausgaben;
     }
 
-    public void addErlaubteEingabe(Eingaben eingabe, EingabeBeschreibungen beschreibung){
-        erlaubteEingaben.clear();
-        erlaubteEingaben.put(eingabe, beschreibung);
-    }
-
     public Feld getFeld() {
         return neuesFeld;
     }

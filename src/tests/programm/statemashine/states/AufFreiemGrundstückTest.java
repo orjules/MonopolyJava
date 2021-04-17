@@ -56,22 +56,41 @@ class AufFreiemGrundstückTest {
 
     @Test
     public void bestätigenKauft(){
+        when(würfel.darfNochmalWerfen()).thenReturn(false);
+
         AusgabeModell ausgabeModell = aufFreiemGrundstück.bestätigen();
 
         verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, miete);
         verify(feld, times(1)).setBesitzer(spieler1);
         verify(kontext, times(1)).setAktuellerState(allesErledigt);
-        modelleSindGleich(modellWennAllesErledigt(), ausgabeModell);
+        modelleSindGleich(modellWennAllesErledigt(false), ausgabeModell);
     }
 
-    private void modelleSindGleich(AusgabeModell erwartet, AusgabeModell wirklich){
-        assertEquals(erwartet.getFeld(), wirklich.getFeld());
-        assertEquals(erwartet.getGeradeDran(), wirklich.getGeradeDran());
-        assertEquals(erwartet.getBrett(), wirklich.getBrett());
-        assertEquals(erwartet.getLetzterWurf(), wirklich.getLetzterWurf());
-        assertEquals(erwartet.getErlaubteEingaben(), wirklich.getErlaubteEingaben());
-        assertEquals(erwartet.getAusgaben(), wirklich.getAusgaben());
+    @Test
+    public void bestätigenBeiPasch(){
+        when(würfel.darfNochmalWerfen()).thenReturn(true);
+
+        AusgabeModell ausgabeModell = aufFreiemGrundstück.bestätigen();
+
+        verify(spielleiter, times(1)).kapitalÄndernVon(spieler1, miete);
+        verify(feld, times(1)).setBesitzer(spieler1);
+        verify(kontext, times(1)).setAktuellerState(allesErledigt);
+        modelleSindGleich(modellWennAllesErledigt(true), ausgabeModell);
     }
+    private AusgabeModell modellWennAllesErledigt(boolean mitPasch){
+        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        if (mitPasch){
+            erlaubt.put(Eingaben.werfen, EingabeBeschreibungen.nochmalWerfen);
+        }
+        erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
+        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
+        ausgaben.add(Ausgaben.fertig);
+        ausgaben.add(Ausgaben.gekauft);
+
+        return new AusgabeModell(feld, spieler1, brett, null, erlaubt, ausgaben);
+    }
+
 
     @Test
     public void übersichtGibtÜbersicht(){
@@ -101,14 +120,12 @@ class AufFreiemGrundstückTest {
     }
 
     // Hilfsfunktion für alle
-    private AusgabeModell modellWennAllesErledigt(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
-        erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
-        erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
-        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
-        ausgaben.add(Ausgaben.fertig);
-        ausgaben.add(Ausgaben.gekauft);
-
-        return new AusgabeModell(feld, spieler1, brett, null, erlaubt, ausgaben);
+    private void modelleSindGleich(AusgabeModell erwartet, AusgabeModell wirklich){
+        assertEquals(erwartet.getFeld(), wirklich.getFeld());
+        assertEquals(erwartet.getGeradeDran(), wirklich.getGeradeDran());
+        assertEquals(erwartet.getBrett(), wirklich.getBrett());
+        assertEquals(erwartet.getLetzterWurf(), wirklich.getLetzterWurf());
+        assertEquals(erwartet.getErlaubteEingaben(), wirklich.getErlaubteEingaben());
+        assertEquals(erwartet.getAusgaben(), wirklich.getAusgaben());
     }
 }

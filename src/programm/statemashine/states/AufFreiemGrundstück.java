@@ -36,6 +36,9 @@ public class AufFreiemGrundstück extends State{
 
         HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        if (würfel.darfNochmalWerfen()){
+            erlaubt.put(Eingaben.werfen, EingabeBeschreibungen.nochmalWerfen);
+        }
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.fertig);
