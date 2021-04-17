@@ -10,13 +10,8 @@ public class ConsoleHandler {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public Eingaben getEingabe(HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben){
-        Eingaben[] erlaubteEingabeWerte = erlaubteEingaben.keySet().toArray(new Eingaben[0]);
-        EingabeBeschreibungen[] beschreibungen = erlaubteEingaben.values().toArray(new EingabeBeschreibungen[0]);
+    public Eingaben getEingabe(Eingaben[] erlaubteEingabeWerte){
 
-        for (EingabeBeschreibungen b : beschreibungen){
-            möglichkeitenAusgeben(b);
-        }
         while (true){
             String input = scanner.nextLine();
             switch (input){
@@ -48,13 +43,6 @@ public class ConsoleHandler {
                 return true;
         }
         return false;
-    }
-
-    private void möglichkeitenAusgeben(EingabeBeschreibungen beschreibungen){
-        switch (beschreibungen){
-            case standard -> ausgeben("Standart sollte nie ausgegeben werden. Etwas ist schiefgelaufen.");
-            case ersterWurf -> ausgeben("'w' um zu werfen");
-        }
     }
 
     public void ausgeben(String text){

@@ -52,7 +52,7 @@ public class ErsterWurf extends State {
         erlaubteEingaben.put(Eingaben.werfen, EingabeBeschreibungen.ersterWurf);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.mussErstWürfeln);
-        return new AusgabeModell(null, geradeDran, brett, new int[]{0,0,0}, erlaubteEingaben, ausgaben);
+        return new AusgabeModell(null, geradeDran, brett, null, erlaubteEingaben, ausgaben);
     }
 
     private Object[] eingabeUndAusgabeErstellen(Feld neuesFeld, Spieler geradeDran){

@@ -1,7 +1,6 @@
 package programm;
 
 import programm.consoleUI.ConsoleHandler;
-import programm.consoleUI.Controller;
 import programm.consoleUI.Presenter;
 import programm.grundstücke.Grundbuch;
 import programm.grundstücke.GrundstückFactory;
@@ -9,7 +8,6 @@ import programm.karten.KartenFactory;
 import programm.karten.Kartenmanager;
 import programm.statemashine.Kontext;
 import programm.statemashine.io.AusgabeModell;
-import programm.statemashine.states.*;
 import programm.system.*;
 import programm.system.brett.Brett;
 import programm.system.spieler.Spieler;
@@ -43,14 +41,12 @@ public class Main {
                 new AllesErledigt(kontext, würfel, spielleiter, brett)
         );
          */
-        Controller controller = new Controller(kontext, consoleHandler);
-        Presenter presenter = new Presenter(consoleHandler);
+        Presenter presenter = new Presenter(kontext, consoleHandler);
 
 
         boolean spielläuft = true;
         while (spielläuft){
-            AusgabeModell ausgabe = controller.eingabeErfragen();
-            presenter.present(ausgabe);
+           // Do something
         }
     }
 }
