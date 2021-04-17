@@ -127,6 +127,7 @@ Weil der Hauptloop des Spieles so kompliziert ist, habe ich ihn zur Übersicht i
 
 === 17.4.21
 
-- Weitere States implementiert und einen ersten Versuch für den Presenter erstellt
+- Weitere States implementiert  
+- Einen ersten Versuch für den Presenter erstellt
 
 Als nächstes: System mit State Pattern neu schreiben mit besserer Entkoppelung und Testgetrieben
