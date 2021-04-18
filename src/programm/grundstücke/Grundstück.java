@@ -2,6 +2,7 @@ package programm.grundstücke;
 
 import programm.system.Felder;
 import programm.system.Würfel;
+import programm.system.brett.Brett;
 import programm.system.spieler.Spieler;
 
 public abstract class Grundstück {
@@ -23,7 +24,7 @@ public abstract class Grundstück {
         return grundstücksWert;
     }
 
-    public abstract int mieteBerechnen(Spieler besitzer, Grundbuch grundbuch, int letzterWurf);
+    public abstract int mieteBerechnen(Spieler besitzer, Brett brett, int letzterWurf);
 
     public abstract String getPronomenKlein();
     public String getPronomenGroß(){

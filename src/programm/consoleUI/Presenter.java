@@ -2,7 +2,6 @@ package programm.consoleUI;
 
 import programm.grundstücke.Fälle;
 import programm.grundstücke.Grundstück;
-import programm.statemashine.Kontext;
 import programm.statemashine.enums.Ausgaben;
 import programm.statemashine.enums.EingabeBeschreibungen;
 import programm.statemashine.enums.Eingaben;
@@ -59,9 +58,18 @@ public class Presenter {
         for (Ausgaben a : ausgaben){
             switch (a){
                 case mussErstWürfeln -> beschreibung += "Du bist dran und musst als erster Würfeln.";
-                case aufFreiemGrundstück -> beschreibung += beschreibungFÜrFreiesGrundstück();
+                case aufFreiemGrundstück -> beschreibung += wurfBeschreibung() + beschreibungFürFreiesGrundstück();
+                case aufBesetztemGrundstück -> beschreibung += wurfBeschreibung() + beschreibungFürBesetztesGrundstück();
+                case aufKartenFeld -> beschreibung += wurfBeschreibung() + "";
+                case nichtsPassiert -> beschreibung += wurfBeschreibung() + "";
             }
         }
+    }
+    private String wurfBeschreibung(){
+        int[] wurf = ausgabeModell.getLetzterWurf();
+        if (wurf == null)
+            throw new IllegalArgumentException("Der Wurf darf in diesen Fällen nicht null sein!");
+        return "Du hast eine " + wurf[2] + " (" + wurf[0] + "," + wurf[1] + ") gewürfelt.\n";
     }
 
     private void inputFrageErstellen(){
@@ -78,18 +86,34 @@ public class Presenter {
                 case kaufen -> inputFrage += "um es zu kaufen";
                 case versteigern -> inputFrage += "um es an die anderen Spieler zu versteigern";
                 case übersicht -> inputFrage += "um die Übersicht zu öffnen";
+                case mieteZahlen -> inputFrage += "um die Miete zu zahlen";
             }
             inputFrage += "\n";
         }
     }
 
-    private String beschreibungFÜrFreiesGrundstück(){
-        if (!ausgabeModell.getFeld().istGrundstück())
-            throw new IllegalArgumentException("Das Feld muss ein Grundstück enthalten.");
+    private String beschreibungFürFreiesGrundstück(){
         Grundstück grundstück = ausgabeModell.getFeld().getGrundstück();
+        String rückgabe = gemeinsamerAnfang(grundstück);
+        rückgabe += grundstück.getPronomenGroß() + " ist zu verkaufen und kostet " + grundstück.getGrundstücksWert() + "€.";
+        return rückgabe;
+    }
+    private String beschreibungFürBesetztesGrundstück(){
+        Grundstück grundstück = ausgabeModell.getFeld().getGrundstück();
+        String rückgabe = gemeinsamerAnfang(grundstück);
+
+        Spieler besitzer = ausgabeModell.getFeld().getBesitzer();
+        if (besitzer == null)
+            throw new IllegalArgumentException("Das Grundstück muss einen Besitzer haben!");
+        rückgabe += grundstück.getPronomenGroß() + " gehört " + besitzer.getName() +
+                " und die Miete kostet " + grundstück.mieteBerechnen(besitzer, ausgabeModell.getBrett(), ausgabeModell.getLetzterWurf()[2]) + "€.";
+        return rückgabe;
+    }
+    private String gemeinsamerAnfang(Grundstück grundstück){
+        if (grundstück == null)
+            throw new IllegalArgumentException("Das Feld muss ein Grundstück enthalten.");
         String rückgabe = "Du bist auf ";
         rückgabe += grundstück.getArtikelKlein(Fälle.Dativ) + " " + grundstück.getName() + " gelandet. ";
-        rückgabe += grundstück.getPronomenGroß() + " ist zu verkaufen und kostet " + grundstück.getGrundstücksWert() + "€.";
         return rückgabe;
     }
 

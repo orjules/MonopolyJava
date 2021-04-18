@@ -2,6 +2,7 @@ package programm.grundstücke;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import programm.system.brett.Brett;
 import programm.system.spieler.Spieler;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,7 +43,7 @@ class StraßeTests {
 
     @Test
     public void mieteBerechnenOhneHaus(){
-        assertEquals(mieteAllein, testStraße.mieteBerechnen(mock(Spieler.class), mock(Grundbuch.class), 0));
+        assertEquals(mieteAllein, testStraße.mieteBerechnen(mock(Spieler.class), mock(Brett.class), 0));
     }
 
     // Hier fehlt noch die Möglichkeit das AusbauLevel zu beeinflussen

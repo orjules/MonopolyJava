@@ -22,4 +22,12 @@ public class Brett {
         return null;
         // Sucht wo der Spieler gerade ist und gibt das Feld an wo er ist
     }
+
+    public boolean hatBeideWerke(Spieler besitzer) {
+        return false;
+    }
+
+    public int anzahlBahnhöfeVon(Spieler besitzer) {
+        return 0;
+    }
 }

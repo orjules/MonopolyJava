@@ -1,6 +1,7 @@
 package programm.grundstücke;
 
 import programm.system.Felder;
+import programm.system.brett.Brett;
 import programm.system.spieler.Spieler;
 
 public class Straße extends Grundstück{
@@ -54,7 +55,7 @@ public class Straße extends Grundstück{
     }
 
     @Override
-    public int mieteBerechnen(Spieler besitzer, Grundbuch grundbuch, int letzterWurf) {
+    public int mieteBerechnen(Spieler besitzer, Brett brett, int letzterWurf) {
         if (hatHotel){
             return mieteHotel;
         }

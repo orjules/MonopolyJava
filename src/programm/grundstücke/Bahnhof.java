@@ -1,6 +1,7 @@
 package programm.grundstücke;
 
 import programm.system.Felder;
+import programm.system.brett.Brett;
 import programm.system.spieler.Spieler;
 
 public class Bahnhof extends Grundstück{
@@ -12,8 +13,8 @@ public class Bahnhof extends Grundstück{
     }
 
     @Override
-    public int mieteBerechnen(Spieler besitzer, Grundbuch grundbuch, int letzerWurf) {
-        return switch (grundbuch.anzahlBahnhöfeVon(besitzer)) {
+    public int mieteBerechnen(Spieler besitzer, Brett brett, int letzerWurf) {
+        return switch (brett.anzahlBahnhöfeVon(besitzer)) {
             case 1 -> 25;
             case 2 -> 50;
             case 3 -> 100;

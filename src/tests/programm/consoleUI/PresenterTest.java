@@ -30,10 +30,11 @@ class PresenterTest {
     Presenter presenter = new Presenter(kontextGrenze, consoleHandler);
 
     Spieler spieler1 = mock(Spieler.class);
+    Spieler spieler2 = mock(Spieler.class);
     Brett brett = mock(Brett.class);
     Feld feld = mock(Feld.class);
     Grundstück grundstück = mock(Grundstück.class);
-    int[] wurf = new int[]{1,1,3};
+    int[] wurf = new int[]{1,2,3};
 
     @BeforeEach
     public void init(){
@@ -42,11 +43,12 @@ class PresenterTest {
     }
 
     @Test
-    public void erstelltStringsAusInitialemModell(){
+    public void stringsBeiInitialem(){
         AusgabeModell erwartetesModell = modellBeiInital();
         when(kontextGrenze.erstelleModell(any())).thenReturn(erwartetesModell);
 
         presenter.spielLaufenLassen();
+
         //assertEquals("Platzhalter für Tabelle", presenter.getFeldMenü());
         assertEquals("Fred (#) ist dran und besitzt momentan 1500€.", presenter.getSpielerDaten());
         assertEquals("Du bist dran und musst als erster Würfeln.", presenter.getBeschreibung());
@@ -61,7 +63,7 @@ class PresenterTest {
     }
 
     @Test
-    public void stringWennFreieStraße(){
+    public void stringsWennFreieStraße(){
         when(grundstück.getArtikelKlein(Fälle.Dativ)).thenReturn("der");
         when(grundstück.getName()).thenReturn("Teststraße");
         when(grundstück.getPronomenGroß()).thenReturn("Sie");
@@ -69,10 +71,13 @@ class PresenterTest {
         gleichesSetUpBeiFreiemGrundstück();
 
         presenter.spielLaufenLassen();
+
         // Brett checken
         assertEquals("Fred (#) ist dran und besitzt momentan 1500€.", presenter.getSpielerDaten());
-        assertEquals("Du bist auf der Teststraße gelandet. Sie ist zu verkaufen und kostet 100€.", presenter.getBeschreibung());
-        assertEquals("'a' um es zu kaufen\n'z' um es an die anderen Spieler zu versteigern\n'ü' um die Übersicht zu öffnen\n", presenter.getInputFrage());
+        assertEquals("Du hast eine 3 (1,2) gewürfelt.\nDu bist auf der Teststraße gelandet. " +
+                "Sie ist zu verkaufen und kostet 100€.", presenter.getBeschreibung());
+        assertEquals("'a' um es zu kaufen\n'z' um es an die anderen Spieler zu versteigern\n" +
+                "'ü' um die Übersicht zu öffnen\n", presenter.getInputFrage());
     }
     @Test
     public void beschreibungBeiFreiemBahnhof(){
@@ -83,7 +88,9 @@ class PresenterTest {
         gleichesSetUpBeiFreiemGrundstück();
 
         presenter.spielLaufenLassen();
-        assertEquals("Du bist auf dem Testbahnhof gelandet. Er ist zu verkaufen und kostet 100€.", presenter.getBeschreibung());
+
+        assertEquals("Du hast eine 3 (1,2) gewürfelt.\nDu bist auf dem Testbahnhof gelandet. " +
+                "Er ist zu verkaufen und kostet 100€.", presenter.getBeschreibung());
     }
     @Test
     public void beschreibungBeiFreiemWerk(){
@@ -94,7 +101,9 @@ class PresenterTest {
         gleichesSetUpBeiFreiemGrundstück();
 
         presenter.spielLaufenLassen();
-        assertEquals("Du bist auf dem Testwerk gelandet. Es ist zu verkaufen und kostet 100€.", presenter.getBeschreibung());
+
+        assertEquals("Du hast eine 3 (1,2) gewürfelt.\nDu bist auf dem Testwerk gelandet. " +
+                "Es ist zu verkaufen und kostet 100€.", presenter.getBeschreibung());
     }
     private AusgabeModell modellBeiNeu(){
         LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = new LinkedHashMap<>();
@@ -113,6 +122,37 @@ class PresenterTest {
     }
 
     // Auf besetztem Feld
+    @Test
+    public void stringsWennBesetzt(){
+        setupFürBesetzt();
+
+        presenter.spielLaufenLassen();
+
+        // Brett checken
+        assertEquals("Fred (#) ist dran und besitzt momentan 1500€.", presenter.getSpielerDaten());
+        assertEquals("Du hast eine 3 (1,2) gewürfelt.\nDu bist auf der Teststraße gelandet. " +
+                "Sie gehört Marc (?) und die Miete kostet 10€.", presenter.getBeschreibung());
+        assertEquals("'a' um die Miete zu zahlen\n'ü' um die Übersicht zu öffnen\n", presenter.getInputFrage());
+    }
+    private AusgabeModell modellBeiBesetzt(){
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = new LinkedHashMap<>();
+        erlaubteEingaben.put(Eingaben.bestätigen, EingabeBeschreibungen.mieteZahlen);
+        erlaubteEingaben.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
+        ArrayList<Ausgaben> ausgaben = new ArrayList<>();
+        ausgaben.add(Ausgaben.aufBesetztemGrundstück);
+        return new AusgabeModell(feld, spieler1, brett, wurf, erlaubteEingaben, ausgaben);
+    }
+    private void setupFürBesetzt(){
+        AusgabeModell erwartetesModel = modellBeiBesetzt();
+        when(kontextGrenze.erstelleModell(any())).thenReturn(erwartetesModel);
+        when(feld.getGrundstück()).thenReturn(grundstück);
+        when(grundstück.getArtikelKlein(Fälle.Dativ)).thenReturn("der");
+        when(grundstück.getName()).thenReturn("Teststraße");
+        when(grundstück.getPronomenGroß()).thenReturn("Sie");
+        when(grundstück.mieteBerechnen(spieler2, brett, wurf[2])).thenReturn(10);
+        when(feld.getBesitzer()).thenReturn(spieler2);
+        when(spieler2.getName()).thenReturn("Marc (?)");
+    }
 
     // Auf Kartenfeld
 
