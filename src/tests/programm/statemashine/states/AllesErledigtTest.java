@@ -14,7 +14,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -61,7 +61,7 @@ class AllesErledigtTest {
         modelleSindGleich(modellWennBeendet(), ausgabeModell);
     }
     private AusgabeModell modellWennBeendet(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.werfen, EingabeBeschreibungen.ersterWurf);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.mussErstWürfeln);
@@ -77,7 +77,7 @@ class AllesErledigtTest {
         modelleSindGleich(modellWennÜbersicht(), ausgabeModell);
     }
     private AusgabeModell modellWennÜbersicht(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zurück);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.übersicht);

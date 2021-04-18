@@ -8,7 +8,7 @@ import programm.system.brett.Feld;
 import programm.system.spieler.Spieler;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class AusgabeModell {
 
@@ -16,11 +16,11 @@ public class AusgabeModell {
     private Spieler geradeDran;
     private Brett brett;
     int[] letzterWurf;
-    private HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben;
+    private LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben;
     private ArrayList<Ausgaben> ausgaben;
 
     public AusgabeModell(Feld neuesFeld, Spieler geradeDran, Brett brett, int[] letzterWurf,
-                         HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben, ArrayList<Ausgaben> ausgaben) {
+                         LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben, ArrayList<Ausgaben> ausgaben) {
         this.neuesFeld = neuesFeld;
         this.geradeDran = geradeDran;
         this.brett = brett;
@@ -41,7 +41,7 @@ public class AusgabeModell {
         return geradeDran;
     }
 
-    public HashMap<Eingaben, EingabeBeschreibungen> getErlaubteEingaben() {
+    public LinkedHashMap<Eingaben, EingabeBeschreibungen> getErlaubteEingaben() {
         return erlaubteEingaben;
     }
 

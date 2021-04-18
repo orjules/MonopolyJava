@@ -11,7 +11,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class AllesErledigt extends State{
     public AllesErledigt(Kontext kontext, Würfel würfel, Spielleiter spielleiter, Brett brett) {
@@ -33,7 +33,7 @@ public class AllesErledigt extends State{
     }
     private AusgabeModell modellFürZurückErstellen(){
         Spieler geradeDran = spielleiter.getGeradeDran();
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.werfen, EingabeBeschreibungen.ersterWurf);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.mussErstWürfeln);
@@ -45,7 +45,7 @@ public class AllesErledigt extends State{
         kontext.setAktuellerState(kontext.getÜbersicht());
 
         Spieler geradeDran = spielleiter.getGeradeDran();
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zurück);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.übersicht);

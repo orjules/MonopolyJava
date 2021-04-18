@@ -12,7 +12,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class AufFreiemGrundstück extends State{
 
@@ -34,7 +34,7 @@ public class AufFreiemGrundstück extends State{
         aktuellesFeld.setBesitzer(geradeDran);
         kontext.setAktuellerState(kontext.getAllesErledigt());
 
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         if (würfel.darfNochmalWerfen()){
             erlaubt.put(Eingaben.werfen, EingabeBeschreibungen.nochmalWerfen);
@@ -53,7 +53,7 @@ public class AufFreiemGrundstück extends State{
 
         kontext.setAktuellerState(kontext.getÜbersicht());
 
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zurück);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.übersicht);

@@ -14,7 +14,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -61,7 +61,7 @@ public class AllesErledigtUndErsterWurfIntegrationTest {
         verify(kontext, times(1)).setAktuellerState(aufFreiemGrundstück);
     }
     private AusgabeModell modellWennFrei(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.versteigern);
@@ -79,7 +79,7 @@ public class AllesErledigtUndErsterWurfIntegrationTest {
         verify(kontext,times(1)).setAktuellerState(aufBesetztemGrundstück);
     }
     private AusgabeModell modellWennBesetzt(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.bestätigen, EingabeBeschreibungen.mieteZahlen);
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
@@ -96,7 +96,7 @@ public class AllesErledigtUndErsterWurfIntegrationTest {
         verify(kontext,times(1)).setAktuellerState(allesErledigt);
     }
     private AusgabeModell modellWennEigenes(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
@@ -114,7 +114,7 @@ public class AllesErledigtUndErsterWurfIntegrationTest {
 
     }
     private AusgabeModell modellWennKarte(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.bestätigen, EingabeBeschreibungen.karteBestätigen);
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
@@ -131,7 +131,7 @@ public class AllesErledigtUndErsterWurfIntegrationTest {
         verify(kontext,times(1)).setAktuellerState(aufFreiemGrundstück);
     }
     private AusgabeModell modellWennFreiUndÜberLos(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.versteigern);

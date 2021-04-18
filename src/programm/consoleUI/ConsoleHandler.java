@@ -3,7 +3,7 @@ package programm.consoleUI;
 import programm.statemashine.enums.EingabeBeschreibungen;
 import programm.statemashine.enums.Eingaben;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class ConsoleHandler {

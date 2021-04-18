@@ -14,7 +14,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -78,7 +78,7 @@ class AufFreiemGrundstückTest {
         modelleSindGleich(modellWennAllesErledigt(true), ausgabeModell);
     }
     private AusgabeModell modellWennAllesErledigt(boolean mitPasch){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         if (mitPasch){
             erlaubt.put(Eingaben.werfen, EingabeBeschreibungen.nochmalWerfen);
@@ -100,7 +100,7 @@ class AufFreiemGrundstückTest {
         modelleSindGleich(modellWennÜbersicht(), ausgabeModell);
     }
     private AusgabeModell modellWennÜbersicht(){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubt = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubt = new LinkedHashMap<>();
         erlaubt.put(Eingaben.zurück, EingabeBeschreibungen.zurück);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.übersicht);

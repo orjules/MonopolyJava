@@ -12,7 +12,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ErsterWurf extends State {
     public ErsterWurf(Kontext kontext, Würfel würfel, Spielleiter spielleiter, Brett brett) {
@@ -28,7 +28,7 @@ public class ErsterWurf extends State {
         Object[] ausgabeEingabe = eingabeUndAusgabeErstellen(neuesFeld, geradeDran);
 
         return new AusgabeModell(neuesFeld, geradeDran, brett, wurf,
-                (HashMap<Eingaben, EingabeBeschreibungen>) ausgabeEingabe[0], (ArrayList<Ausgaben>)ausgabeEingabe[1]);
+                (LinkedHashMap<Eingaben, EingabeBeschreibungen>) ausgabeEingabe[0], (ArrayList<Ausgaben>)ausgabeEingabe[1]);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ErsterWurf extends State {
 
     private AusgabeModell gehtNichtErstellen(){
         Spieler geradeDran = spielleiter.getGeradeDran();
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = new LinkedHashMap<>();
         erlaubteEingaben.put(Eingaben.werfen, EingabeBeschreibungen.ersterWurf);
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
         ausgaben.add(Ausgaben.mussErstWürfeln);
@@ -56,7 +56,7 @@ public class ErsterWurf extends State {
     }
 
     private Object[] eingabeUndAusgabeErstellen(Feld neuesFeld, Spieler geradeDran){
-        HashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = new HashMap<>();
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erlaubteEingaben = new LinkedHashMap<>();
         ArrayList<Ausgaben> ausgaben = new ArrayList<>();
 
         erlaubteEingaben.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);

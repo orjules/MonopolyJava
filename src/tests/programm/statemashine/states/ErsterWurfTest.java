@@ -14,7 +14,7 @@ import programm.system.spieler.Spieler;
 import programm.system.spieler.Spielleiter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -69,8 +69,8 @@ class ErsterWurfTest {
         assertEquals(nurWürfelnErlaubt(), ausgabeModell.getErlaubteEingaben());
         assertEquals(erwarteteAusgaben(), ausgabeModell.getAusgaben());
     }
-    private HashMap<Eingaben, EingabeBeschreibungen> nurWürfelnErlaubt(){
-        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+    private LinkedHashMap<Eingaben, EingabeBeschreibungen> nurWürfelnErlaubt(){
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erwartet = new LinkedHashMap<>();
         erwartet.put(Eingaben.werfen, EingabeBeschreibungen.ersterWurf);
         return erwartet;
     }
@@ -89,8 +89,8 @@ class ErsterWurfTest {
         standartModellIstKorrekt(ausgabeModell);
         verify(kontext, times(1)).setAktuellerState(aufFreiemGrundstück);
     }
-    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiFrei(){
-        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+    private LinkedHashMap<Eingaben, EingabeBeschreibungen> eingabenBeiFrei(){
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erwartet = new LinkedHashMap<>();
         erwartet.put(Eingaben.bestätigen, EingabeBeschreibungen.kaufen);
         erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         erwartet.put(Eingaben.zurück, EingabeBeschreibungen.versteigern);
@@ -113,8 +113,8 @@ class ErsterWurfTest {
         standartModellIstKorrekt(ausgabeModell);
         verify(kontext, times(1)).setAktuellerState(aufBesetztemGrundstück);
     }
-    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiBesetzt(){
-        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+    private LinkedHashMap<Eingaben, EingabeBeschreibungen> eingabenBeiBesetzt(){
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erwartet = new LinkedHashMap<>();
         erwartet.put(Eingaben.bestätigen, EingabeBeschreibungen.mieteZahlen);
         erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         return erwartet;
@@ -136,8 +136,8 @@ class ErsterWurfTest {
         assertEquals(ausgabenBeiEigenes(), ausgabeModell.getAusgaben());
         verify(kontext, times(1)).setAktuellerState(allesErledigt);
     }
-    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiEigenes(){
-        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+    private LinkedHashMap<Eingaben, EingabeBeschreibungen> eingabenBeiEigenes(){
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erwartet = new LinkedHashMap<>();
         erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         erwartet.put(Eingaben.zurück, EingabeBeschreibungen.zugBeenden);
         return erwartet;
@@ -159,8 +159,8 @@ class ErsterWurfTest {
         assertEquals(ausgabenBeiKarte(), ausgabeModell.getAusgaben());
         verify(kontext, times(1)).setAktuellerState(aufKarte);
     }
-    private HashMap<Eingaben, EingabeBeschreibungen> eingabenBeiKarte(){
-        HashMap<Eingaben, EingabeBeschreibungen> erwartet = new HashMap<>();
+    private LinkedHashMap<Eingaben, EingabeBeschreibungen> eingabenBeiKarte(){
+        LinkedHashMap<Eingaben, EingabeBeschreibungen> erwartet = new LinkedHashMap<>();
         erwartet.put(Eingaben.bestätigen, EingabeBeschreibungen.karteBestätigen);
         erwartet.put(Eingaben.übersicht, EingabeBeschreibungen.übersicht);
         return erwartet;
